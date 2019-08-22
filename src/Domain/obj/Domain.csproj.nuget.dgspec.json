@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\projects\\github repos\\reactivities-net\\src\\Domain\\Domain.csproj": {}
+    "e:\\projects\\github repos\\reactivities-net\\src\\Domain\\Domain.csproj": {}
   },
   "projects": {
-    "E:\\projects\\github repos\\reactivities-net\\src\\Domain\\Domain.csproj": {
+    "e:\\projects\\github repos\\reactivities-net\\src\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\projects\\github repos\\reactivities-net\\src\\Domain\\Domain.csproj",
+        "projectUniqueName": "e:\\projects\\github repos\\reactivities-net\\src\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "E:\\projects\\github repos\\reactivities-net\\src\\Domain\\Domain.csproj",
+        "projectPath": "e:\\projects\\github repos\\reactivities-net\\src\\Domain\\Domain.csproj",
         "packagesPath": "C:\\Users\\ckruszynsky\\.nuget\\packages\\",
-        "outputPath": "E:\\projects\\github repos\\reactivities-net\\src\\Domain\\obj\\",
+        "outputPath": "e:\\projects\\github repos\\reactivities-net\\src\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

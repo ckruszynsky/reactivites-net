@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\projects\\github repos\\reactivities-net\\src\\Persistence\\Persistence.csproj": {}
+    "e:\\projects\\github repos\\reactivities-net\\src\\Persistence\\Persistence.csproj": {}
   },
   "projects": {
-    "E:\\projects\\github repos\\reactivities-net\\src\\Domain\\Domain.csproj": {
+    "e:\\projects\\github repos\\reactivities-net\\src\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\projects\\github repos\\reactivities-net\\src\\Domain\\Domain.csproj",
+        "projectUniqueName": "e:\\projects\\github repos\\reactivities-net\\src\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "E:\\projects\\github repos\\reactivities-net\\src\\Domain\\Domain.csproj",
+        "projectPath": "e:\\projects\\github repos\\reactivities-net\\src\\Domain\\Domain.csproj",
         "packagesPath": "C:\\Users\\ckruszynsky\\.nuget\\packages\\",
-        "outputPath": "E:\\projects\\github repos\\reactivities-net\\src\\Domain\\obj\\",
+        "outputPath": "e:\\projects\\github repos\\reactivities-net\\src\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -56,14 +56,14 @@
         }
       }
     },
-    "E:\\projects\\github repos\\reactivities-net\\src\\Persistence\\Persistence.csproj": {
+    "e:\\projects\\github repos\\reactivities-net\\src\\Persistence\\Persistence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\projects\\github repos\\reactivities-net\\src\\Persistence\\Persistence.csproj",
+        "projectUniqueName": "e:\\projects\\github repos\\reactivities-net\\src\\Persistence\\Persistence.csproj",
         "projectName": "Persistence",
-        "projectPath": "E:\\projects\\github repos\\reactivities-net\\src\\Persistence\\Persistence.csproj",
+        "projectPath": "e:\\projects\\github repos\\reactivities-net\\src\\Persistence\\Persistence.csproj",
         "packagesPath": "C:\\Users\\ckruszynsky\\.nuget\\packages\\",
-        "outputPath": "E:\\projects\\github repos\\reactivities-net\\src\\Persistence\\obj\\",
+        "outputPath": "e:\\projects\\github repos\\reactivities-net\\src\\Persistence\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -82,8 +82,8 @@
         "frameworks": {
           "netstandard2.0": {
             "projectReferences": {
-              "E:\\projects\\github repos\\reactivities-net\\src\\Domain\\Domain.csproj": {
-                "projectPath": "E:\\projects\\github repos\\reactivities-net\\src\\Domain\\Domain.csproj"
+              "e:\\projects\\github repos\\reactivities-net\\src\\Domain\\Domain.csproj": {
+                "projectPath": "e:\\projects\\github repos\\reactivities-net\\src\\Domain\\Domain.csproj"
               }
             }
           }
@@ -97,6 +97,14 @@
       "frameworks": {
         "netstandard2.0": {
           "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[2.2.6, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[2.2.6, )"
+            },
             "NETStandard.Library": {
               "suppressParent": "All",
               "target": "Package",
