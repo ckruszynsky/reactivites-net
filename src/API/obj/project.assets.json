@@ -12473,6 +12473,7 @@
       "Application >= 1.0.0",
       "Microsoft.AspNetCore.App >= 2.2.0",
       "Microsoft.AspNetCore.Razor.Design >= 2.2.0",
+      "Microsoft.EntityFrameworkCore.Sqlite >= 2.2.6",
       "Microsoft.NETCore.App >= 2.2.0"
     ]
   },
@@ -12483,11 +12484,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "e:\\projects\\github repos\\reactivities-net\\src\\API\\API.csproj",
+      "projectUniqueName": "E:\\projects\\github repos\\reactivities-net\\src\\API\\API.csproj",
       "projectName": "API",
-      "projectPath": "e:\\projects\\github repos\\reactivities-net\\src\\API\\API.csproj",
+      "projectPath": "E:\\projects\\github repos\\reactivities-net\\src\\API\\API.csproj",
       "packagesPath": "C:\\Users\\ckruszynsky\\.nuget\\packages\\",
-      "outputPath": "e:\\projects\\github repos\\reactivities-net\\src\\API\\obj\\",
+      "outputPath": "E:\\projects\\github repos\\reactivities-net\\src\\API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -12506,8 +12507,8 @@
       "frameworks": {
         "netcoreapp2.2": {
           "projectReferences": {
-            "e:\\projects\\github repos\\reactivities-net\\src\\Application\\Application.csproj": {
-              "projectPath": "e:\\projects\\github repos\\reactivities-net\\src\\Application\\Application.csproj"
+            "E:\\projects\\github repos\\reactivities-net\\src\\Application\\Application.csproj": {
+              "projectPath": "E:\\projects\\github repos\\reactivities-net\\src\\Application\\Application.csproj"
             }
           }
         }
@@ -12531,6 +12532,10 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "[2.2.0, )"
+          },
+          "Microsoft.EntityFrameworkCore.Sqlite": {
+            "target": "Package",
+            "version": "[2.2.6, )"
           },
           "Microsoft.NETCore.App": {
             "suppressParent": "All",
