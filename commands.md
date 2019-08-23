@@ -75,4 +75,7 @@ git branch -D un-merged-branch-to-delete
 ```
 
 
-
+# Creating the react application 
+```
+npx create-react-app client-app --use-npm --typescript
+```
