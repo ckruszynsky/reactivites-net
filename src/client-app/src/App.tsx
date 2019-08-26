@@ -2,8 +2,7 @@ import './App.css';
 
 import axios from 'axios';
 import React, { Component } from 'react';
-
-import logo from './logo.svg';
+import { Header, Icon, List } from 'semantic-ui-react';
 
 class App extends Component {
   state = {
@@ -22,15 +21,16 @@ class App extends Component {
     const { values } = this.state;
 
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <ul>
+      <div>
+        <Header as="h2">
+          <Icon name="users" />
+          <Header.Content>Reactivities</Header.Content>
+        </Header>              
+          <List>
             {values.map((v: any) => (
-              <li key={v.id}>{v.name}</li>
+              <List.Item key={v.id}>{v.name}</List.Item>
             ))}
-          </ul>
-        </header>
+          </List>        
       </div>
     );
   }
