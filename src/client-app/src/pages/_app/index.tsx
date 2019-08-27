@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { List } from "semantic-ui-react";
 
 import { PageHeader } from "../../components/PageHeader";
+import { Activities } from '../../components/Activities';
 import { IActivity } from "../../models/";
 
 interface IState {
@@ -30,11 +31,7 @@ class App extends Component<{}, IState> {
         <PageHeader as="h2" icon="users">
           Reactivities
         </PageHeader>
-        <List>
-          {activities.map((activitiy: IActivity) => (
-            <List.Item key={activitiy.id}>{activitiy.title}</List.Item>
-          ))}
-        </List>
+        <Activities activities={activities}></Activities>
       </div>
     );
   }
