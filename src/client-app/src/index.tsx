@@ -1,10 +1,10 @@
-import './index.css';
+import './styles.scss';
 import 'semantic-ui-css/semantic.min.css';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from './App';
+import App from './pages/_app';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(<App />, document.getElementById('root'));
