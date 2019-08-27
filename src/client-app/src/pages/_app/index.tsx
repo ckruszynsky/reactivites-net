@@ -1,16 +1,16 @@
-import axios from 'axios';
-import React, { Component } from 'react';
-import { Header, Icon, List } from 'semantic-ui-react';
+import axios from "axios";
+import React, { Component } from "react";
+import { List } from "semantic-ui-react";
 
-import { IActivity } from '../../models/';
+import { PageHeader } from "../../components/PageHeader";
+import { IActivity } from "../../models/";
 
 interface IState {
-  activities:IActivity[];
+  activities: IActivity[];
 }
 
-
-class App extends Component<{},IState> {
-  readonly state : IState = {
+class App extends Component<{}, IState> {
+  readonly state: IState = {
     activities: []
   };
 
@@ -27,15 +27,14 @@ class App extends Component<{},IState> {
 
     return (
       <div>
-        <Header as="h2">
-          <Icon name="users" />
-          <Header.Content>Reactivities</Header.Content>
-        </Header>              
-          <List>
-            {activities.map((activitiy: IActivity) => (
-              <List.Item key={activitiy.id}>{activitiy.title}</List.Item>
-            ))}
-          </List>        
+        <PageHeader as="h2" icon="users">
+          Reactivities
+        </PageHeader>
+        <List>
+          {activities.map((activitiy: IActivity) => (
+            <List.Item key={activitiy.id}>{activitiy.title}</List.Item>
+          ))}
+        </List>
       </div>
     );
   }
