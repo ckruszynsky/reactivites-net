@@ -1,8 +1,11 @@
+import './styles.scss';
+
 import React from 'react';
 import { Container, Grid, Segment } from 'semantic-ui-react';
 
 import { IActivity } from '../../models';
-import { Activities } from '../Activities';
+import { ActivityList } from '../ActivitiyList';
+import { ActivityDetails } from '../ActivityDetails';
 
 export const ActivitiesSection: React.FC<{ activities: IActivity[] }> = props => {
   return (
@@ -10,8 +13,11 @@ export const ActivitiesSection: React.FC<{ activities: IActivity[] }> = props =>
       <Grid>
         <Grid.Column width={10}>
           <Segment clearing>
-            <Activities activities={props.activities} />
+            <ActivityList activities={props.activities} />
           </Segment>
+        </Grid.Column>
+        <Grid.Column width={6}>
+            <ActivityDetails />
         </Grid.Column>
       </Grid>
     </Container>

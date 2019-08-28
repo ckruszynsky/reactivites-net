@@ -5,7 +5,7 @@ import { Button, Item, Label } from 'semantic-ui-react';
 
 import { IActivity } from '../../models';
 
-export const Activities: React.FC<{
+export const ActivityList: React.FC<{
   activities: IActivity[];
 }> = props => (
 
