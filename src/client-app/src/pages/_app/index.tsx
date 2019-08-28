@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 
 import { Activities } from '../../components/Activities';
 import { Navbar } from '../../components/Navbar';
@@ -16,10 +16,10 @@ export const App: React.FC<{}> = () => {
   },[]);
 
   return (
-    <>
-      <Navbar />
-      <Activities activities={activities}></Activities>
-    </>
+    <Fragment>
+      <Navbar />      
+      <Activities activities={activities}></Activities>        
+      </Fragment>
   );
 };
 
