@@ -1,40 +1,25 @@
-import axios from "axios";
-import React, { Component } from "react";
-import { List } from "semantic-ui-react";
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 
-import { PageHeader } from "../../components/PageHeader";
 import { Activities } from '../../components/Activities';
-import { IActivity } from "../../models/";
+import { Navbar } from '../../components/Navbar';
+import { IActivity } from '../../models';
 
-interface IState {
-  activities: IActivity[];
-}
+export const App: React.FC<{}> = () => {
+  const [activities, setActivities] = useState<IActivity[]>([]);
 
-class App extends Component<{}, IState> {
-  readonly state: IState = {
-    activities: []
-  };
+  useEffect(() => {
+     axios.get<IActivity[]>('http://localhost:5000/api/activities')
+     .then(response => {
+       setActivities(response.data);
+     })
+  },[]);
 
-  componentDidMount() {
-    axios.get<IActivity[]>("http://localhost:5000/api/activities").then(response => {
-      this.setState({
-        activities: response.data
-      });
-    });
-  }
+  return (
+    <>
+      <Navbar />
+      <Activities activities={activities}></Activities>
+    </>
+  );
+};
 
-  public render() {
-    const { activities } = this.state;
-
-    return (
-      <div>
-        <PageHeader as="h2" icon="users">
-          Reactivities
-        </PageHeader>
-        <Activities activities={activities}></Activities>
-      </div>
-    );
-  }
-}
-
-export default App;
