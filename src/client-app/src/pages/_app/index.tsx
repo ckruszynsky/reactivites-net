@@ -1,9 +1,9 @@
 import axios from 'axios';
 import React, { Fragment, useEffect, useState } from 'react';
 
-import { ActivitiesSection } from '../../components/ActivitiesSection';
 import { Navbar } from '../../components/Navbar';
 import { IActivity } from '../../models';
+import { Dashboard } from '../dashboard';
 
 export const App: React.FC<{}> = () => {
   const [activities, setActivities] = useState<IActivity[]>([]);
@@ -17,7 +17,7 @@ export const App: React.FC<{}> = () => {
   return (
     <Fragment>
       <Navbar />
-      <ActivitiesSection activities={activities} />
+      <Dashboard activities={activities} />
     </Fragment>
   );
 };
