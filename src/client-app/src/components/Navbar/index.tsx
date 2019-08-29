@@ -3,7 +3,9 @@ import './styles.scss';
 import React from 'react';
 import { Button, Container, Menu } from 'semantic-ui-react';
 
-export const Navbar = () => {
+export const Navbar:React.FC<{
+  openCreateForm:()=> void
+}> = ({openCreateForm}) => {
   return (
     <Menu fixed="top" inverted>
       <Container>
@@ -13,7 +15,7 @@ export const Navbar = () => {
         </Menu.Item>
         <Menu.Item name="Activities" />
         <Menu.Item>
-            <Button positive content="Create Activity" />
+            <Button positive content="Create Activity" onClick={()=> openCreateForm()} />
         </Menu.Item>
         
       </Container>
