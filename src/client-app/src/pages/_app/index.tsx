@@ -38,7 +38,12 @@ export const App: React.FC<{}> = () => {
 
   useEffect(() => {
     axios.get<IActivity[]>("http://localhost:5000/api/activities").then(response => {
-      setActivities(response.data);
+      let activities:IActivity[] = [];
+      response.data.forEach(act=> {
+        act.date = act.date.split('.')[0];
+        activities.push(act);
+      });
+      setActivities(activities);
     });
   }, []);
 
