@@ -3,7 +3,7 @@ import { Button, Card, Image } from 'semantic-ui-react';
 
 import { IActivity } from '../../models';
 
-export const ActivityDetails: React.FC<{activity:IActivity}> = ({activity}) => {
+export const ActivityDetails: React.FC<{activity:IActivity, setEditMode:(editMode:boolean)=> void}> = ({activity,setEditMode}) => {
   return (    
     <Card fluid>
       <Image src={`/assets/categoryImages/${activity.category}.jpg`} wrapped ui={false} />
@@ -16,8 +16,8 @@ export const ActivityDetails: React.FC<{activity:IActivity}> = ({activity}) => {
       </Card.Content>
       <Card.Content extra>
         <Button.Group widths={2}> 
-             <Button basic color='blue' content='Edit' />
-             <Button basic color='grey' content='Cancel' />
+             <Button basic color='blue' onClick={()=> setEditMode(true)} content='Edit' />
+             <Button basic color='grey'  content='Cancel' />
         </Button.Group>
       </Card.Content>
     </Card>

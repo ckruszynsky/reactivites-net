@@ -9,9 +9,13 @@ import { ActivityForm } from '../../components/ActivityForm';
 import { PageHeader } from '../../components/PageHeader';
 import { IActivity } from '../../models';
 
-export const Dashboard: React.FC<{ activities: IActivity[], 
-  selectActivity: (id:string)=>void, 
-  selectedActivity:IActivity|null}> = ({activities,selectActivity,selectedActivity}) => {
+export const Dashboard: React.FC<{
+  activities: IActivity[];
+  selectActivity: (id: string) => void;
+  selectedActivity: IActivity | null;
+  editMode: boolean;
+  setEditMode: (editMode: boolean) => void;
+}> = ({ activities, selectActivity, selectedActivity, editMode, setEditMode }) => {
   return (
     <Container className="dashboardContainer">
       <Grid>
@@ -27,8 +31,8 @@ export const Dashboard: React.FC<{ activities: IActivity[],
             </Segment>
           </Grid.Column>
           <Grid.Column width={6}>
-            { selectedActivity && <ActivityDetails activity={selectedActivity} />}
-            <ActivityForm />
+            {selectedActivity && !editMode && <ActivityDetails activity={selectedActivity} setEditMode={setEditMode} />}
+            {editMode && <ActivityForm />}
           </Grid.Column>
         </Grid.Row>
       </Grid>
