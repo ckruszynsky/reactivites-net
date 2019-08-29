@@ -24,15 +24,61 @@ export const ActivityForm: React.FC<{
 
   const [activity, setActivity] = useState<IActivity>(initializeForm);
 
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLTextAreaElement>
+  ) => {
+    const { name, value } = event.currentTarget;
+    setActivity({
+      ...activity,
+      [name]: value
+    });
+  };
+
+  const handleSubmit = () => {
+      console.log(activity);
+  }
+
   return (
     <Segment clearing>
-      <Form>
-        <Form.Input placeholder="Title" value={activity.title} />
-        <Form.TextArea rows={2} placeholder="Description" value={activity.description} />
-        <Form.Input placeholder="Category" value={activity.category} />
-        <Form.Input type="date" placeholder="Date" value={activity.date} />
-        <Form.Input placeholder="City" value={activity.city} />
-        <Form.Input placeholder="Venue" value={activity.venue} />
+      <Form onSubmit={()=> handleSubmit()}>
+        <Form.Input
+          placeholder="Title"
+          name="title"
+          value={activity.title}
+          onChange={handleInputChange}
+        />
+        <Form.TextArea
+          rows={2}
+          placeholder="Description"
+          name="description"
+          value={activity.description}
+          onChange={handleInputChange}
+        />
+        <Form.Input
+          placeholder="Category"
+          name="category"
+          value={activity.category}
+          onChange={handleInputChange}
+        />
+        <Form.Input
+          type="date"
+          placeholder="Date"
+          name="date"
+          value={activity.date}
+          onChange={handleInputChange}
+        />
+        <Form.Input
+          placeholder="City"
+          name="city"
+          value={activity.city}
+          onChange={handleInputChange}
+        />
+        <Form.Input
+          placeholder="Venue"
+          name="venue"
+          value={activity.venue}
+          onChange={handleInputChange}
+        />
         <Button floated="right" positive type="submit" content="Submit" />
         <Button floated="right" content="Cancel" onClick={() => onSetEditMode(false)} />
       </Form>

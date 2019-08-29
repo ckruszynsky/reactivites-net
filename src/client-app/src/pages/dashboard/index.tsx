@@ -16,7 +16,14 @@ export const Dashboard: React.FC<{
   editMode: boolean;
   setEditMode: (editMode: boolean) => void;
   onResetSelectedActivity: () => void;
-}> = ({ activities, onSelectActivity, selectedActivity, editMode, setEditMode, onResetSelectedActivity }) => {
+}> = ({
+  activities,
+  onSelectActivity,
+  selectedActivity,
+  editMode,
+  setEditMode,
+  onResetSelectedActivity
+}) => {
   return (
     <Container className="dashboardContainer">
       <Grid>
