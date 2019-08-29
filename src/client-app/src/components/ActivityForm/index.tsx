@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { Button, Form, Segment } from 'semantic-ui-react';
+import { v4 as uuid } from 'uuid';
 
 import { IActivity } from '../../models';
 
 export const ActivityForm: React.FC<{
   onSetEditMode: (editMode: boolean) => void;
   activity: IActivity | null;
-}> = ({ onSetEditMode, activity: initialFormState }) => {
+  onCreateActivity: (activity: IActivity) => void;
+  onEditActivity: (activity: IActivity) => void;
+}> = ({ onSetEditMode, activity: initialFormState, onCreateActivity, onEditActivity }) => {
   const initializeForm = () => {
     if (initialFormState) {
       return initialFormState;
@@ -35,12 +38,20 @@ export const ActivityForm: React.FC<{
   };
 
   const handleSubmit = () => {
-      console.log(activity);
-  }
+    if (activity.id.length === 0) {
+      let newActivity = {
+        ...activity,
+        id: uuid()
+      };
+      onCreateActivity(newActivity);
+    } else {
+      onEditActivity(activity);
+    }
+  };
 
   return (
     <Segment clearing>
-      <Form onSubmit={()=> handleSubmit()}>
+      <Form onSubmit={() => handleSubmit()}>
         <Form.Input
           placeholder="Title"
           name="title"

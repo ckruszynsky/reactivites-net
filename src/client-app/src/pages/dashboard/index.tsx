@@ -16,13 +16,17 @@ export const Dashboard: React.FC<{
   editMode: boolean;
   setEditMode: (editMode: boolean) => void;
   onResetSelectedActivity: () => void;
+  onCreateActivity:(activity:IActivity) => void;
+  onEditActivity:(activity:IActivity) => void;
 }> = ({
   activities,
   onSelectActivity,
   selectedActivity,
   editMode,
   setEditMode,
-  onResetSelectedActivity
+  onResetSelectedActivity,
+  onCreateActivity,
+  onEditActivity
 }) => {
   return (
     <Container className="dashboardContainer">
@@ -46,7 +50,7 @@ export const Dashboard: React.FC<{
                 onResetSelectedActivity={onResetSelectedActivity}
               />
             )}
-            {editMode && <ActivityForm activity={selectedActivity} onSetEditMode={setEditMode} />}
+            {editMode && <ActivityForm activity={selectedActivity} onSetEditMode={setEditMode} onCreateActivity={onCreateActivity} onEditActivity={onEditActivity} />}
           </Grid.Column>
         </Grid.Row>
       </Grid>
