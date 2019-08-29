@@ -7,8 +7,8 @@ import { IActivity } from '../../models';
 
 export const ActivityList: React.FC<{
   activities: IActivity[],
-  selectActivity:(id:string)=> void
-}> = ({activities, selectActivity}) => (
+  onSelectActivity:(id:string)=> void
+}> = ({activities, onSelectActivity}) => (
 
     <Item.Group divided>
       {activities.map((activitiy: IActivity) => (
@@ -27,7 +27,7 @@ export const ActivityList: React.FC<{
                   floated="right" 
                   content="View" 
                   color="blue" 
-                  onClick={()=> selectActivity(activitiy.id)}/>
+                  onClick={()=> onSelectActivity(activitiy.id)}/>
               <Label basic content="Category" />
             </Item.Extra>
           </Item.Content>

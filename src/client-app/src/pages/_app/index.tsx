@@ -14,6 +14,10 @@ export const App: React.FC<{}> = () => {
     setSelectedActivity(activities.filter(a=> a.id === id)[0]);
   }
 
+  const handleResetSelectedActivity= ():void => {
+    setSelectedActivity(null);
+  }
+
   const handleOpenCreateForm = () => {
     setSelectedActivity(null);
     setEditMode(true);
@@ -29,8 +33,9 @@ export const App: React.FC<{}> = () => {
     <Fragment>
       <Navbar openCreateForm={handleOpenCreateForm} />
       <Dashboard activities={activities} 
-          selectActivity={handleSelectActivity}
+          onSelectActivity={handleSelectActivity}
           selectedActivity={selectedActivity}
+          onResetSelectedActivity={handleResetSelectedActivity}
           editMode={editMode}
           setEditMode={setEditMode}/>
     </Fragment>
