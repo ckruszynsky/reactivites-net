@@ -39,7 +39,7 @@ export const Dashboard: React.FC<{
                 onResetSelectedActivity={onResetSelectedActivity}
               />
             )}
-            {editMode && <ActivityForm onSetEditMode={setEditMode} />}
+            {editMode && <ActivityForm activity={selectedActivity} onSetEditMode={setEditMode} />}
           </Grid.Column>
         </Grid.Row>
       </Grid>
