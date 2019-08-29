@@ -16,8 +16,8 @@ export const Dashboard: React.FC<{
   editMode: boolean;
   setEditMode: (editMode: boolean) => void;
   onResetSelectedActivity: () => void;
-  onCreateActivity:(activity:IActivity) => void;
-  onEditActivity:(activity:IActivity) => void;
+  onCreateActivity: (activity: IActivity) => void;
+  onEditActivity: (activity: IActivity) => void;
 }> = ({
   activities,
   onSelectActivity,
@@ -50,7 +50,15 @@ export const Dashboard: React.FC<{
                 onResetSelectedActivity={onResetSelectedActivity}
               />
             )}
-            {editMode && <ActivityForm activity={selectedActivity} onSetEditMode={setEditMode} onCreateActivity={onCreateActivity} onEditActivity={onEditActivity} />}
+            {editMode && (
+              <ActivityForm
+                key={(selectedActivity && selectedActivity.id) || 0}
+                activity={selectedActivity}
+                onSetEditMode={setEditMode}
+                onCreateActivity={onCreateActivity}
+                onEditActivity={onEditActivity}
+              />
+            )}
           </Grid.Column>
         </Grid.Row>
       </Grid>

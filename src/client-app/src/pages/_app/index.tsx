@@ -11,6 +11,7 @@ export const App: React.FC<{}> = () => {
   const [editMode, setEditMode] = useState(false);
 
   const handleSelectActivity = (id: string): void => {
+    setEditMode(false);
     setSelectedActivity(activities.filter(a => a.id === id)[0]);
   };
 
@@ -25,10 +26,14 @@ export const App: React.FC<{}> = () => {
 
   const handleCreateActivity = (activity: IActivity) => {
     setActivities([...activities, activity]);
+    setSelectedActivity(activity);
+    setEditMode(false);
   };
 
   const handleEditActivity = (activity: IActivity) => {
     setActivities([...activities.filter(a => a.id !== activity.id), activity]);
+    setSelectedActivity(activity);
+    setEditMode(false);
   };
 
   useEffect(() => {
