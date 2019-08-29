@@ -7,6 +7,11 @@ import { Dashboard } from '../dashboard';
 
 export const App: React.FC<{}> = () => {
   const [activities, setActivities] = useState<IActivity[]>([]);
+  const [selectedActivity,setSelectedActivity] = useState<IActivity|null>(null);
+
+  const handleSelectActivity = (id:string):void => {    
+    setSelectedActivity(activities.filter(a=> a.id === id)[0]);
+  }
 
   useEffect(() => {
     axios.get<IActivity[]>("http://localhost:5000/api/activities").then(response => {
@@ -17,7 +22,9 @@ export const App: React.FC<{}> = () => {
   return (
     <Fragment>
       <Navbar />
-      <Dashboard activities={activities} />
+      <Dashboard activities={activities} 
+          selectActivity={handleSelectActivity}
+          selectedActivity={selectedActivity}/>
     </Fragment>
   );
 };

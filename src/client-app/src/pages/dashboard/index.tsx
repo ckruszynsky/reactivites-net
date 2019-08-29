@@ -9,7 +9,9 @@ import { ActivityForm } from '../../components/ActivityForm';
 import { PageHeader } from '../../components/PageHeader';
 import { IActivity } from '../../models';
 
-export const Dashboard: React.FC<{ activities: IActivity[] }> = props => {
+export const Dashboard: React.FC<{ activities: IActivity[], 
+  selectActivity: (id:string)=>void, 
+  selectedActivity:IActivity|null}> = ({activities,selectActivity,selectedActivity}) => {
   return (
     <Container className="dashboardContainer">
       <Grid>
@@ -21,11 +23,11 @@ export const Dashboard: React.FC<{ activities: IActivity[] }> = props => {
         <Grid.Row>
           <Grid.Column width={10}>
             <Segment clearing>
-              <ActivityList activities={props.activities} />
+              <ActivityList activities={activities} selectActivity={selectActivity} />
             </Segment>
           </Grid.Column>
           <Grid.Column width={6}>
-            <ActivityDetails />
+            { selectedActivity && <ActivityDetails activity={selectedActivity} />}
             <ActivityForm />
           </Grid.Column>
         </Grid.Row>

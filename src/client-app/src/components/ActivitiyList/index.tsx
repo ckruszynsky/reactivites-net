@@ -6,12 +6,13 @@ import { Button, Item, Label } from 'semantic-ui-react';
 import { IActivity } from '../../models';
 
 export const ActivityList: React.FC<{
-  activities: IActivity[];
-}> = props => (
+  activities: IActivity[],
+  selectActivity:(id:string)=> void
+}> = ({activities, selectActivity}) => (
 
     <Item.Group divided>
-      {props.activities.map((activitiy: IActivity) => (
-        <Item>
+      {activities.map((activitiy: IActivity) => (
+        <Item key={activitiy.id}>
           <Item.Content>
             <Item.Header as="a">{activitiy.title}</Item.Header>
             <Item.Meta>{activitiy.date}</Item.Meta>
@@ -22,7 +23,11 @@ export const ActivityList: React.FC<{
               </div>
             </Item.Description>
             <Item.Extra>
-              <Button floated="right" content="View" color="blue" />
+              <Button 
+                  floated="right" 
+                  content="View" 
+                  color="blue" 
+                  onClick={()=> selectActivity(activitiy.id)}/>
               <Label basic content="Category" />
             </Item.Extra>
           </Item.Content>

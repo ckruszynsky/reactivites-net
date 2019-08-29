@@ -1,16 +1,18 @@
 import React from 'react';
 import { Button, Card, Image } from 'semantic-ui-react';
 
-export const ActivityDetails: React.FC<{}> = () => {
-  return (
-    <Card>
-      <Image src="/assets/placeholder.png" wrapped ui={false} />
+import { IActivity } from '../../models';
+
+export const ActivityDetails: React.FC<{activity:IActivity}> = ({activity}) => {
+  return (    
+    <Card fluid>
+      <Image src={`/assets/categoryImages/${activity.category}.jpg`} wrapped ui={false} />
       <Card.Content>
-        <Card.Header>Title</Card.Header>
+        <Card.Header>{activity.title}</Card.Header>
         <Card.Meta>
-          <span>Date</span>
+          <span>{activity.date}</span>
         </Card.Meta>
-        <Card.Description>Description</Card.Description>
+        <Card.Description>{activity.description}</Card.Description>
       </Card.Content>
       <Card.Content extra>
         <Button.Group widths={2}> 
