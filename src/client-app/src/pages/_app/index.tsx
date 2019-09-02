@@ -1,21 +1,24 @@
 import axios from 'axios';
-import React, { Fragment, useEffect, useState } from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 
-import { Navbar } from '../../components/Navbar';
-import { IActivity } from '../../models';
-import { Dashboard } from '../dashboard';
+import {Navbar} from '../../components/Navbar';
+import {IActivity} from '../../models';
+import {Dashboard} from '../dashboard';
 
-export const App: React.FC<{}> = () => {
-  const [activities, setActivities] = useState<IActivity[]>([]);
-  const [selectedActivity, setSelectedActivity] = useState<IActivity | null>(null);
-  const [editMode, setEditMode] = useState(false);
+export const App : React.FC < {} > = () => {
+  const [activities,
+    setActivities] = useState < IActivity[] > ([]);
+  const [selectedActivity,
+    setSelectedActivity] = useState < IActivity | null > (null);
+  const [editMode,
+    setEditMode] = useState(false);
 
-  const handleSelectActivity = (id: string): void => {
+  const handleSelectActivity = (id : string) : void => {
     setEditMode(false);
     setSelectedActivity(activities.filter(a => a.id === id)[0]);
   };
 
-  const handleResetSelectedActivity = (): void => {
+  const handleResetSelectedActivity = () : void => {
     setSelectedActivity(null);
   };
 
@@ -24,32 +27,46 @@ export const App: React.FC<{}> = () => {
     setEditMode(true);
   };
 
-  const handleCreateActivity = (activity: IActivity) => {
-    setActivities([...activities, activity]);
+  const handleCreateActivity = (activity : IActivity) => {
+    setActivities([
+      ...activities,
+      activity
+    ]);
     setSelectedActivity(activity);
     setEditMode(false);
   };
 
-  const handleEditActivity = (activity: IActivity) => {
-    setActivities([...activities.filter(a => a.id !== activity.id), activity]);
+  const handleEditActivity = (activity : IActivity) => {
+    setActivities([
+      ...activities.filter(a => a.id !== activity.id),
+      activity
+    ]);
     setSelectedActivity(activity);
     setEditMode(false);
   };
+
+  const handleDeleteActivity = (id : string) => {
+    setActivities([...activities.filter(a => a.id !== id)]);
+  }
 
   useEffect(() => {
-    axios.get<IActivity[]>("http://localhost:5000/api/activities").then(response => {
-      let activities:IActivity[] = [];
-      response.data.forEach(act=> {
-        act.date = act.date.split('.')[0];
-        activities.push(act);
-      });
+    axios.get < IActivity[] > ("http://localhost:5000/api/activities").then(response => {
+      let activities : IActivity[] = [];
+      response
+        .data
+        .forEach(act => {
+          act.date = act
+            .date
+            .split('.')[0];
+          activities.push(act);
+        });
       setActivities(activities);
     });
   }, []);
 
   return (
     <Fragment>
-      <Navbar openCreateForm={handleOpenCreateForm} />
+      <Navbar openCreateForm={handleOpenCreateForm}/>
       <Dashboard
         activities={activities}
         onSelectActivity={handleSelectActivity}
@@ -57,9 +74,9 @@ export const App: React.FC<{}> = () => {
         onResetSelectedActivity={handleResetSelectedActivity}
         onEditActivity={handleEditActivity}
         onCreateActivity={handleCreateActivity}
+        onDeleteActivity={handleDeleteActivity}
         editMode={editMode}
-        setEditMode={setEditMode}
-      />
+        setEditMode={setEditMode}/>
     </Fragment>
   );
 };
