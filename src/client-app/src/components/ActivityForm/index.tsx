@@ -9,7 +9,8 @@ export const ActivityForm: React.FC<{
   activity: IActivity | null;
   onCreateActivity: (activity: IActivity) => void;
   onEditActivity: (activity: IActivity) => void;
-}> = ({ onSetEditMode, activity: initialFormState, onCreateActivity, onEditActivity }) => {
+  submitting:boolean
+}> = ({ onSetEditMode, activity: initialFormState, onCreateActivity, onEditActivity, submitting }) => {
   const initializeForm = () => {
     if (initialFormState) {
       return initialFormState;
@@ -90,7 +91,7 @@ export const ActivityForm: React.FC<{
           value={activity.venue}
           onChange={handleInputChange}
         />
-        <Button floated="right" positive type="submit" content="Submit" />
+        <Button floated="right" positive type="submit" content="Submit" loading={submitting} />
         <Button floated="right" content="Cancel" onClick={() => onSetEditMode(false)} />
       </Form>
     </Segment>

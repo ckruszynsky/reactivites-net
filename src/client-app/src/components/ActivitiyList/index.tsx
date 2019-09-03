@@ -8,8 +8,9 @@ import { IActivity } from '../../models';
 export const ActivityList: React.FC<{
   activities: IActivity[],
   onSelectActivity: (id: string) => void,
-  onDeleteActivity: (id: string) => void
-}> = ({activities, onSelectActivity, onDeleteActivity}) => (
+  onDeleteActivity: (id: string) => void,
+  submitting:boolean
+}> = ({activities, onSelectActivity, onDeleteActivity, submitting}) => (
 
   <Item.Group divided>
     {activities.map((activitiy: IActivity) => (
@@ -28,12 +29,14 @@ export const ActivityList: React.FC<{
               floated="right"
               content="View"
               color="blue"
-              onClick={() => onSelectActivity(activitiy.id)} />
+              onClick={() => onSelectActivity(activitiy.id)}
+              loading={submitting} />
             <Button
               floated="right"
               content="Delete"
               color="red"
-              onClick={() => onDeleteActivity(activitiy.id)} />
+              onClick={() => onDeleteActivity(activitiy.id)}
+              loading={submitting} />
             <Label basic content={activitiy.category} />
           </Item.Extra>
         </Item.Content>
