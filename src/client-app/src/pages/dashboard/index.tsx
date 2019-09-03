@@ -1,6 +1,6 @@
 import './styles.scss';
 
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 import { Container, Grid, Segment } from 'semantic-ui-react';
 
 import { ActivityList } from '../../components/ActivitiyList';
@@ -18,8 +18,9 @@ export const Dashboard: React.FC<{
   onResetSelectedActivity: () => void;
   onCreateActivity: (activity: IActivity) => void;
   onEditActivity: (activity: IActivity) => void;
-  onDeleteActivity: (id: string) => void;
+  onDeleteActivity: (evt:SyntheticEvent<HTMLButtonElement>, id: string) => void;
   submitting: boolean;
+  target:string;
 }> = ({
   activities,
   onSelectActivity,
@@ -30,7 +31,8 @@ export const Dashboard: React.FC<{
   onCreateActivity,
   onEditActivity,
   onDeleteActivity,
-  submitting
+  submitting,
+  target
 }) => {
   return (
     <Container className="dashboardContainer">
@@ -48,6 +50,7 @@ export const Dashboard: React.FC<{
                 onSelectActivity={onSelectActivity}
                 onDeleteActivity={onDeleteActivity}
                 submitting={submitting}
+                target={target}
               />
             </Segment>
           </Grid.Column>

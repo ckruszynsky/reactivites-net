@@ -1,27 +1,27 @@
 import './styles.scss';
 
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 import { Button, Item, Label } from 'semantic-ui-react';
 
 import { IActivity } from '../../models';
 
 export const ActivityList: React.FC<{
-  activities: IActivity[],
-  onSelectActivity: (id: string) => void,
-  onDeleteActivity: (id: string) => void,
-  submitting:boolean
-}> = ({activities, onSelectActivity, onDeleteActivity, submitting}) => (
-
+  activities: IActivity[];
+  onSelectActivity: (id: string) => void;
+  onDeleteActivity: (evt: SyntheticEvent<HTMLButtonElement>, id: string) => void;
+  submitting: boolean;
+  target: string;
+}> = ({ activities, onSelectActivity, onDeleteActivity, submitting, target }) => (
   <Item.Group divided>
-    {activities.map((activitiy: IActivity) => (
-      <Item key={activitiy.id}>
+    {activities.map((activity: IActivity) => (
+      <Item key={activity.id}>
         <Item.Content>
-          <Item.Header as="a">{activitiy.title}</Item.Header>
-          <Item.Meta>{activitiy.date}</Item.Meta>
+          <Item.Header as="a">{activity.title}</Item.Header>
+          <Item.Meta>{activity.date}</Item.Meta>
           <Item.Description>
-            <div>{activitiy.description}</div>
+            <div>{activity.description}</div>
             <div>
-              {activitiy.city}, {activitiy.venue}
+              {activity.city}, {activity.venue}
             </div>
           </Item.Description>
           <Item.Extra>
@@ -29,15 +29,17 @@ export const ActivityList: React.FC<{
               floated="right"
               content="View"
               color="blue"
-              onClick={() => onSelectActivity(activitiy.id)}
-              loading={submitting} />
+              onClick={() => onSelectActivity(activity.id)}
+            />
             <Button
+              name={activity.id}
               floated="right"
               content="Delete"
               color="red"
-              onClick={() => onDeleteActivity(activitiy.id)}
-              loading={submitting} />
-            <Label basic content={activitiy.category} />
+              onClick={evt => onDeleteActivity(evt, activity.id)}
+              loading={target === activity.id && submitting}
+            />
+            <Label basic content={activity.category} />
           </Item.Extra>
         </Item.Content>
       </Item>
