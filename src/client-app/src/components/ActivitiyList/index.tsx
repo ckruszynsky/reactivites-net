@@ -1,9 +1,9 @@
 import './styles.scss';
 
 import React from 'react';
-import {Button, Item, Label} from 'semantic-ui-react';
+import { Button, Item, Label } from 'semantic-ui-react';
 
-import {IActivity} from '../../models';
+import { IActivity } from '../../models';
 
 export const ActivityList: React.FC<{
   activities: IActivity[],
@@ -34,7 +34,7 @@ export const ActivityList: React.FC<{
               content="Delete"
               color="red"
               onClick={() => onDeleteActivity(activitiy.id)} />
-            <Label basic content="Category" />
+            <Label basic content={activitiy.category} />
           </Item.Extra>
         </Item.Content>
       </Item>
