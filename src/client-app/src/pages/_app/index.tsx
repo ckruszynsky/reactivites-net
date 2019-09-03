@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 
 import agent from '../../api/agent';
+import { LoadingIndicator } from '../../components/LoadingIndicator';
 import { Navbar } from '../../components/Navbar';
 import { IActivity } from '../../models';
 import { Dashboard } from '../dashboard';
@@ -9,7 +10,8 @@ export const App: React.FC<{}> = () => {
   const [activities, setActivities] = useState<IActivity[]>([]);
   const [selectedActivity, setSelectedActivity] = useState<IActivity | null>(null);
   const [editMode, setEditMode] = useState(false);
-
+  const [loading,setLoading] = useState(true);
+  
   const handleSelectActivity = (id: string): void => {
     setEditMode(false);
     setSelectedActivity(activities.filter(a => a.id === id)[0]);
@@ -54,10 +56,18 @@ export const App: React.FC<{}> = () => {
         act.date = act.date.split(".")[0];
         activities.push(act);
       });
+
       setActivities(activities);
-    });
+      
+    }).then(()=> setLoading(false));
   }, []);
 
+  if(loading){
+    return (
+      <LoadingIndicator content="Loading activities...." 
+        inverted={true}/>
+    )
+  }
   return (
     <Fragment>
       <Navbar openCreateForm={handleOpenCreateForm} />
