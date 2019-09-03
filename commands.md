@@ -74,8 +74,14 @@
 git branch -D un-merged-branch-to-delete
 ```
 
+### Prune/Cleanup the local references to remote branch
+```
+git remote prune origin
+```
+
 
 # Creating the react application 
 ```
 npx create-react-app client-app --use-npm --typescript
 ```
+
