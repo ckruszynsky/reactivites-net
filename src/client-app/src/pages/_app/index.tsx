@@ -1,19 +1,22 @@
-import React, { Fragment, SyntheticEvent, useEffect, useState } from 'react';
+import { observer } from 'mobx-react-lite';
+import React, { Fragment, SyntheticEvent, useContext, useEffect, useState } from 'react';
 
 import agent from '../../api/agent';
 import { LoadingIndicator } from '../../components/LoadingIndicator';
 import { Navbar } from '../../components/Navbar';
 import { IActivity } from '../../models';
+import ActivityStore from '../../stores/activityStore';
 import { Dashboard } from '../dashboard';
 
-export const App: React.FC<{}> = () => {
+export const App = observer(()=> {
+  const activityStore = useContext(ActivityStore);
   const [activities, setActivities] = useState<IActivity[]>([]);
   const [selectedActivity, setSelectedActivity] = useState<IActivity | null>(null);
   const [editMode, setEditMode] = useState(false);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-  const [target, setTarget] = useState('');
-  
+  const [target, setTarget] = useState("");
+
   const handleSelectActivity = (id: string): void => {
     setEditMode(false);
     setSelectedActivity(activities.filter(a => a.id === id)[0]);
@@ -53,7 +56,7 @@ export const App: React.FC<{}> = () => {
   const handleDeleteActivity = (evt: SyntheticEvent<HTMLButtonElement>, id: string) => {
     setSubmitting(true);
     setTarget(evt.currentTarget.name);
-    
+
     agent.Activities.delete(id)
       .then(() => {
         setActivities([...activities.filter(a => a.id !== id)]);
@@ -62,28 +65,17 @@ export const App: React.FC<{}> = () => {
   };
 
   useEffect(() => {
-    agent.Activities.list()
-      .then(response => {
-        let activities: IActivity[] = [];
+    activityStore.loadActivities();
+  }, [activityStore]);
 
-        response.forEach(act => {
-          act.date = act.date.split(".")[0];
-          activities.push(act);
-        });
-
-        setActivities(activities);
-      })
-      .then(() => setLoading(false));
-  }, []);
-
-  if (loading) {
+  if (activityStore.loadingInitial) {
     return <LoadingIndicator content="Loading activities...." inverted={true} />;
   }
   return (
     <Fragment>
       <Navbar openCreateForm={handleOpenCreateForm} />
       <Dashboard
-        activities={activities}
+        activities={activityStore.activities}
         onSelectActivity={handleSelectActivity}
         selectedActivity={selectedActivity}
         onResetSelectedActivity={handleResetSelectedActivity}
@@ -97,4 +89,5 @@ export const App: React.FC<{}> = () => {
       />
     </Fragment>
   );
-};
+});
+
