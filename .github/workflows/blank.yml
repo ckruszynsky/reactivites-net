@@ -18,10 +18,3 @@ jobs:
       run: |
         echo Add other actions to build,
         echo test, and deploy your project.
-     -name: dotnet build
-      run: |
-        dotnet build
-     -name: npm install and build
-      run: |
-         npm install
-         npm run build
