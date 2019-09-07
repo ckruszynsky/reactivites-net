@@ -1,7 +1,7 @@
 import './styles.scss';
 
 import { observer } from 'mobx-react-lite';
-import React, { SyntheticEvent } from 'react';
+import React, { SyntheticEvent, useContext } from 'react';
 import { Container, Grid, Segment } from 'semantic-ui-react';
 
 import { ActivityList } from '../../components/ActivitiyList';
@@ -9,12 +9,11 @@ import { ActivityDetails } from '../../components/ActivityDetails';
 import { ActivityForm } from '../../components/ActivityForm';
 import { PageHeader } from '../../components/PageHeader';
 import { IActivity } from '../../models';
+import ActivityStore from '../../stores/activityStore';
 
 export interface IDashboardProps{  
     activities: IActivity[];
     onSelectActivity: (id: string) => void;
-    selectedActivity: IActivity | null;
-    editMode: boolean;
     setEditMode: (editMode: boolean) => void;
     onResetSelectedActivity: () => void;
     onCreateActivity: (activity: IActivity) => void;
@@ -25,6 +24,8 @@ export interface IDashboardProps{
 }
 
 export const Dashboard = observer((props:IDashboardProps) => {
+  const activityStore = useContext(ActivityStore);
+  const {editMode, selectedActivity} = activityStore;
   return (
     <Container className="dashboardContainer">
       <Grid>
@@ -37,8 +38,6 @@ export const Dashboard = observer((props:IDashboardProps) => {
           <Grid.Column width={10}>
             <Segment clearing>
               <ActivityList
-                activities={props.activities}
-                onSelectActivity={props.onSelectActivity}
                 onDeleteActivity={props.onDeleteActivity}
                 submitting={props.submitting}
                 target={props.target}
@@ -46,18 +45,17 @@ export const Dashboard = observer((props:IDashboardProps) => {
             </Segment>
           </Grid.Column>
           <Grid.Column width={6}>
-            {props.selectedActivity && !props.editMode && (
+            {selectedActivity && !editMode && (
               <ActivityDetails
-                activity={props.selectedActivity}
                 onSetEditMode={props.setEditMode}
                 onResetSelectedActivity={props.onResetSelectedActivity}
               />
             )}
 
-            {props.editMode && (
+            {editMode && (
               <ActivityForm
-                key={(props.selectedActivity && props.selectedActivity.id) || 0}
-                activity={props.selectedActivity}
+                key={(selectedActivity && selectedActivity.id) || 0}
+                activity={selectedActivity}
                 onSetEditMode={props.setEditMode}
                 onCreateActivity={props.onCreateActivity}
                 onEditActivity={props.onEditActivity}

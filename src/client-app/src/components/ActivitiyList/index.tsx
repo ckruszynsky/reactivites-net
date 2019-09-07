@@ -1,22 +1,24 @@
 import './styles.scss';
 
 import { observer } from 'mobx-react-lite';
-import React, { SyntheticEvent } from 'react';
+import React, { SyntheticEvent, useContext } from 'react';
 import { Button, Item, Label } from 'semantic-ui-react';
 
 import { IActivity } from '../../models';
+import ActivityStore from '../../stores/activityStore';
 
 export interface ActivityListProps {
-  activities: IActivity[];
-  onSelectActivity: (id: string) => void;
   onDeleteActivity: (evt: SyntheticEvent<HTMLButtonElement>, id: string) => void;
   submitting: boolean;
   target: string;
 };
 
-export const ActivityList = observer((props:ActivityListProps) => 
+export const ActivityList = observer((props:ActivityListProps) => {
+  const activityStore =useContext(ActivityStore);
+  const {activities, selectActivity} = activityStore;
+  return (
   <Item.Group divided>
-    {props.activities.map((activity: IActivity) => (
+    {activities.map((activity: IActivity) => (
       <Item key={activity.id}>
         <Item.Content>
           <Item.Header as="a">{activity.title}</Item.Header>
@@ -32,7 +34,7 @@ export const ActivityList = observer((props:ActivityListProps) =>
               floated="right"
               content="View"
               color="blue"
-              onClick={() => props.onSelectActivity(activity.id)}
+              onClick={() => selectActivity(activity.id)}
             />
             <Button
               name={activity.id}
@@ -47,5 +49,5 @@ export const ActivityList = observer((props:ActivityListProps) =>
         </Item.Content>
       </Item>
     ))}
-  </Item.Group>
-);
+  </Item.Group>);
+});

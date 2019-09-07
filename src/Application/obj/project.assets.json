@@ -1753,7 +1753,7 @@
       ]
     },
     "System.Buffers/4.4.0": {
-      "sha512": "AwarXzzoDwX6BgrhjoJsk6tUezZEozOT5Y9QKF94Gl4JK91I4PIIBkBco9068Y9/Dra8Dkbie99kXB8+1BaYKw==",
+      "sha512": "Ii2bedd4HVzddupdU35n3ygohUPlNn7MDimBOYcwWNce2NizQ1fCSaQJY1Tzv80aMqOGpVcU4wZr/Xe50xcTwg==",
       "type": "package",
       "path": "system.buffers/4.4.0",
       "files": [
@@ -2655,7 +2655,7 @@
       ]
     },
     "System.Numerics.Vectors/4.4.0": {
-      "sha512": "UiLzLW+Lw6HLed1Hcg+8jSRttrbuXv7DANVj0DkL9g6EnnzbL75EB7EWsw5uRbhxd/4YdG8li5XizGWepmG3PQ==",
+      "sha512": "gdRrUJs1RrjW3JB5p82hYjA67xoeFLvh0SdSIWjTiN8qExlbFt/RtXwVYNc5BukJ/f9OKzQQS6gakzbJeHTqHg==",
       "type": "package",
       "path": "system.numerics.vectors/4.4.0",
       "files": [
@@ -4116,40 +4116,38 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ckruszynsky\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "/Users/chadkruszynsky/.nuget/packages/": {},
+    "/usr/local/share/dotnet/sdk/NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\projects\\github repos\\reactivities-net\\src\\Application\\Application.csproj",
+      "projectUniqueName": "/Users/chadkruszynsky/Desktop/projects/reactivites-net/src/Application/Application.csproj",
       "projectName": "Application",
-      "projectPath": "E:\\projects\\github repos\\reactivities-net\\src\\Application\\Application.csproj",
-      "packagesPath": "C:\\Users\\ckruszynsky\\.nuget\\packages\\",
-      "outputPath": "E:\\projects\\github repos\\reactivities-net\\src\\Application\\obj\\",
+      "projectPath": "/Users/chadkruszynsky/Desktop/projects/reactivites-net/src/Application/Application.csproj",
+      "packagesPath": "/Users/chadkruszynsky/.nuget/packages/",
+      "outputPath": "/Users/chadkruszynsky/Desktop/projects/reactivites-net/src/Application/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\ckruszynsky\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/chadkruszynsky/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netstandard2.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "E:\\projects\\github repos\\reactivities-net\\src\\Domain\\Domain.csproj": {
-              "projectPath": "E:\\projects\\github repos\\reactivities-net\\src\\Domain\\Domain.csproj"
+            "/Users/chadkruszynsky/Desktop/projects/reactivites-net/src/Domain/Domain.csproj": {
+              "projectPath": "/Users/chadkruszynsky/Desktop/projects/reactivites-net/src/Domain/Domain.csproj"
             },
-            "E:\\projects\\github repos\\reactivities-net\\src\\Persistence\\Persistence.csproj": {
-              "projectPath": "E:\\projects\\github repos\\reactivities-net\\src\\Persistence\\Persistence.csproj"
+            "/Users/chadkruszynsky/Desktop/projects/reactivites-net/src/Persistence/Persistence.csproj": {
+              "projectPath": "/Users/chadkruszynsky/Desktop/projects/reactivites-net/src/Persistence/Persistence.csproj"
             }
           }
         }

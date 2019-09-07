@@ -77,12 +77,10 @@ export const App = observer(()=> {
       <Dashboard
         activities={activityStore.activities}
         onSelectActivity={handleSelectActivity}
-        selectedActivity={selectedActivity}
         onResetSelectedActivity={handleResetSelectedActivity}
         onEditActivity={handleEditActivity}
         onCreateActivity={handleCreateActivity}
         onDeleteActivity={handleDeleteActivity}
-        editMode={editMode}
         setEditMode={setEditMode}
         submitting={submitting}
         target={target}

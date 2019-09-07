@@ -6,7 +6,7 @@ import { IActivity } from '../../models';
 
 export const ActivityForm: React.FC<{
   onSetEditMode: (editMode: boolean) => void;
-  activity: IActivity | null;
+  activity: IActivity | undefined;
   onCreateActivity: (activity: IActivity) => void;
   onEditActivity: (activity: IActivity) => void;
   submitting:boolean
