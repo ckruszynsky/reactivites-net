@@ -1,5 +1,6 @@
 import './styles.scss';
 
+import { observer } from 'mobx-react-lite';
 import React, { SyntheticEvent } from 'react';
 import { Container, Grid, Segment } from 'semantic-ui-react';
 
@@ -9,31 +10,21 @@ import { ActivityForm } from '../../components/ActivityForm';
 import { PageHeader } from '../../components/PageHeader';
 import { IActivity } from '../../models';
 
-export const Dashboard: React.FC<{
-  activities: IActivity[];
-  onSelectActivity: (id: string) => void;
-  selectedActivity: IActivity | null;
-  editMode: boolean;
-  setEditMode: (editMode: boolean) => void;
-  onResetSelectedActivity: () => void;
-  onCreateActivity: (activity: IActivity) => void;
-  onEditActivity: (activity: IActivity) => void;
-  onDeleteActivity: (evt:SyntheticEvent<HTMLButtonElement>, id: string) => void;
-  submitting: boolean;
-  target:string;
-}> = ({
-  activities,
-  onSelectActivity,
-  selectedActivity,
-  editMode,
-  setEditMode,
-  onResetSelectedActivity,
-  onCreateActivity,
-  onEditActivity,
-  onDeleteActivity,
-  submitting,
-  target
-}) => {
+export interface IDashboardProps{  
+    activities: IActivity[];
+    onSelectActivity: (id: string) => void;
+    selectedActivity: IActivity | null;
+    editMode: boolean;
+    setEditMode: (editMode: boolean) => void;
+    onResetSelectedActivity: () => void;
+    onCreateActivity: (activity: IActivity) => void;
+    onEditActivity: (activity: IActivity) => void;
+    onDeleteActivity: (evt:SyntheticEvent<HTMLButtonElement>, id: string) => void;
+    submitting: boolean;
+    target:string;  
+}
+
+export const Dashboard = observer((props:IDashboardProps) => {
   return (
     <Container className="dashboardContainer">
       <Grid>
@@ -46,31 +37,31 @@ export const Dashboard: React.FC<{
           <Grid.Column width={10}>
             <Segment clearing>
               <ActivityList
-                activities={activities}
-                onSelectActivity={onSelectActivity}
-                onDeleteActivity={onDeleteActivity}
-                submitting={submitting}
-                target={target}
+                activities={props.activities}
+                onSelectActivity={props.onSelectActivity}
+                onDeleteActivity={props.onDeleteActivity}
+                submitting={props.submitting}
+                target={props.target}
               />
             </Segment>
           </Grid.Column>
           <Grid.Column width={6}>
-            {selectedActivity && !editMode && (
+            {props.selectedActivity && !props.editMode && (
               <ActivityDetails
-                activity={selectedActivity}
-                onSetEditMode={setEditMode}
-                onResetSelectedActivity={onResetSelectedActivity}
+                activity={props.selectedActivity}
+                onSetEditMode={props.setEditMode}
+                onResetSelectedActivity={props.onResetSelectedActivity}
               />
             )}
 
-            {editMode && (
+            {props.editMode && (
               <ActivityForm
-                key={(selectedActivity && selectedActivity.id) || 0}
-                activity={selectedActivity}
-                onSetEditMode={setEditMode}
-                onCreateActivity={onCreateActivity}
-                onEditActivity={onEditActivity}
-                submitting={submitting}
+                key={(props.selectedActivity && props.selectedActivity.id) || 0}
+                activity={props.selectedActivity}
+                onSetEditMode={props.setEditMode}
+                onCreateActivity={props.onCreateActivity}
+                onEditActivity={props.onEditActivity}
+                submitting={props.submitting}
               />
             )}
           </Grid.Column>
@@ -78,4 +69,4 @@ export const Dashboard: React.FC<{
       </Grid>
     </Container>
   );
-};
+});
