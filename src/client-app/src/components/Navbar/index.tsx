@@ -1,11 +1,12 @@
 import './styles.scss';
 
+import { observer } from 'mobx-react-lite';
 import React, { useContext } from 'react';
 import { Button, Container, Menu } from 'semantic-ui-react';
 
 import ActivityStore from '../../stores/activityStore';
 
-export const Navbar: React.FC<{}> = () => {
+export const Navbar: React.FC<{}> = observer(() => {
   const activityStore = useContext(ActivityStore);
   const {openCreateForm} = activityStore;
   return (
@@ -22,4 +23,4 @@ export const Navbar: React.FC<{}> = () => {
       </Container>
     </Menu>
   );
-};
+});
