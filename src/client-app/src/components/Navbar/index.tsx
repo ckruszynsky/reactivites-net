@@ -1,11 +1,13 @@
 import './styles.scss';
 
-import React from 'react';
+import React, { useContext } from 'react';
 import { Button, Container, Menu } from 'semantic-ui-react';
 
-export const Navbar: React.FC<{
-  openCreateForm: () => void;
-}> = ({ openCreateForm }) => {
+import ActivityStore from '../../stores/activityStore';
+
+export const Navbar: React.FC<{}> = () => {
+  const activityStore = useContext(ActivityStore);
+  const {openCreateForm} = activityStore;
   return (
     <Menu fixed="top" inverted>
       <Container>

@@ -26,22 +26,6 @@ export const App = observer(()=> {
     setSelectedActivity(null);
   };
 
-  const handleOpenCreateForm = () => {
-    setSelectedActivity(null);
-    setEditMode(true);
-  };
-
-  const handleCreateActivity = (activity: IActivity) => {
-    setSubmitting(true);
-    agent.Activities.create(activity)
-      .then(() => {
-        setActivities([...activities, activity]);
-        setSelectedActivity(activity);
-        setEditMode(false);
-      })
-      .then(() => setSubmitting(false));
-  };
-
   const handleEditActivity = (activity: IActivity) => {
     setSubmitting(true);
     agent.Activities.update(activity)
@@ -73,13 +57,12 @@ export const App = observer(()=> {
   }
   return (
     <Fragment>
-      <Navbar openCreateForm={handleOpenCreateForm} />
+      <Navbar />
       <Dashboard
         activities={activityStore.activities}
         onSelectActivity={handleSelectActivity}
         onResetSelectedActivity={handleResetSelectedActivity}
         onEditActivity={handleEditActivity}
-        onCreateActivity={handleCreateActivity}
         onDeleteActivity={handleDeleteActivity}
         setEditMode={setEditMode}
         submitting={submitting}

@@ -16,7 +16,6 @@ export interface IDashboardProps{
     onSelectActivity: (id: string) => void;
     setEditMode: (editMode: boolean) => void;
     onResetSelectedActivity: () => void;
-    onCreateActivity: (activity: IActivity) => void;
     onEditActivity: (activity: IActivity) => void;
     onDeleteActivity: (evt:SyntheticEvent<HTMLButtonElement>, id: string) => void;
     submitting: boolean;
@@ -57,7 +56,6 @@ export const Dashboard = observer((props:IDashboardProps) => {
                 key={(selectedActivity && selectedActivity.id) || 0}
                 activity={selectedActivity}
                 onSetEditMode={props.setEditMode}
-                onCreateActivity={props.onCreateActivity}
                 onEditActivity={props.onEditActivity}
                 submitting={props.submitting}
               />

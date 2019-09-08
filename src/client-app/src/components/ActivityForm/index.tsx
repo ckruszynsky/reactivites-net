@@ -1,16 +1,26 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Form, Segment } from 'semantic-ui-react';
 import { v4 as uuid } from 'uuid';
 
 import { IActivity } from '../../models';
+import ActivityStore from '../../stores/activityStore';
 
-export const ActivityForm: React.FC<{
+export interface ActivityFormProps {
   onSetEditMode: (editMode: boolean) => void;
   activity: IActivity | undefined;
-  onCreateActivity: (activity: IActivity) => void;
   onEditActivity: (activity: IActivity) => void;
   submitting:boolean
-}> = ({ onSetEditMode, activity: initialFormState, onCreateActivity, onEditActivity, submitting }) => {
+};
+
+export const ActivityForm: React.FC<ActivityFormProps> = ({
+  onSetEditMode,
+  activity:initialFormState,
+  onEditActivity,
+  submitting
+}) => {
+  const activityStore = useContext(ActivityStore);
+  const {createActivity} = activityStore;
+
   const initializeForm = () => {
     if (initialFormState) {
       return initialFormState;
@@ -44,7 +54,7 @@ export const ActivityForm: React.FC<{
         ...activity,
         id: uuid()
       };
-      onCreateActivity(newActivity);
+      createActivity(newActivity);
     } else {
       onEditActivity(activity);
     }
