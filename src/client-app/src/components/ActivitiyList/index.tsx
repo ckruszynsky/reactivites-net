@@ -15,10 +15,10 @@ export interface ActivityListProps {
 
 export const ActivityList = observer((props:ActivityListProps) => {
   const activityStore =useContext(ActivityStore);
-  const {activities, selectActivity} = activityStore;
+  const {activitiesByDate, selectActivity} = activityStore;
   return (
   <Item.Group divided>
-    {activities.map((activity: IActivity) => (
+    {activitiesByDate.map((activity: IActivity) => (
       <Item key={activity.id}>
         <Item.Content>
           <Item.Header as="a">{activity.title}</Item.Header>
