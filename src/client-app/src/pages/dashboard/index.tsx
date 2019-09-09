@@ -1,7 +1,7 @@
 import './styles.scss';
 
 import { observer } from 'mobx-react-lite';
-import React, { SyntheticEvent, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Container, Grid, Segment } from 'semantic-ui-react';
 
 import { ActivityList } from '../../components/ActivitiyList';
@@ -10,14 +10,7 @@ import { ActivityForm } from '../../components/ActivityForm';
 import { PageHeader } from '../../components/PageHeader';
 import ActivityStore from '../../stores/activityStore';
 
-export interface IDashboardProps {
-  setEditMode: (editMode: boolean) => void;
-  onDeleteActivity: (evt: SyntheticEvent<HTMLButtonElement>, id: string) => void;
-  target: string;
-  submitting: boolean;
-}
-
-export const Dashboard = observer((props: IDashboardProps) => {
+export const Dashboard = observer(() => {
   const activityStore = useContext(ActivityStore);
   const { editMode, selectedActivity } = activityStore;
   return (
@@ -31,11 +24,7 @@ export const Dashboard = observer((props: IDashboardProps) => {
         <Grid.Row>
           <Grid.Column width={10}>
             <Segment clearing>
-              <ActivityList
-                submitting={props.submitting}
-                onDeleteActivity={props.onDeleteActivity}
-                target={props.target}
-              />
+              <ActivityList />
             </Segment>
           </Grid.Column>
           <Grid.Column width={6}>
