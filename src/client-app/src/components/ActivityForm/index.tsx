@@ -5,21 +5,15 @@ import { v4 as uuid } from 'uuid';
 import { IActivity } from '../../models';
 import ActivityStore from '../../stores/activityStore';
 
-export interface ActivityFormProps {
-  onSetEditMode: (editMode: boolean) => void;
-  activity: IActivity | undefined;
-  onEditActivity: (activity: IActivity) => void;
-  submitting:boolean
+export interface ActivityFormProps {  
+  activity: IActivity | undefined;    
 };
 
-export const ActivityForm: React.FC<ActivityFormProps> = ({
-  onSetEditMode,
-  activity:initialFormState,
-  onEditActivity,
-  submitting
+export const ActivityForm: React.FC<ActivityFormProps> = ({  
+  activity:initialFormState  
 }) => {
   const activityStore = useContext(ActivityStore);
-  const {createActivity} = activityStore;
+  const {createActivity, editActivity, submitting, cancelFormOpen} = activityStore;
 
   const initializeForm = () => {
     if (initialFormState) {
@@ -56,7 +50,7 @@ export const ActivityForm: React.FC<ActivityFormProps> = ({
       };
       createActivity(newActivity);
     } else {
-      onEditActivity(activity);
+      editActivity(activity);
     }
   };
 
@@ -102,7 +96,7 @@ export const ActivityForm: React.FC<ActivityFormProps> = ({
           onChange={handleInputChange}
         />
         <Button floated="right" positive type="submit" content="Submit" loading={submitting} />
-        <Button floated="right" content="Cancel" onClick={() => onSetEditMode(false)} />
+        <Button floated="right" content="Cancel" onClick={() => cancelFormOpen()} />
       </Form>
     </Segment>
   );

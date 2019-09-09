@@ -12,8 +12,7 @@ export const App = observer(()=> {
   const activityStore = useContext(ActivityStore);
   const [activities, setActivities] = useState<IActivity[]>([]);
   const [selectedActivity, setSelectedActivity] = useState<IActivity | null>(null);
-  const [editMode, setEditMode] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [editMode, setEditMode] = useState(false);  
   const [submitting, setSubmitting] = useState(false);
   const [target, setTarget] = useState("");
 
@@ -24,17 +23,6 @@ export const App = observer(()=> {
 
   const handleResetSelectedActivity = (): void => {
     setSelectedActivity(null);
-  };
-
-  const handleEditActivity = (activity: IActivity) => {
-    setSubmitting(true);
-    agent.Activities.update(activity)
-      .then(() => {
-        setActivities([...activities.filter(a => a.id !== activity.id), activity]);
-        setSelectedActivity(activity);
-        setEditMode(false);
-      })
-      .then(() => setSubmitting(false));
   };
 
   const handleDeleteActivity = (evt: SyntheticEvent<HTMLButtonElement>, id: string) => {
@@ -58,11 +46,7 @@ export const App = observer(()=> {
   return (
     <Fragment>
       <Navbar />
-      <Dashboard
-        activities={activityStore.activities}
-        onSelectActivity={handleSelectActivity}
-        onResetSelectedActivity={handleResetSelectedActivity}
-        onEditActivity={handleEditActivity}
+      <Dashboard  
         onDeleteActivity={handleDeleteActivity}
         setEditMode={setEditMode}
         submitting={submitting}
