@@ -1,8 +1,10 @@
-import { action, computed, observable } from 'mobx';
+import { action, computed, configure, observable, runInAction } from 'mobx';
 import { createContext, SyntheticEvent } from 'react';
 
 import agent from '../api/agent';
 import { IActivity } from '../models';
+
+configure({ enforceActions: "always" });
 
 class ActivityStore {
   @observable activityRegistry = new Map();
@@ -22,14 +24,16 @@ class ActivityStore {
     this.loadingInitial = true;
     const activities = await agent.Activities.list();
     try {
-      activities.forEach(act => {
-        act.date = act.date.split(".")[0];
-        this.activityRegistry.set(act.id, act);
+      runInAction("loading activities", () => {
+        activities.forEach(act => {
+          act.date = act.date.split(".")[0];
+          this.activityRegistry.set(act.id, act);
+        });
       });
     } catch (error) {
       console.error(error);
     } finally {
-      this.loadingInitial = false;
+      runInAction("load activities set initial false", () => (this.loadingInitial = false));
     }
   };
 
@@ -37,12 +41,14 @@ class ActivityStore {
     this.submitting = true;
     try {
       await agent.Activities.create(activity);
-      this.activityRegistry.set(activity.id, activity);
+      runInAction("Create Activity", () => this.activityRegistry.set(activity.id, activity));
     } catch (error) {
       console.error(error);
     } finally {
-      this.editMode = false;
-      this.submitting = false;
+      runInAction("Create Activity reset modes", () => {
+        this.editMode = false;
+        this.submitting = false;
+      });
     }
   };
 
@@ -55,25 +61,31 @@ class ActivityStore {
     this.submitting = true;
     try {
       this.target = event.currentTarget.name;
+      this.selectedActivity = undefined;
       await agent.Activities.delete(id);
-      this.activityRegistry.delete(id);
+      runInAction("Delete Activity", () => this.activityRegistry.delete(id));
     } catch (error) {
       console.error(error);
     } finally {
-      this.submitting = false;
+      runInAction("Delete Activity reset submit", () => (this.submitting = false));
     }
   };
+
   @action editActivity = async (activity: IActivity) => {
     this.submitting = true;
     try {
       await agent.Activities.update(activity);
-      this.activityRegistry.set(activity.id, activity);
-      this.selectedActivity = activity;
+      runInAction("Edit Activity", () => {
+        this.activityRegistry.set(activity.id, activity);
+        this.selectedActivity = activity;
+      });
     } catch (error) {
       console.error(error);
     } finally {
-      this.submitting = false;
-      this.editMode = false;
+      runInAction("Edit Activity reset modes", () => {
+        this.submitting = false;
+        this.editMode = false;
+      });
     }
   };
 

@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite';
 import React, { useContext, useState } from 'react';
 import { Button, Form, Segment } from 'semantic-ui-react';
 import { v4 as uuid } from 'uuid';
@@ -9,7 +10,7 @@ export interface ActivityFormProps {
   activity: IActivity | undefined;    
 };
 
-export const ActivityForm: React.FC<ActivityFormProps> = ({  
+export const ActivityForm: React.FC<ActivityFormProps> = observer(({  
   activity:initialFormState  
 }) => {
   const activityStore = useContext(ActivityStore);
@@ -100,4 +101,4 @@ export const ActivityForm: React.FC<ActivityFormProps> = ({
       </Form>
     </Segment>
   );
-};
+});
