@@ -7,6 +7,7 @@ import { Navbar } from '../../components/Navbar';
 import ActivityStore from '../../stores/activityStore';
 import { Dashboard } from '../dashboard';
 import { Details } from '../details';
+import { Home } from '../home';
 import { NewActivity } from '../newActivity';
 
 const App:React.FC<RouteComponentProps> = observer(({location}) => {
@@ -21,12 +22,13 @@ const App:React.FC<RouteComponentProps> = observer(({location}) => {
   }
   return (    
       <Fragment>
+        <Route exact path="/" component={Home} />
+        <Route path={'/(.+)'} />
         <Navbar />
         <Switch>
           <Route exact path="/activities" component={Dashboard} />
           <Route exact path="/activities/:id" component={Details} />
-          <Route key={location.key} path={["/new",'/manage/:id']} component={NewActivity} />
-          <Route exact path="/" component={Dashboard} />
+          <Route key={location.key} path={["/new",'/manage/:id']} component={NewActivity} />          
         </Switch>
       </Fragment>    
   );
