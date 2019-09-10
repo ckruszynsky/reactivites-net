@@ -13,6 +13,7 @@ import ActivityStore from '../../stores/activityStore';
 export const Dashboard = observer(() => {
   const activityStore = useContext(ActivityStore);
   const { editMode, selectedActivity } = activityStore;
+
   return (
     <Container className="dashboardContainer">
       <Grid>

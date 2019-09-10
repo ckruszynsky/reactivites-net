@@ -10,6 +10,7 @@ import { NewActivity } from '../newActivity';
 
 export const App = observer(() => {
   const activityStore = useContext(ActivityStore);
+
   useEffect(() => {
     activityStore.loadActivities();
   }, [activityStore]);
