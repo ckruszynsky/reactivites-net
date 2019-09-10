@@ -9,11 +9,11 @@ import ActivityStore from '../../stores/activityStore';
 
 export const NewActivity = observer(() => {
     const activityStore = useContext(ActivityStore);
-    const { selectedActivity } = activityStore;
+    const { currentActivity } = activityStore;
   
     return (
         <div>
-            <ActivityForm activity={selectedActivity} />
+            <ActivityForm activity={currentActivity} />
         </div>
     )
 });
