@@ -26,7 +26,7 @@ export const App = observer(() => {
         <Switch>
           <Route exact path="/activities" component={Dashboard} />
           <Route exact path="/activities/:id" component={Details} />
-          <Route path="/new" component={NewActivity} />
+          <Route path={["/new",'/manage/:id']} component={NewActivity} />
           <Route exact path="/" component={Dashboard} />
         </Switch>
       </Fragment>
