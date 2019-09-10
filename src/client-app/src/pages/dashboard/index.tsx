@@ -1,21 +1,16 @@
 import './styles.scss';
 
-import { observer } from 'mobx-react-lite';
-import React, { useContext } from 'react';
-import { Container, Grid, Segment } from 'semantic-ui-react';
+import {observer} from 'mobx-react-lite';
+import React, {useContext} from 'react';
+import {Container, Grid} from 'semantic-ui-react';
 
-import { ActivityList } from '../../components/ActivitiyList';
-import { PageHeader } from '../../components/PageHeader';
+import {ActivityList} from '../../components/ActivitiyList';
+import {PageHeader} from '../../components/PageHeader';
 import ActivityStore from '../../stores/activityStore';
 
 export const Dashboard = observer(() => {
   const activityStore = useContext(ActivityStore);
-  const {
-    activitiesByDate,    
-    deleteActivity,
-    submitting,
-    target
-  } = activityStore;
+  const {activitiesByDate} = activityStore;
 
   return (
     <Container className="dashboardContainer">
@@ -27,12 +22,7 @@ export const Dashboard = observer(() => {
         </Grid.Row>
         <Grid.Row>
           <Grid.Column width={10}>
-            <Segment clearing>
-              <ActivityList activities={activitiesByDate} 
-              onDelete={deleteActivity}
-              target={target}
-              submitting={submitting} />
-            </Segment>
+            <ActivityList activities={activitiesByDate} />
           </Grid.Column>
           <Grid.Column width={6}>
             <h2>Activity Filters</h2>

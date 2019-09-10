@@ -1,28 +1,35 @@
 import './styles.scss';
 
-import React, {SyntheticEvent} from 'react';
-import {Item} from 'semantic-ui-react';
+import React, {Fragment} from 'react';
+import {Item, Label, Segment} from 'semantic-ui-react';
 
 import {IActivity} from '../../models';
 import {ActivityListItem} from '../ActivityListItem';
 
 interface ActivityListProps {
-  activities: IActivity[];
-  onDelete: (event: SyntheticEvent<HTMLButtonElement>, id: string) => void;
-  target: string;
-  submitting: boolean;
+  activities: [string, IActivity[]][];
 }
 export const ActivityList: React.FC<ActivityListProps> = ({
-  activities,
-  onDelete,
-  target,
-  submitting
+  activities
 }) => {
   return (
-    <Item.Group divided>
-      {activities.map((activity: IActivity) => (
-        <ActivityListItem key={activity.id} activity={activity} />
+    <Fragment>
+      {activities.map(([group, acts]) => (
+        <Fragment key={group}>
+
+          <Label size='large' color='blue'>
+            {group}
+          </Label>
+          <Segment clearing>
+            <Item.Group divided>
+              {acts.map((activity: IActivity) => (
+                <ActivityListItem key={activity.id} activity={activity} />
+              ))}
+            </Item.Group>
+          </Segment>
+        </Fragment>
       ))}
-    </Item.Group>
+
+    </Fragment>
   );
 };
