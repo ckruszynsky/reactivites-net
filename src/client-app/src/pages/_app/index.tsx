@@ -1,10 +1,12 @@
 import { observer } from 'mobx-react-lite';
 import React, { Fragment, useContext, useEffect } from 'react';
+import { Route } from 'react-router-dom';
 
 import { LoadingIndicator } from '../../components/LoadingIndicator';
 import { Navbar } from '../../components/Navbar';
 import ActivityStore from '../../stores/activityStore';
 import { Dashboard } from '../dashboard';
+import { NewActivity } from '../newActivity';
 
 export const App = observer(() => {
   const activityStore = useContext(ActivityStore);
@@ -18,7 +20,10 @@ export const App = observer(() => {
   return (
     <Fragment>
       <Navbar />
-      <Dashboard />
+      <Route path='/activities' component={Dashboard} />
+      <Route path='/new' component={NewActivity} />
+      <Route exact path='/' component={Dashboard} />
+    
     </Fragment>
   );
 });
