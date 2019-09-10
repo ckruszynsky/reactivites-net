@@ -21,10 +21,14 @@ export const Dashboard = observer(() => {
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
-          <Grid.Column width={16}>
+          <Grid.Column width={10}>
             <Segment clearing>
               <ActivityList />
             </Segment>
+          </Grid.Column>
+          <Grid.Column width={6}>
+            <h2>Activity Filters</h2>
+
           </Grid.Column>
         </Grid.Row>
       </Grid>

@@ -22,8 +22,8 @@ export const App = observer(() => {
   return (
     <Fragment>
       <Navbar />
-      <Route path='/activities' component={Dashboard} />
-      <Route path='/activities/:id' component={Details} />
+      <Route exact path='/activities' component={Dashboard} />
+      <Route exact path='/activities/:id' component={Details} />
       <Route path='/new' component={NewActivity} />
       <Route exact path='/' component={Dashboard} />
     
