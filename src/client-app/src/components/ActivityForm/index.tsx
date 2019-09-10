@@ -1,4 +1,3 @@
-import { observer } from 'mobx-react-lite';
 import React, { useContext } from 'react';
 import { Button, Form, Segment } from 'semantic-ui-react';
 
@@ -14,7 +13,7 @@ export interface ActivityFormProps {
   isSubmitting: boolean;
 }
 
-export const ActivityForm: React.FC<ActivityFormProps> = observer(
+export const ActivityForm: React.FC<ActivityFormProps> =
   (props: ActivityFormProps) => {
     return (
       <Segment clearing>
@@ -68,5 +67,4 @@ export const ActivityForm: React.FC<ActivityFormProps> = observer(
         </Form>
       </Segment>
     );
-  }
-);
+  };

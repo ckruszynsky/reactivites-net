@@ -1,17 +1,17 @@
 import { observer } from 'mobx-react-lite';
 import React, { Fragment, useContext, useEffect } from 'react';
+import { Route, RouteComponentProps, Switch, withRouter } from 'react-router';
 
 import { LoadingIndicator } from '../../components/LoadingIndicator';
 import { Navbar } from '../../components/Navbar';
 import ActivityStore from '../../stores/activityStore';
-import { Route, Router, Switch } from '../../util/router';
 import { Dashboard } from '../dashboard';
 import { Details } from '../details';
 import { NewActivity } from '../newActivity';
 
-export const App = observer(() => {
+const App:React.FC<RouteComponentProps> = observer(({location}) => {
   const activityStore = useContext(ActivityStore);
-
+  
   useEffect(() => {
     activityStore.loadActivities();
   }, [activityStore]);
@@ -19,17 +19,17 @@ export const App = observer(() => {
   if (activityStore.loadingInitial) {
     return <LoadingIndicator content="Loading activities...." inverted={true} />;
   }
-  return (
-    <Router>
+  return (    
       <Fragment>
         <Navbar />
         <Switch>
           <Route exact path="/activities" component={Dashboard} />
           <Route exact path="/activities/:id" component={Details} />
-          <Route path={["/new",'/manage/:id']} component={NewActivity} />
+          <Route key={location.key} path={["/new",'/manage/:id']} component={NewActivity} />
           <Route exact path="/" component={Dashboard} />
         </Switch>
-      </Fragment>
-    </Router>
+      </Fragment>    
   );
 });
+
+export default withRouter(App);

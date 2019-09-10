@@ -22,8 +22,10 @@ export const NewActivity: React.FC<RouteComponentProps<DetailParams>> = observer
       loadActivity,
       cancelFormOpen,
       createActivity,
-      editActivity
+      editActivity,
+      clearActivity
     } = activityStore;
+
     const [activity, setActivity] = useState<IActivity>({
       id: "",
       title: "",
@@ -40,7 +42,10 @@ export const NewActivity: React.FC<RouteComponentProps<DetailParams>> = observer
           () => initialFormState && setActivity(initialFormState)
         );
       }
-    });
+      return () => {
+        clearActivity();
+      };
+    }, [loadActivity, clearActivity, match.params.id, initialFormState]);
 
     const onInputChange = (
       event: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLTextAreaElement>
@@ -59,7 +64,7 @@ export const NewActivity: React.FC<RouteComponentProps<DetailParams>> = observer
     };
     return (
       <Container className="newActivityContainer">
-        {initialFormState && (
+        {activity && (
           <ActivityForm
             activity={activity}
             handleInputChange={onInputChange}

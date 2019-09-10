@@ -13,10 +13,12 @@ interface DetailsParams {
   id: string;
 }
 
-export const Details: React.FC<RouteComponentProps<DetailsParams>> = observer(({ match }) => {
+export const Details: React.FC<RouteComponentProps<DetailsParams>> = observer(({ match,history }) => {
   const activityStore = useContext(ActivityStore);
   const { currentActivity, loadActivity, loadingInitial } = activityStore;
-
+  const handleCancel = () => {
+     history.push('/activities');
+  }
   useEffect(() => {
     loadActivity(match.params.id);
   }, [loadActivity]);
@@ -26,7 +28,7 @@ export const Details: React.FC<RouteComponentProps<DetailsParams>> = observer(({
   }
   return (
     <Container className="detailsContainer">
-      <ActivityDetails activity={currentActivity} />
+      <ActivityDetails activity={currentActivity} onCancel={handleCancel} />
     </Container>
   );
 });
