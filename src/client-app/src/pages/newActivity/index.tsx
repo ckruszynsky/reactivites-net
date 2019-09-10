@@ -3,10 +3,11 @@ import './styles.scss';
 import { observer } from 'mobx-react-lite';
 import React, { useContext, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
-import { Container } from 'semantic-ui-react';
+import { Container, Grid } from 'semantic-ui-react';
 import { v4 as uuid } from 'uuid';
 
 import { ActivityForm } from '../../components/ActivityForm';
+import { PageHeader } from '../../components/PageHeader';
 import { IActivity } from '../../models';
 import ActivityStore from '../../stores/activityStore';
 
@@ -64,15 +65,29 @@ export const NewActivity: React.FC<RouteComponentProps<DetailParams>> = observer
     };
     return (
       <Container className="newActivityContainer">
-        {activity && (
-          <ActivityForm
-            activity={activity}
-            handleInputChange={onInputChange}
-            handleSubmit={onSubmit}
-            isSubmitting={submitting}
-            handleCancel={cancelFormOpen}
-          />
-        )}
+        <Grid>
+          <Grid.Row>
+            <Grid.Column>
+              <PageHeader as="h2">
+                {activity.id && `Edit Activity`}
+                {!activity.id && `New Activity`}
+              </PageHeader>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column>
+              {activity && (
+                <ActivityForm
+                  activity={activity}
+                  handleInputChange={onInputChange}
+                  handleSubmit={onSubmit}
+                  isSubmitting={submitting}
+                  handleCancel={cancelFormOpen}
+                />
+              )}
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
       </Container>
     );
   }

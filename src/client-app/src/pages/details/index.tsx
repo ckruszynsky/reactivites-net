@@ -3,10 +3,11 @@ import './styles.scss';
 import { observer } from 'mobx-react-lite';
 import React, { useContext, useEffect } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Container } from 'semantic-ui-react';
+import { Container, Grid } from 'semantic-ui-react';
 
 import { ActivityDetails } from '../../components/ActivityDetails';
 import { LoadingIndicator } from '../../components/LoadingIndicator';
+import { PageHeader } from '../../components/PageHeader';
 import ActivityStore from '../../stores/activityStore';
 
 interface DetailsParams {
@@ -28,7 +29,16 @@ export const Details: React.FC<RouteComponentProps<DetailsParams>> = observer(({
   }
   return (
     <Container className="detailsContainer">
-      <ActivityDetails activity={currentActivity} onCancel={handleCancel} />
+      <Grid>
+          <Grid.Row>
+            <Grid.Column>
+              <PageHeader as="h2">{currentActivity.title} Details</PageHeader>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+          <ActivityDetails activity={currentActivity} onCancel={handleCancel} />
+          </Grid.Row>
+      </Grid>     
     </Container>
   );
 });
