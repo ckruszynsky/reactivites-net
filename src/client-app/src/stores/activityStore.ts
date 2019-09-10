@@ -8,9 +8,8 @@ configure({ enforceActions: "always" });
 
 class ActivityStore {
   @observable activityRegistry = new Map();
-  @observable loadingInitial = false;
-  @observable currentActivity: IActivity | null = null;
-  @observable editMode = false;
+  @observable loading = false;
+  @observable currentActivity: IActivity | null = null;  
   @observable submitting = false;
   @observable target = "";
 
@@ -21,7 +20,7 @@ class ActivityStore {
   }
 
   @action loadActivities = async () => {
-    this.loadingInitial = true;
+    this.loading = true;
     const activities = await agent.Activities.list();
     try {
       runInAction("loading activities", () => {
@@ -35,7 +34,7 @@ class ActivityStore {
     } finally {
       runInAction(
         "load activities set initial false",
-        () => (this.loadingInitial = false)
+        () => (this.loading = false)
       );
     }
   };
@@ -45,16 +44,16 @@ class ActivityStore {
       if (this.activityRegistry.has(id)) {
         this.currentActivity = this.activityRegistry.get(id);
       } else {
-        this.loadingInitial = true;
+        this.loading = true;
         const activity = await agent.Activities.details(id);
         runInAction("load Activity", () => {
           this.currentActivity = activity;
-          this.loadingInitial = false;
+          this.loading = false;
         });
       }
     } catch (error) {
       runInAction("load activity error", () => {
-        this.loadingInitial = false;
+        this.loading = false;
       });
       console.error(error);
     }
@@ -74,8 +73,7 @@ class ActivityStore {
     } catch (error) {
       console.error(error);
     } finally {
-      runInAction("Create Activity reset modes", () => {
-        this.editMode = false;
+      runInAction("Create Activity reset modes", () => { 
         this.submitting = false;
       });
     }
@@ -111,7 +109,6 @@ class ActivityStore {
     } finally {
       runInAction("Edit Activity reset modes", () => {
         this.submitting = false;
-        this.editMode = false;
       });
     }
   };

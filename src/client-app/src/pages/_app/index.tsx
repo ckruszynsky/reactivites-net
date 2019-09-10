@@ -20,7 +20,7 @@ const App: React.FC<RouteComponentProps> = observer(({location}) => {
     activityStore.loadActivities();
   }, [activityStore]);
 
-  if (activityStore.loadingInitial) {
+  if (activityStore.loading) {
     return <LoadingIndicator content="Loading activities...." inverted={true} />;
   }
   return (
