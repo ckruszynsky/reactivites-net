@@ -1,10 +1,10 @@
 import './styles.scss';
 
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Container, Grid } from 'semantic-ui-react';
+import {Link} from 'react-router-dom';
+import {Container, Grid} from 'semantic-ui-react';
 
-import { PageHeader } from '../../components/PageHeader';
+import {PageHeader} from '../../components/PageHeader';
 
 export const Home = () => {
   return (
@@ -18,7 +18,7 @@ export const Home = () => {
         <Grid.Row>
           <Grid.Column>
             <PageHeader as="h3">
-              <Link to={"/activities"}>Activites</Link>
+              Go to <Link to={"/activities"}>Activites</Link>
             </PageHeader>
           </Grid.Column>
         </Grid.Row>
