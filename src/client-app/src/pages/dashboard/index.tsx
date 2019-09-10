@@ -10,7 +10,12 @@ import ActivityStore from '../../stores/activityStore';
 
 export const Dashboard = observer(() => {
   const activityStore = useContext(ActivityStore);
-  const { editMode, currentActivity } = activityStore;
+  const {
+    activitiesByDate,    
+    deleteActivity,
+    submitting,
+    target
+  } = activityStore;
 
   return (
     <Container className="dashboardContainer">
@@ -23,12 +28,14 @@ export const Dashboard = observer(() => {
         <Grid.Row>
           <Grid.Column width={10}>
             <Segment clearing>
-              <ActivityList />
+              <ActivityList activities={activitiesByDate} 
+              onDelete={deleteActivity}
+              target={target}
+              submitting={submitting} />
             </Segment>
           </Grid.Column>
           <Grid.Column width={6}>
             <h2>Activity Filters</h2>
-
           </Grid.Column>
         </Grid.Row>
       </Grid>

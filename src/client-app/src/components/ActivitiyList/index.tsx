@@ -1,19 +1,26 @@
 import './styles.scss';
 
-import { observer } from 'mobx-react-lite';
-import React, { useContext } from 'react';
+import React, { SyntheticEvent, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Item, Label } from 'semantic-ui-react';
 
 import { IActivity } from '../../models';
-import ActivityStore from '../../stores/activityStore';
 
-export const ActivityList = observer(() => {
-  const activityStore = useContext(ActivityStore);
-  const { activitiesByDate, selectActivity, deleteActivity, submitting, target } = activityStore;
+interface ActivityListProps {
+  activities: IActivity[];
+  onDelete: (event: SyntheticEvent<HTMLButtonElement>, id: string) => void;
+  target: string;
+  submitting: boolean;
+}
+export const ActivityList: React.FC<ActivityListProps> = ({
+  activities,
+  onDelete,
+  target,
+  submitting
+}) => {
   return (
     <Item.Group divided>
-      {activitiesByDate.map((activity: IActivity) => (
+      {activities.map((activity: IActivity) => (
         <Item key={activity.id}>
           <Item.Content>
             <Item.Header as="a">{activity.title}</Item.Header>
@@ -31,13 +38,13 @@ export const ActivityList = observer(() => {
                 floated="right"
                 content="View"
                 color="blue"
-               />
+              />
               <Button
                 name={activity.id}
                 floated="right"
                 content="Delete"
                 color="red"
-                onClick={evt => deleteActivity(evt, activity.id)}
+                onClick={evt => onDelete(evt, activity.id)}
                 loading={target === activity.id && submitting}
               />
               <Label basic content={activity.category} />
@@ -47,4 +54,4 @@ export const ActivityList = observer(() => {
       ))}
     </Item.Group>
   );
-});
+};
