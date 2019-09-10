@@ -1,6 +1,6 @@
 import './styles.scss';
 
-import React, { SyntheticEvent, useContext } from 'react';
+import React, { SyntheticEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Item, Label } from 'semantic-ui-react';
 

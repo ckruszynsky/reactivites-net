@@ -22,7 +22,7 @@ export const Details: React.FC<RouteComponentProps<DetailsParams>> = observer(({
   }
   useEffect(() => {
     loadActivity(match.params.id);
-  }, [loadActivity]);
+  }, [loadActivity,match.params.id]);
 
   if (loadingInitial || !currentActivity) {
     return <LoadingIndicator content="Loading activity..." />;

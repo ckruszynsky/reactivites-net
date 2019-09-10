@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Button, Form, Segment } from 'semantic-ui-react';
 
 import { IActivity } from '../../models';

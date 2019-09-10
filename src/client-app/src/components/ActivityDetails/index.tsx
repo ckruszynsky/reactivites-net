@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import { Button, Card, Image } from 'semantic-ui-react';
 
 import { IActivity } from '../../models';
