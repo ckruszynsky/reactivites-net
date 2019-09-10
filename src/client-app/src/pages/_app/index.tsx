@@ -6,6 +6,7 @@ import { LoadingIndicator } from '../../components/LoadingIndicator';
 import { Navbar } from '../../components/Navbar';
 import ActivityStore from '../../stores/activityStore';
 import { Dashboard } from '../dashboard';
+import { Details } from '../details';
 import { NewActivity } from '../newActivity';
 
 export const App = observer(() => {
@@ -22,6 +23,7 @@ export const App = observer(() => {
     <Fragment>
       <Navbar />
       <Route path='/activities' component={Dashboard} />
+      <Route path='/activities/:id' component={Details} />
       <Route path='/new' component={NewActivity} />
       <Route exact path='/' component={Dashboard} />
     

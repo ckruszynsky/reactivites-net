@@ -2,6 +2,7 @@ import './styles.scss';
 
 import { observer } from 'mobx-react-lite';
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { Button, Item, Label } from 'semantic-ui-react';
 
 import { IActivity } from '../../models';
@@ -25,11 +26,12 @@ export const ActivityList = observer(() => {
             </Item.Description>
             <Item.Extra>
               <Button
+                as={Link}
+                to={`/activities/${activity.id}`}
                 floated="right"
                 content="View"
                 color="blue"
-                onClick={() => selectActivity(activity.id)}
-              />
+               />
               <Button
                 name={activity.id}
                 floated="right"
