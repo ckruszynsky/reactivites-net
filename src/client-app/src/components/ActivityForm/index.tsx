@@ -1,7 +1,7 @@
 import React from 'react';
-import { Button, Form, Segment } from 'semantic-ui-react';
+import {Button, Form, Segment} from 'semantic-ui-react';
 
-import { IActivity } from '../../models';
+import {IActivity} from '../../models';
 
 export interface ActivityFormProps {
   activity: IActivity;
@@ -63,7 +63,7 @@ export const ActivityForm: React.FC<ActivityFormProps> =
             content="Submit"
             loading={props.isSubmitting}
           />
-          <Button floated="right" content="Cancel" onClick={() => props.handleCancel()} />
+          <Button floated="right" type="button" content="Cancel" onClick={() => props.handleCancel()} />
         </Form>
       </Segment>
     );

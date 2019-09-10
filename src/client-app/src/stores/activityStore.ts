@@ -1,8 +1,8 @@
-import { action, computed, configure, observable, runInAction } from 'mobx';
-import { createContext, SyntheticEvent } from 'react';
+import {action, computed, configure, observable, runInAction} from 'mobx';
+import {createContext, SyntheticEvent} from 'react';
 
 import agent from '../api/agent';
-import { IActivity } from '../models';
+import {IActivity} from '../models';
 
 configure({ enforceActions: "always" });
 
@@ -81,11 +81,6 @@ class ActivityStore {
     }
   };
 
-  @action openEditForm = (id: string) => {
-    this.currentActivity = this.activityRegistry.get(id);
-    this.editMode = true;
-  };
-
   @action deleteActivity = async (
     event: SyntheticEvent<HTMLButtonElement>,
     id: string
@@ -120,14 +115,6 @@ class ActivityStore {
       });
     }
   };
-
-  @action cancelSelectedActivity = () => {
-    this.currentActivity = null;
-  };
-
-  @action cancelFormOpen = () => {
-    this.editMode = false;
-  };  
 }
 
 export default createContext(new ActivityStore());

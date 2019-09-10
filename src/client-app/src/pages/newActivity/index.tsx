@@ -1,27 +1,26 @@
 import './styles.scss';
 
-import { observer } from 'mobx-react-lite';
-import React, { useContext, useEffect, useState } from 'react';
-import { RouteComponentProps } from 'react-router';
-import { Container, Grid } from 'semantic-ui-react';
-import { v4 as uuid } from 'uuid';
+import {observer} from 'mobx-react-lite';
+import React, {useContext, useEffect, useState} from 'react';
+import {RouteComponentProps} from 'react-router';
+import {Container, Grid} from 'semantic-ui-react';
+import {v4 as uuid} from 'uuid';
 
-import { ActivityForm } from '../../components/ActivityForm';
-import { PageHeader } from '../../components/PageHeader';
-import { IActivity } from '../../models';
+import {ActivityForm} from '../../components/ActivityForm';
+import {PageHeader} from '../../components/PageHeader';
+import {IActivity} from '../../models';
 import ActivityStore from '../../stores/activityStore';
 
 interface DetailParams {
   id: string;
 }
 export const NewActivity: React.FC<RouteComponentProps<DetailParams>> = observer(
-  ({ match, history }) => {
+  ({match, history}) => {
     const activityStore = useContext(ActivityStore);
     const {
       currentActivity: initialFormState,
       submitting,
       loadActivity,
-      cancelFormOpen,
       createActivity,
       editActivity,
       clearActivity
@@ -46,18 +45,18 @@ export const NewActivity: React.FC<RouteComponentProps<DetailParams>> = observer
       return () => {
         clearActivity();
       };
-    }, [loadActivity, clearActivity, match.params.id, initialFormState,activity.id.length]);
+    }, [loadActivity, clearActivity, match.params.id, initialFormState, activity.id.length]);
 
     const onInputChange = (
       event: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLTextAreaElement>
     ) => {
-      const { name, value } = event.currentTarget;
-      setActivity({ ...activity, [name]: value });
+      const {name, value} = event.currentTarget;
+      setActivity({...activity, [name]: value});
     };
 
     const onSubmit = () => {
       if (activity.id.length === 0) {
-        let newActivity = { ...activity, id: uuid() };
+        let newActivity = {...activity, id: uuid()};
         createActivity(newActivity).then(() =>
           history.push(`/activities/${newActivity.id}`)
         );
@@ -65,6 +64,14 @@ export const NewActivity: React.FC<RouteComponentProps<DetailParams>> = observer
         editActivity(activity).then(() => history.push(`/activities/${activity.id}`));
       }
     };
+
+    const onCancel = () => {
+      if (activity.id.length > 0) {
+        history.push(`/activities/${activity.id}`);
+      } else {
+        history.push('/activities');
+      }
+    }
     return (
       <Container className="newActivityContainer">
         <Grid>
@@ -84,7 +91,7 @@ export const NewActivity: React.FC<RouteComponentProps<DetailParams>> = observer
                   handleInputChange={onInputChange}
                   handleSubmit={onSubmit}
                   isSubmitting={submitting}
-                  handleCancel={cancelFormOpen}
+                  handleCancel={onCancel}
                 />
               )}
             </Grid.Column>
