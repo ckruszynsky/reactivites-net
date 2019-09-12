@@ -1,14 +1,14 @@
 import './styles.scss';
 
-import {observer} from 'mobx-react-lite';
-import React, {useContext, useEffect, useState} from 'react';
-import {RouteComponentProps} from 'react-router';
-import {Container, Grid} from 'semantic-ui-react';
-import {v4 as uuid} from 'uuid';
+import { observer } from 'mobx-react-lite';
+import React, { useContext, useEffect, useState } from 'react';
+import { RouteComponentProps } from 'react-router';
+import { Container, Grid } from 'semantic-ui-react';
+import { v4 as uuid } from 'uuid';
 
-import {ActivityForm} from '../../components/Activity';
-import {PageHeader} from '../../components/PageHeader';
-import {IActivity} from '../../models';
+import { ActivityForm } from '../../components/Activity';
+import { PageHeader } from '../../components/PageHeader';
+import { IActivity } from '../../models';
 import ActivityStore from '../../stores/activityStore';
 
 interface DetailParams {
@@ -84,7 +84,7 @@ export const NewActivity: React.FC<RouteComponentProps<DetailParams>> = observer
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
-            <Grid.Column>
+            <Grid.Column width={10}>
               {activity && (
                 <ActivityForm
                   activity={activity}
