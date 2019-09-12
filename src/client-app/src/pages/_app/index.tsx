@@ -9,7 +9,7 @@ import {LoadingIndicator} from '../../components/LoadingIndicator';
 import {Navbar} from '../../components/Navbar';
 import ActivityStore from '../../stores/activityStore';
 import {Dashboard} from '../dashboard';
-import {Details} from '../details';
+import {Detail} from '../detail';
 import {Home} from '../home';
 import {NewActivity} from '../newActivity';
 
@@ -32,7 +32,7 @@ const App: React.FC<RouteComponentProps> = observer(({location}) => {
           <Container className="appContainer">
             <Switch>
               <Route exact path="/activities" component={Dashboard} />
-              <Route exact path="/activities/:id" component={Details} />
+              <Route exact path="/activities/:id" component={Detail} />
               <Route key={location.key} path={["/new", '/manage/:id']} component={NewActivity} />
             </Switch>
           </Container>

@@ -1,9 +1,7 @@
-import './styles.scss';
-
 import React from 'react';
 
 
-export const ActivityChat = () => {
+export const Chat = () => {
     return (
         <div>
             <h1>Chat</h1>

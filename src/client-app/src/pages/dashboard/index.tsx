@@ -4,7 +4,7 @@ import {observer} from 'mobx-react-lite';
 import React, {useContext} from 'react';
 import {Container, Grid} from 'semantic-ui-react';
 
-import {ActivityList} from '../../components/ActivitiyList';
+import {List} from '../../components/Activity';
 import {PageHeader} from '../../components/PageHeader';
 import ActivityStore from '../../stores/activityStore';
 
@@ -22,7 +22,7 @@ export const Dashboard = observer(() => {
         </Grid.Row>
         <Grid.Row>
           <Grid.Column width={10}>
-            <ActivityList activities={activitiesByDate} />
+            <List activities={activitiesByDate} />
           </Grid.Column>
           <Grid.Column width={6}>
             <h2>Activity Filters</h2>

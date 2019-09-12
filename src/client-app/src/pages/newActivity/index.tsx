@@ -6,7 +6,7 @@ import {RouteComponentProps} from 'react-router';
 import {Container, Grid} from 'semantic-ui-react';
 import {v4 as uuid} from 'uuid';
 
-import {ActivityForm} from '../../components/ActivityForm';
+import {ActivityForm} from '../../components/Activity';
 import {PageHeader} from '../../components/PageHeader';
 import {IActivity} from '../../models';
 import ActivityStore from '../../stores/activityStore';

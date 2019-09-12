@@ -3,13 +3,13 @@ import React from 'react';
 import { Grid } from 'semantic-ui-react';
 
 import { IActivity } from '../../models';
-import { ActivityChat } from '../ActivityChat';
-import { ActivityHeader } from '../ActivityHeader';
-import { ActivityInfo } from '../ActivityInfo';
-import { ActivitySidebar } from '../ActivitySidebar';
+import { Chat } from './Chat';
+import { Header } from './Header';
+import { Info } from './Info';
+import { Sidebar } from './Sidebar';
 
 
-export const ActivityDetails:React.FC<{
+export const Details:React.FC<{
   activity:IActivity;
   onCancel:()=> void;
 }> = observer(({activity, onCancel}) => {
@@ -17,12 +17,12 @@ export const ActivityDetails:React.FC<{
   return (
    <Grid>
      <Grid.Column width={10}>
-      <ActivityHeader />
-      <ActivityInfo />
-      <ActivityChat />
+      <Header />
+      <Info />
+      <Chat />
      </Grid.Column>
      <Grid.Column width={6}>
-      <ActivitySidebar />
+      <Sidebar />
      </Grid.Column>
    </Grid>
   );

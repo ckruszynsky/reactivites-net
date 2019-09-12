@@ -263,3 +263,6 @@ __pycache__/
 *.pyc
 
 *.ncrunch*
+src/Application/obj/Application.csproj.nuget.dgspec.json
+src/Application/obj/Application.csproj.nuget.cache
+src/Application/obj/Application.csproj.nuget.g.props

@@ -1,15 +1,14 @@
-import './styles.scss';
 
 import React, { Fragment } from 'react';
 import { Item, Label } from 'semantic-ui-react';
 
 import { IActivity } from '../../models';
-import { ActivityListItem } from '../ActivityListItem';
+import { ListItem } from './ListItem';
 
-interface ActivityListProps {
+interface ListProps {
   activities: [string, IActivity[]][];
 }
-export const ActivityList: React.FC<ActivityListProps> = ({
+export const List: React.FC<ListProps> = ({
   activities
 }) => {
   return (
@@ -21,7 +20,7 @@ export const ActivityList: React.FC<ActivityListProps> = ({
           </Label>
             <Item.Group divided>
               {acts.map((activity: IActivity) => (
-                <ActivityListItem key={activity.id} activity={activity} />
+                <ListItem key={activity.id} activity={activity} />
               ))}
             </Item.Group>
         </Fragment>

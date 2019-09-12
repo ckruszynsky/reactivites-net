@@ -179,33 +179,28 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ckrus\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "/Users/chadkruszynsky/.nuget/packages/": {},
+    "/usr/local/share/dotnet/sdk/NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\_Source\\reactivites-net\\src\\Domain\\Domain.csproj",
+      "projectUniqueName": "/Users/chadkruszynsky/Desktop/projects/reactivites-net/src/Domain/Domain.csproj",
       "projectName": "Domain",
-      "projectPath": "E:\\_Source\\reactivites-net\\src\\Domain\\Domain.csproj",
-      "packagesPath": "C:\\Users\\ckrus\\.nuget\\packages\\",
-      "outputPath": "E:\\_Source\\reactivites-net\\src\\Domain\\obj\\",
+      "projectPath": "/Users/chadkruszynsky/Desktop/projects/reactivites-net/src/Domain/Domain.csproj",
+      "packagesPath": "/Users/chadkruszynsky/.nuget/packages/",
+      "outputPath": "/Users/chadkruszynsky/Desktop/projects/reactivites-net/src/Domain/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\",
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\ckrus\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "/Users/chadkruszynsky/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netstandard2.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

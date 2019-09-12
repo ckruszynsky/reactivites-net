@@ -1,15 +1,13 @@
-import './styles.scss';
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Icon, Item, Segment } from 'semantic-ui-react';
 
 import { IActivity } from '../../models';
 
-interface ActivityListItemParams {
+interface ListItemParams {
   activity: IActivity;
 }
-export const ActivityListItem: React.FC<ActivityListItemParams> = ({ activity }) => {
+export const ListItem: React.FC<ListItemParams> = ({ activity }) => {
   return (
     <Segment.Group>
       <Segment>

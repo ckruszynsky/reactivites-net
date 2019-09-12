@@ -1,8 +1,6 @@
-import './styles.scss';
-
 import React from 'react';
 
-export const ActivityHeader = () => {
+export const Header = () => {
     return (
         <div>
             <h1>Header</h1>
