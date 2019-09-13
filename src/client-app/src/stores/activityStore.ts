@@ -1,8 +1,8 @@
-import {action, computed, configure, observable, runInAction} from 'mobx';
-import {createContext, SyntheticEvent} from 'react';
+import { action, computed, configure, observable, runInAction } from 'mobx';
+import { createContext, SyntheticEvent } from 'react';
 
 import agent from '../api/agent';
-import {IActivity} from '../models';
+import { IActivity } from '../models';
 
 configure({ enforceActions: "always" });
 
@@ -63,7 +63,7 @@ class ActivityStore {
       runInAction("load activity error", () => {
         this.loading = false;
       });
-      console.error(error);
+      console.log(error);
     }
   };
 

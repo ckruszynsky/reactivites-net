@@ -1,15 +1,23 @@
 import axios, { AxiosResponse } from 'axios';
 
 import { IActivity } from '../models';
+import { history } from '../util/router';
 
 
 axios.defaults.baseURL = "http://localhost:5000/api";
 
 axios.interceptors.response.use(undefined,
-  error => console.error(error));
+  error => {
+    if(error.response.status === 404){
+      history.push('/notfound');
+    }
+  });
 
-const responseBody = (response: AxiosResponse) => response.data;
-
+const responseBody = (response: AxiosResponse) => {
+  if(response && response.data){
+    return response.data;
+  }
+};
 const sleep = (ms:number) => (response:AxiosResponse) => 
 new Promise<AxiosResponse>(resolve=> setTimeout(()=> resolve(response),ms))
 

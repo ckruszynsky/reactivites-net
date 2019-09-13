@@ -25,8 +25,12 @@ export const Detail: React.FC<RouteComponentProps<DetailsParams>> = observer(
       loadActivity(match.params.id);
     }, [loadActivity, match.params.id]);
 
-    if (loading || !currentActivity) {
+    if (loading) {
       return <LoadingIndicator content="Loading activity..." />;
+    }
+
+    if(!currentActivity){
+      return <h2>Activity Not Found</h2>
     }
     return (
       <Container className="detailsContainer">
