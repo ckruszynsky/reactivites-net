@@ -1,17 +1,18 @@
 import './styles.scss';
 
-import {observer} from 'mobx-react-lite';
-import React, {Fragment, useContext, useEffect} from 'react';
-import {Route, RouteComponentProps, Switch, withRouter} from 'react-router';
-import {Container} from 'semantic-ui-react';
+import { observer } from 'mobx-react-lite';
+import React, { Fragment, useContext, useEffect } from 'react';
+import { Route, RouteComponentProps, Switch, withRouter } from 'react-router';
+import { Container } from 'semantic-ui-react';
 
-import {LoadingIndicator} from '../../components/LoadingIndicator';
-import {Navbar} from '../../components/Navbar';
+import { NotFound } from '../../components/Errors';
+import { LoadingIndicator } from '../../components/LoadingIndicator';
+import { Navbar } from '../../components/Navbar';
 import ActivityStore from '../../stores/activityStore';
-import {Dashboard} from '../dashboard';
-import {Detail} from '../detail';
-import {Home} from '../home';
-import {NewActivity} from '../newActivity';
+import { Dashboard } from '../dashboard';
+import { Detail } from '../detail';
+import { Home } from '../home';
+import { NewActivity } from '../newActivity';
 
 const App: React.FC<RouteComponentProps> = observer(({location}) => {
   const activityStore = useContext(ActivityStore);
@@ -34,6 +35,7 @@ const App: React.FC<RouteComponentProps> = observer(({location}) => {
               <Route exact path="/activities" component={Dashboard} />
               <Route exact path="/activities/:id" component={Detail} />
               <Route key={location.key} path={["/new", '/manage/:id']} component={NewActivity} />
+              <Route component={NotFound} />
             </Switch>
           </Container>
         </Fragment>

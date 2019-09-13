@@ -5,6 +5,9 @@ import { IActivity } from '../models';
 
 axios.defaults.baseURL = "http://localhost:5000/api";
 
+axios.interceptors.response.use(undefined,
+  error => console.error(error));
+
 const responseBody = (response: AxiosResponse) => response.data;
 
 const sleep = (ms:number) => (response:AxiosResponse) => 
