@@ -24,20 +24,35 @@ namespace API
         {
             services.AddDbContext<DataContext>(options =>
             {
-                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
+                options
+                .UseSqlite
+                (
+                    Configuration.GetConnectionString("DefaultConnection")
+                );
             });
 
             services.AddCors(Options =>
             {
                 Options.AddPolicy("CorsPolicy", policy =>
                 {
-                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
+                    policy
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .WithOrigins("http://localhost:3000");
                 });
             });
-            services.AddMediatR(typeof(List.Handler).Assembly);
+            
+            services.AddMediatR
+            (
+                typeof(List.Handler).Assembly
+            );
 
             services.AddMvc()
-            .AddFluentValidation(cfg => cfg.RegisterValidatorsFromAssemblyContaining<Create>())
+            .AddFluentValidation
+            (
+                cfg => 
+                cfg.RegisterValidatorsFromAssemblyContaining<Create>()
+            )
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
