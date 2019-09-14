@@ -3,6 +3,7 @@ import './styles.scss';
 import { observer } from 'mobx-react-lite';
 import React, { Fragment, useContext, useEffect } from 'react';
 import { Route, RouteComponentProps, Switch, withRouter } from 'react-router';
+import { ToastContainer } from 'react-toastify';
 import { Container } from 'semantic-ui-react';
 
 import { NotFound } from '../../components/Errors';
@@ -26,6 +27,7 @@ const App: React.FC<RouteComponentProps> = observer(({location}) => {
   }
   return (
     <Fragment>
+      <ToastContainer position='bottom-right' />
       <Route exact path="/" component={Home} />
       <Route path={'/(.+)'} render={() => (
         <Fragment>
