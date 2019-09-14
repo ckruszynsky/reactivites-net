@@ -4,7 +4,7 @@ import { Button, Form, Segment } from 'semantic-ui-react';
 
 import { categories } from '../../common';
 import { IActivity } from '../../models';
-import { SelectInput, TextAreaInput, TextInput } from '../Form';
+import { DateInput, SelectInput, TextAreaInput, TextInput } from '../Form';
 
 export interface ActivityFormProps {
   activity: IActivity;
@@ -50,11 +50,10 @@ export const ActivityForm: React.FC<ActivityFormProps> = ({
               component={SelectInput}
             />
             <Field
-              type="datetime-local"
               placeholder="Date"
               name="date"
-              value={activity.date}
-              component={TextInput}
+              value={activity.date!}
+              component={DateInput}
             />
             <Field
               placeholder="City"

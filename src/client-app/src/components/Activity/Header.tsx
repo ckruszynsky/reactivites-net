@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Header as SemanticHeader, Image, Item, Segment } from 'semantic-ui-react';
@@ -33,7 +34,7 @@ export const Header: React.FC<{ activity: IActivity }> = ({ activity }) => {
                 <SemanticHeader size="huge" 
                     content={activity.title} 
                     style={{ color: "white" }} />
-                <p>{activity.date}</p>
+                <p>{format(activity.date!,'eeee,MMMM do')}</p>
                 <p>
                   Hosted by <strong>Bob</strong>
                 </p>

@@ -1,6 +1,9 @@
-import React from "react";
-import { Segment, Grid, Icon } from "semantic-ui-react";
-import {IActivity} from '../../models';
+import { format } from 'date-fns';
+import React from 'react';
+import { Grid, Icon, Segment } from 'semantic-ui-react';
+
+import { IActivity } from '../../models';
+
 export const Info:React.FC<{activity:IActivity}> = ({activity}) => {
   return (
     <Segment.Group>
@@ -20,7 +23,7 @@ export const Info:React.FC<{activity:IActivity}> = ({activity}) => {
             <Icon name="calendar" size="large" color="teal" />
           </Grid.Column>
           <Grid.Column width={15}>
-            <span>{activity.date}</span>
+            <span>{format(activity.date!,'eeee,MMMM do')} @  {format(activity.date!,'h:mm a')} </span>
           </Grid.Column>
         </Grid>
       </Segment>

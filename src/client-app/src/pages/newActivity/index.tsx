@@ -31,7 +31,7 @@ export const NewActivity: React.FC<RouteComponentProps<DetailParams>> = observer
       title: "",
       category: "",
       description: "",
-      date: "",
+      date:null,
       city: "",
       venue: ""
     });
