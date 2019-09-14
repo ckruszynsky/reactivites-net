@@ -3,7 +3,7 @@ import { Field, Form as FinalForm } from 'react-final-form';
 import { Button, Form, Segment } from 'semantic-ui-react';
 
 import { IActivity } from '../../models';
-import { TextInput } from '../Form';
+import { TextAreaInput, TextInput } from '../Form';
 
 export interface ActivityFormProps {
   activity: IActivity;
@@ -35,11 +35,11 @@ export const ActivityForm: React.FC<ActivityFormProps> = ({
               component={TextInput}
             />
             <Field
-              rows={2}
+              rows={3}
               placeholder="Description"
               name="description"
               value={activity.description}
-              component={TextInput}
+              component={TextAreaInput}
             />
              <Field
               name="category"
