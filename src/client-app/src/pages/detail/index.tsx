@@ -17,10 +17,7 @@ export const Detail: React.FC<RouteComponentProps<DetailsParams>> = observer(
   ({ match, history }) => {
     const activityStore = useContext(ActivityStore);
     const { currentActivity, loadActivity, loading } = activityStore;
-
-    const handleCancel = () => {
-      history.push("/activities");
-    };
+    
     useEffect(() => {
       loadActivity(match.params.id);
     }, [loadActivity, match.params.id]);

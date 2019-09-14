@@ -3,12 +3,10 @@ import { Field, Form as FinalForm } from 'react-final-form';
 import { Button, Form, Segment } from 'semantic-ui-react';
 
 import { IActivity } from '../../models';
+import { TextInput } from '../Form';
 
 export interface ActivityFormProps {
   activity: IActivity;
-  handleInputChange: (
-    event: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLTextAreaElement>
-  ) => void;
   handleSubmit: () => void;
   handleCancel: () => void;
   isSubmitting: boolean;
@@ -20,9 +18,9 @@ const handleFinalFormSubmit = (values: any) => {
 
 export const ActivityForm: React.FC<ActivityFormProps> = ({
   activity,
-  handleInputChange,
   handleSubmit,
-  handleCancel
+  handleCancel,
+  isSubmitting
 }) => {
   return (
     <Segment clearing>
@@ -34,39 +32,39 @@ export const ActivityForm: React.FC<ActivityFormProps> = ({
               name="title"
               placeholder="Title"
               value={activity.title}
-              component="input"
+              component={TextInput}
             />
-            <Form.TextArea
+            <Field
               rows={2}
               placeholder="Description"
               name="description"
               value={activity.description}
-              onChange={evt => handleInputChange(evt)}
+              component={TextInput}
             />
-            <Form.Input
-              placeholder="Category"
+             <Field
               name="category"
+              placeholder="Category"
               value={activity.category}
-              onChange={evt => handleInputChange(evt)}
+              component={TextInput}
             />
-            <Form.Input
+            <Field
               type="datetime-local"
               placeholder="Date"
               name="date"
               value={activity.date}
-              onChange={evt => handleInputChange(evt)}
+              component={TextInput}
             />
-            <Form.Input
+            <Field
               placeholder="City"
               name="city"
               value={activity.city}
-              onChange={evt => handleInputChange(evt)}
+              component={TextInput}
             />
-            <Form.Input
+            <Field
               placeholder="Venue"
               name="venue"
               value={activity.venue}
-              onChange={evt => handleInputChange(evt)}
+              component={TextInput}
             />
             <Button
               floated="right"

@@ -47,13 +47,6 @@ export const NewActivity: React.FC<RouteComponentProps<DetailParams>> = observer
       };
     }, [loadActivity, clearActivity, match.params.id, initialFormState, activity.id.length]);
 
-    const onInputChange = (
-      event: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLTextAreaElement>
-    ) => {
-      const {name, value} = event.currentTarget;
-      setActivity({...activity, [name]: value});
-    };
-
     const onSubmit = () => {
       if (activity.id.length === 0) {
         let newActivity = {...activity, id: uuid()};
@@ -88,7 +81,6 @@ export const NewActivity: React.FC<RouteComponentProps<DetailParams>> = observer
               {activity && (
                 <ActivityForm
                   activity={activity}
-                  handleInputChange={onInputChange}
                   handleSubmit={onSubmit}
                   isSubmitting={submitting}
                   handleCancel={onCancel}
