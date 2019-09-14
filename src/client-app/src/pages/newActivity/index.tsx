@@ -8,7 +8,7 @@ import { v4 as uuid } from 'uuid';
 
 import { ActivityForm } from '../../components/Activity';
 import { PageHeader } from '../../components/PageHeader';
-import { IActivity } from '../../models';
+import { IActivityFormValues } from '../../models';
 import ActivityStore from '../../stores/activityStore';
 
 interface DetailParams {
@@ -26,18 +26,19 @@ export const NewActivity: React.FC<RouteComponentProps<DetailParams>> = observer
       clearActivity
     } = activityStore;
 
-    const [activity, setActivity] = useState<IActivity>({
-      id: "",
+    const [activity, setActivity] = useState<IActivityFormValues>({
+      id: undefined,
       title: "",
       category: "",
       description: "",
-      date:null,
+      date:undefined,
+      time:undefined,
       city: "",
       venue: ""
     });
 
     useEffect(() => {
-      if (match.params.id && activity.id.length === 0) {
+      if (match.params.id && activity.id ) {
         loadActivity(match.params.id).then(
           () => initialFormState && setActivity(initialFormState)
         );
@@ -45,21 +46,38 @@ export const NewActivity: React.FC<RouteComponentProps<DetailParams>> = observer
       return () => {
         clearActivity();
       };
-    }, [loadActivity, clearActivity, match.params.id, initialFormState, activity.id.length]);
+    }, [loadActivity, clearActivity, match.params.id, initialFormState, activity.id]);
 
     const onSubmit = () => {
-      if (activity.id.length === 0) {
-        let newActivity = {...activity, id: uuid()};
+      if (!activity.id) {
+        let newActivity = {
+          id: uuid(),
+          title: activity.title!,
+          category:activity.category!,
+          description:activity.description!,
+          date: activity.date!,
+          city: activity.city!,
+          venue: activity.venue!
+        };
         createActivity(newActivity).then(() =>
           history.push(`/activities/${newActivity.id}`)
         );
       } else {
-        editActivity(activity).then(() => history.push(`/activities/${activity.id}`));
+        let editedActivity = {
+          id: activity.id!,
+          title: activity.title!,
+          category:activity.category!,
+          description:activity.description!,
+          date: activity.date!,
+          city: activity.city!,
+          venue: activity.venue!
+        }
+        editActivity(editedActivity).then(() => history.push(`/activities/${activity.id}`));
       }
     };
 
     const onCancel = () => {
-      if (activity.id.length > 0) {
+      if (activity.id) {
         history.push(`/activities/${activity.id}`);
       } else {
         history.push('/activities');

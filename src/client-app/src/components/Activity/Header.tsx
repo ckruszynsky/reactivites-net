@@ -34,7 +34,7 @@ export const Header: React.FC<{ activity: IActivity }> = ({ activity }) => {
                 <SemanticHeader size="huge" 
                     content={activity.title} 
                     style={{ color: "white" }} />
-                <p>{format(activity.date!,'eeee,MMMM do')}</p>
+                <p>{format(activity.date,'eeee,MMMM do')}</p>
                 <p>
                   Hosted by <strong>Bob</strong>
                 </p>

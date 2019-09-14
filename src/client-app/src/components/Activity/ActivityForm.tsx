@@ -3,18 +3,22 @@ import { Field, Form as FinalForm } from 'react-final-form';
 import { Button, Form, Segment } from 'semantic-ui-react';
 
 import { categories } from '../../common';
-import { IActivity } from '../../models';
+import { IActivityFormValues } from '../../models';
+import { combineDateAndTime } from '../../util/combineDateTime';
 import { DateInput, SelectInput, TextAreaInput, TextInput } from '../Form';
 
 export interface ActivityFormProps {
-  activity: IActivity;
+  activity: IActivityFormValues;
   handleSubmit: () => void;
   handleCancel: () => void;
   isSubmitting: boolean;
 }
 
 const handleFinalFormSubmit = (values: any) => {
-  console.log(values);
+  const dateAndTime = combineDateAndTime(values.date,values.time);
+  const {date,time,...activity} = values;
+  activity.date = dateAndTime;
+  console.log(activity);
 };
 
 export const ActivityForm: React.FC<ActivityFormProps> = ({
@@ -49,12 +53,23 @@ export const ActivityForm: React.FC<ActivityFormProps> = ({
               options={categories}
               component={SelectInput}
             />
+            <Form.Group widths="equal">
             <Field
               placeholder="Date"
+              date={true}
               name="date"
-              value={activity.date!}
+              value={activity.date}
               component={DateInput}
             />
+            <Field
+              placeholder="Time"
+              name="time"
+              time={true}
+              value={activity.date}
+              component={DateInput}
+            />
+            </Form.Group>
+            
             <Field
               placeholder="City"
               name="city"

@@ -10,12 +10,16 @@ export const DateInput: React.FC<IDateInputProps> = ({
   width,
   type,
   placeholder,
+  date = false,
+  time = false,
   meta: { touched, error },
   ...rest
 }) => {
   return (
     <Form.Field error={touched && !!error} width={width}>
-      <DateTimePicker placeholder={placeholder} 
+      <DateTimePicker placeholder={placeholder}
+            date={date} 
+            time={time}
             value={input.value || null}
             onChange={input.onChange}
             {...rest} />
