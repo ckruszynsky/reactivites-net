@@ -2,8 +2,9 @@ import React from 'react';
 import { Field, Form as FinalForm } from 'react-final-form';
 import { Button, Form, Segment } from 'semantic-ui-react';
 
+import { categories } from '../../common';
 import { IActivity } from '../../models';
-import { TextAreaInput, TextInput } from '../Form';
+import { SelectInput, TextAreaInput, TextInput } from '../Form';
 
 export interface ActivityFormProps {
   activity: IActivity;
@@ -45,7 +46,8 @@ export const ActivityForm: React.FC<ActivityFormProps> = ({
               name="category"
               placeholder="Category"
               value={activity.category}
-              component={TextInput}
+              options={categories}
+              component={SelectInput}
             />
             <Field
               type="datetime-local"
