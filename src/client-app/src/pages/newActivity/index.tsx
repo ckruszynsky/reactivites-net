@@ -8,7 +8,7 @@ import { v4 as uuid } from 'uuid';
 
 import { ActivityForm } from '../../components/Activity';
 import { PageHeader } from '../../components/PageHeader';
-import { IActivityFormValues } from '../../models';
+import { ActivityFormValues, IActivityFormValues } from '../../models';
 import ActivityStore from '../../stores/activityStore';
 
 interface DetailParams {
@@ -18,7 +18,6 @@ export const NewActivity: React.FC<RouteComponentProps<DetailParams>> = observer
   ({match, history}) => {
     const activityStore = useContext(ActivityStore);
     const {
-      currentActivity: initialFormState,
       submitting,
       loadActivity,
       createActivity,
@@ -26,27 +25,21 @@ export const NewActivity: React.FC<RouteComponentProps<DetailParams>> = observer
       clearActivity
     } = activityStore;
 
-    const [activity, setActivity] = useState<IActivityFormValues>({
-      id: undefined,
-      title: "",
-      category: "",
-      description: "",
-      date:undefined,
-      time:undefined,
-      city: "",
-      venue: ""
-    });
-
+    const [activity, setActivity] = useState<IActivityFormValues>(new ActivityFormValues());
+    const [loading,setloading] = useState(false);
     useEffect(() => {
-      if (match.params.id && activity.id ) {
+      if (match.params.id) {
+        setloading(true);
         loadActivity(match.params.id).then(
-          () => initialFormState && setActivity(initialFormState)
-        );
+          (activity) => {
+            setActivity(new ActivityFormValues(activity!))
+          }
+        ).finally(()=> setloading(false));
       }
       return () => {
         clearActivity();
       };
-    }, [loadActivity, clearActivity, match.params.id, initialFormState, activity.id]);
+    }, [loadActivity, clearActivity, match.params.id]);
 
     const onSubmit = () => {
       if (!activity.id) {
@@ -99,6 +92,7 @@ export const NewActivity: React.FC<RouteComponentProps<DetailParams>> = observer
               {activity && (
                 <ActivityForm
                   activity={activity}
+                  loading={loading}
                   handleSubmit={onSubmit}
                   isSubmitting={submitting}
                   handleCancel={onCancel}

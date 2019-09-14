@@ -12,6 +12,7 @@ export interface ActivityFormProps {
   handleSubmit: () => void;
   handleCancel: () => void;
   isSubmitting: boolean;
+  loading:boolean;
 }
 
 const handleFinalFormSubmit = (values: any) => {
@@ -25,14 +26,17 @@ export const ActivityForm: React.FC<ActivityFormProps> = ({
   activity,
   handleSubmit,
   handleCancel,
-  isSubmitting
+  isSubmitting,
+  loading
 }) => {
   return (
     <Segment clearing>
       <FinalForm
+        initialValues={activity}
         onSubmit={handleFinalFormSubmit}
+        
         render={({ handleSubmit }) => (
-          <Form onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmit} loading={loading}>
             <Field
               name="title"
               placeholder="Title"
@@ -87,12 +91,14 @@ export const ActivityForm: React.FC<ActivityFormProps> = ({
               positive
               type="submit"
               content="Submit"
+              disabled={loading}
               loading={isSubmitting}
             />
             <Button
               floated="right"
               type="button"
               content="Cancel"
+              disabled={loading}
               onClick={() => handleCancel()}
             />
           </Form>

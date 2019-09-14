@@ -1,16 +1,25 @@
 import './styles.scss';
 
-import {observer} from 'mobx-react-lite';
-import React, {useContext} from 'react';
-import {Container, Grid} from 'semantic-ui-react';
+import { observer } from 'mobx-react-lite';
+import React, { useContext, useEffect } from 'react';
+import { Container, Grid } from 'semantic-ui-react';
 
-import {List} from '../../components/Activity';
-import {PageHeader} from '../../components/PageHeader';
+import { List } from '../../components/Activity';
+import { LoadingIndicator } from '../../components/LoadingIndicator';
+import { PageHeader } from '../../components/PageHeader';
 import ActivityStore from '../../stores/activityStore';
 
 export const Dashboard = observer(() => {
   const activityStore = useContext(ActivityStore);
   const {activitiesByDate} = activityStore;
+ 
+  useEffect(() => {
+    activityStore.loadActivities();
+  }, [activityStore]);
+
+  if (activityStore.loading) {
+    return <LoadingIndicator content="Loading activities...." inverted={true} />;
+  }
 
   return (
     <Container className="dashboardContainer">

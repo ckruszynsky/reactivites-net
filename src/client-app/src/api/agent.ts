@@ -41,8 +41,14 @@ const requests = {
 };
 
 const Activities = {
-  list: ():Promise<IActivity[]> => requests.get("/activities"),
-  details: (id: string):Promise<IActivity> => requests.get(`/activities/${id}`),
+  list: ():Promise<IActivity[]> => {
+    console.log('loading activities');
+    return requests.get("/activities")
+  },
+  details: (id: string):Promise<IActivity> => {
+    console.log('getting activity details');
+    return requests.get(`/activities/${id}`)
+  },
   create: (activity: IActivity) => requests.post(`/activities`, activity),
   update: (activity: IActivity) => requests.put(`/activities/${activity.id}`, activity),
   delete: (id: string) => requests.del(`/activities/${id}`)

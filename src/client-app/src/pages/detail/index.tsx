@@ -1,7 +1,7 @@
 import './styles.scss';
 
 import { observer } from 'mobx-react-lite';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { Container, Grid } from 'semantic-ui-react';
 
@@ -16,13 +16,14 @@ interface DetailsParams {
 export const Detail: React.FC<RouteComponentProps<DetailsParams>> = observer(
   ({ match, history }) => {
     const activityStore = useContext(ActivityStore);
-    const { currentActivity, loadActivity, loading } = activityStore;
-    
+    const {loadActivity, loading } = activityStore;
+    const [activity,setActivity] = useState();
+
     useEffect(() => {
-      loadActivity(match.params.id);
+      loadActivity(match.params.id).then(act => setActivity(act));
     }, [loadActivity, match.params.id]);
 
-    if (loading || !currentActivity) {
+    if (loading || !activity) {
       return <LoadingIndicator content="Loading activity..." />;
     }
 
@@ -30,12 +31,12 @@ export const Detail: React.FC<RouteComponentProps<DetailsParams>> = observer(
       <Container className="detailsContainer">
         <Grid>
           <Grid.Column width={10}>
-            <Header activity={currentActivity} />
-            <Info activity={currentActivity} />
-            <Chat activity={currentActivity} />
+            <Header activity={activity} />
+            <Info activity={activity} />
+            <Chat activity={activity} />
           </Grid.Column>
           <Grid.Column width={6}>
-            <Sidebar activity={currentActivity} />
+            <Sidebar activity={activity} />
           </Grid.Column>
         </Grid>
       </Container>

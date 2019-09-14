@@ -51,13 +51,15 @@ class ActivityStore {
     try {
       if (this.activityRegistry.has(id)) {
         this.currentActivity = this.activityRegistry.get(id);
+        return this.currentActivity;
       } else {
         this.loading = true;
         const activity = await agent.Activities.details(id);
-        runInAction("load Activity", () => {
+        return runInAction("load Activity", () => {
           activity.date = new Date();
           this.currentActivity = activity;
           this.loading = false;
+          return activity;
         });
       }
     } catch (error) {
