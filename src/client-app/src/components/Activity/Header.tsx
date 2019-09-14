@@ -1,6 +1,9 @@
-import React from "react";
-import { Segment, Image, Item, Header as SemanticHeader, Button } from "semantic-ui-react";
-import { IActivity } from "../../models";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Button, Header as SemanticHeader, Image, Item, Segment } from 'semantic-ui-react';
+
+import { IActivity } from '../../models';
+
 const activityImageStyle = {
   filter: "brightness(30%)"
 };
@@ -42,7 +45,7 @@ export const Header: React.FC<{ activity: IActivity }> = ({ activity }) => {
       <Segment clearing attached="bottom">
         <Button color="teal">Join Activity</Button>
         <Button>Cancel attendance</Button>
-        <Button color="orange" floated="right">
+        <Button as={Link} to={`/manage/${activity.id}`} color="orange" floated="right">
           Manage Event
         </Button>
       </Segment>
