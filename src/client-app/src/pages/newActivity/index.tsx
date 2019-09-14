@@ -22,7 +22,6 @@ export const NewActivity: React.FC<RouteComponentProps<DetailParams>> = observer
       loadActivity,
       createActivity,
       editActivity,
-      clearActivity
     } = activityStore;
 
     const [activity, setActivity] = useState<IActivityFormValues>(new ActivityFormValues());
@@ -36,10 +35,7 @@ export const NewActivity: React.FC<RouteComponentProps<DetailParams>> = observer
           }
         ).finally(()=> setloading(false));
       }
-      return () => {
-        clearActivity();
-      };
-    }, [loadActivity, clearActivity, match.params.id]);
+    }, [loadActivity, match.params.id]);
 
     const onSubmit = (activity:IActivityFormValues) => {
       if (!activity.id) {

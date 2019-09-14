@@ -51,8 +51,9 @@ class ActivityStore {
   @action loadActivity = async (id: string) => {
     try {
       if (this.activityRegistry.has(id)) {
-        this.currentActivity = this.activityRegistry.get(id);
-        return this.currentActivity;
+        const activity = this.activityRegistry.get(id);
+        this.currentActivity = activity;
+        return activity;
       } else {
         this.loading = true;
         const activity = await agent.Activities.details(id);
