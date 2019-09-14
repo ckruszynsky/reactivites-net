@@ -9,17 +9,17 @@ import { DateInput, SelectInput, TextAreaInput, TextInput } from '../Form';
 
 export interface ActivityFormProps {
   activity: IActivityFormValues;
-  handleSubmit: () => void;
+  handleSubmit: (activity:IActivityFormValues) => void;
   handleCancel: () => void;
   isSubmitting: boolean;
   loading:boolean;
 }
 
-const handleFinalFormSubmit = (values: any) => {
+const handleFinalFormSubmit = (values: any, submitCallback:(activity:IActivityFormValues)=> void) => {
   const dateAndTime = combineDateAndTime(values.date,values.time);
   const {date,time,...activity} = values;
   activity.date = dateAndTime;
-  console.log(activity);
+  submitCallback(activity);
 };
 
 export const ActivityForm: React.FC<ActivityFormProps> = ({
@@ -33,7 +33,7 @@ export const ActivityForm: React.FC<ActivityFormProps> = ({
     <Segment clearing>
       <FinalForm
         initialValues={activity}
-        onSubmit={handleFinalFormSubmit}
+        onSubmit={(values) => handleFinalFormSubmit(values,handleSubmit)}
         
         render={({ handleSubmit }) => (
           <Form onSubmit={handleSubmit} loading={loading}>

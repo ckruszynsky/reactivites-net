@@ -3,6 +3,7 @@ import { createContext, SyntheticEvent } from 'react';
 
 import agent from '../api/agent';
 import { IActivity } from '../models';
+import { history } from '../util/router';
 
 configure({ enforceActions: "always" });
 
@@ -55,12 +56,14 @@ class ActivityStore {
       } else {
         this.loading = true;
         const activity = await agent.Activities.details(id);
-        return runInAction("load Activity", () => {
+        runInAction("load Activity", () => {
           activity.date = new Date();
           this.currentActivity = activity;
+          this.activityRegistry.set(activity.id, activity);
           this.loading = false;
-          return activity;
         });
+        return activity;
+       
       }
     } catch (error) {
       runInAction("load activity error", () => {
@@ -78,9 +81,10 @@ class ActivityStore {
     this.submitting = true;
     try {
       await agent.Activities.create(activity);
-      runInAction("Create Activity", () =>
-        this.activityRegistry.set(activity.id, activity)
-      );
+      runInAction("Create Activity", () =>{
+        this.activityRegistry.set(activity.id, activity);
+          history.push(`/activities/${activity.id}`)
+      });
     } catch (error) {
       console.error(error);
     } finally {
@@ -114,6 +118,7 @@ class ActivityStore {
       runInAction("Edit Activity", () => {
         this.activityRegistry.set(activity.id, activity);
         this.currentActivity = activity;
+        history.push(`/activities/${activity.id}`);
       });
     } catch (error) {
       console.error(error);

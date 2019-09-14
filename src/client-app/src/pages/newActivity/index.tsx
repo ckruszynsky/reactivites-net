@@ -41,7 +41,7 @@ export const NewActivity: React.FC<RouteComponentProps<DetailParams>> = observer
       };
     }, [loadActivity, clearActivity, match.params.id]);
 
-    const onSubmit = () => {
+    const onSubmit = (activity:IActivityFormValues) => {
       if (!activity.id) {
         let newActivity = {
           id: uuid(),
@@ -52,9 +52,7 @@ export const NewActivity: React.FC<RouteComponentProps<DetailParams>> = observer
           city: activity.city!,
           venue: activity.venue!
         };
-        createActivity(newActivity).then(() =>
-          history.push(`/activities/${newActivity.id}`)
-        );
+        createActivity(newActivity);
       } else {
         let editedActivity = {
           id: activity.id!,
@@ -65,7 +63,7 @@ export const NewActivity: React.FC<RouteComponentProps<DetailParams>> = observer
           city: activity.city!,
           venue: activity.venue!
         }
-        editActivity(editedActivity).then(() => history.push(`/activities/${activity.id}`));
+        editActivity(editedActivity);  
       }
     };
 
