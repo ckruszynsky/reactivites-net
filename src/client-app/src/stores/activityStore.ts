@@ -1,5 +1,6 @@
 import { action, computed, configure, observable, runInAction } from 'mobx';
 import { createContext, SyntheticEvent } from 'react';
+import { toast } from 'react-toastify';
 
 import agent from '../api/agent';
 import { IActivity } from '../models';
@@ -70,7 +71,7 @@ class ActivityStore {
       runInAction("load activity error", () => {
         this.loading = false;
       });
-      console.log(error);
+      console.log(error.response);
     }
   };
 
@@ -87,7 +88,7 @@ class ActivityStore {
           history.push(`/activities/${activity.id}`)
       });
     } catch (error) {
-      console.error(error);
+      toast.error("Problem submitting data");
     } finally {
       runInAction("Create Activity reset modes", () => { 
         this.submitting = false;
