@@ -11,25 +11,24 @@ namespace Application.User
 {
     public class Login
     {
-        public class List
+        public class Query : IRequest<AppUser>
+        {
+            public string Email { get; set; }
+            public string Password { get; set; }
+        }
+
+        public class QueryValidator : AbstractValidator<Query>
         {
 
-            public class Query : IRequest<AppUser>
+            public QueryValidator ()
             {
-                public string Email { get; set; }
-                public string Password { get; set; }
+                RuleFor (x => x.Email).NotEmpty ();
+                RuleFor (x => x.Password).NotEmpty ();
             }
 
-            public class QueryValidator : AbstractValidator<Query>
-            {
-
-                public QueryValidator ()
-                {
-                    RuleFor (x => x.Email).NotEmpty ();
-                    RuleFor (x => x.Password).NotEmpty ();
-                }
-
-            }
+        }
+        public class List
+        {
             public class Handler : IRequestHandler<Query, AppUser>
             {
                 private readonly UserManager<AppUser> _userManager;
