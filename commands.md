@@ -1,4 +1,5 @@
 # CommandLine
+
 - cd 'E:\projects\github repos'
 
 - mkdir reactivities-net
@@ -35,6 +36,23 @@
 - cd ./src/API
 - dotnet watch run (only works in context of startup project)
 
+# Dotnet User Secrets
+
+Only available in Development Mode.
+
+- dotnet user-secrets [options][command]
+- dotnet user-secrets list
+- dotnet user-secrets clear
+- dotnet user-secrets set
+- dotnet user-secrets remove
+
+- To setup up secrets in your project go into csproj file add a new Property in the
+  <PropertyGroup> section call <UserSecretsId> and give it a guid value.
+
+- Once you have done this you can then use the "set" method to add your secrets.
+
+In production, utilize environment variables.
+
 # Packages Added
 
 - Microsoft.EntityFrameworkCore
@@ -50,38 +68,43 @@
 ```
 
 ## Prune when you fetch from remote
+
 ```
- git fetch --prune 
- ```
+ git fetch --prune
+```
 
- ## Prune local branches which have been merged
- ```
-  git branch --merged
-  ```
+## Prune local branches which have been merged
 
-  ### To delete a branch 
-  ```
-    git branch -d branch-to-delete
-  ```
+```
+ git branch --merged
+```
+
+### To delete a branch
+
+```
+  git branch -d branch-to-delete
+```
 
 ## Prune local branches which have not been merged
+
 ```
     git branch --no-merged
 ```
 
-### To delete the branch 
+### To delete the branch
+
 ```
 git branch -D un-merged-branch-to-delete
 ```
 
 ### Prune/Cleanup the local references to remote branch
+
 ```
 git remote prune origin
 ```
 
+# Creating the react application
 
-# Creating the react application 
 ```
 npx create-react-app client-app --use-npm --typescript
 ```
-

@@ -66,7 +66,7 @@ namespace API
             identityBuilder.AddEntityFrameworkStores<DataContext> ();
             identityBuilder.AddSignInManager<SignInManager<AppUser>> ();
 
-            var key = new SymmetricSecurityKey (Encoding.UTF8.GetBytes ("a very super secret key")); //TODO: REFACTOR Needed
+            var key = new SymmetricSecurityKey (Encoding.UTF8.GetBytes (Configuration["TokenKey"]));
 
             services.AddAuthentication (JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer (opt =>
