@@ -1,28 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "/Users/chadkruszynsky/Desktop/projects/reactivites-net/src/Domain/Domain.csproj": {}
+    "e:\\projects\\github repos\\reactivities-net\\src\\Domain\\Domain.csproj": {}
   },
   "projects": {
-    "/Users/chadkruszynsky/Desktop/projects/reactivites-net/src/Domain/Domain.csproj": {
+    "e:\\projects\\github repos\\reactivities-net\\src\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/chadkruszynsky/Desktop/projects/reactivites-net/src/Domain/Domain.csproj",
+        "projectUniqueName": "e:\\projects\\github repos\\reactivities-net\\src\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "/Users/chadkruszynsky/Desktop/projects/reactivites-net/src/Domain/Domain.csproj",
-        "packagesPath": "/Users/chadkruszynsky/.nuget/packages/",
-        "outputPath": "/Users/chadkruszynsky/Desktop/projects/reactivites-net/src/Domain/obj/",
+        "projectPath": "e:\\projects\\github repos\\reactivities-net\\src\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\ckruszynsky\\.nuget\\packages\\",
+        "outputPath": "e:\\projects\\github repos\\reactivities-net\\src\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/Users/chadkruszynsky/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\ckruszynsky\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
