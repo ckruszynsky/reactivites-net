@@ -1,6 +1,7 @@
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Contracts;
 using Application.Errors;
 using Domain;
 using FluentValidation;
@@ -31,8 +32,10 @@ namespace Application.User
             {
                 private readonly UserManager<AppUser> _userManager;
                 private readonly SignInManager<AppUser> _signInManager;
-                public Handler (UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+                private readonly IJwtGenerator _jwtGenerator;
+                public Handler (UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IJwtGenerator jwtGenerator)
                 {
+                    _jwtGenerator = jwtGenerator;
                     _signInManager = signInManager;
                     _userManager = userManager;
                 }
@@ -46,11 +49,10 @@ namespace Application.User
                     var result = await _signInManager.CheckPasswordSignInAsync (user, request.Password, false);
                     if (result.Succeeded)
                     {
-                        //TODO: generate token
                         return new User
                         {
                             DisplayName = user.DisplayName,
-                                Token = "This will be a token",
+                                Token = _jwtGenerator.CreateToken (user),
                                 Username = user.UserName,
                                 Image = null
                         };
