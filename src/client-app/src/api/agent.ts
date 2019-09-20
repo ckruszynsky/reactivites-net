@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
 
 import { IActivity } from '../models';
+import { IUser, IUserFormValues } from '../models/user';
 import { history } from '../util/router';
 
 
@@ -42,19 +43,19 @@ const requests = {
 };
 
 const Activities = {
-  list: ():Promise<IActivity[]> => {
-    console.log('loading activities');
-    return requests.get("/activities")
-  },
-  details: (id: string):Promise<IActivity> => {
-    console.log('getting activity details');
-    return requests.get(`/activities/${id}`)
-  },
+  list: ():Promise<IActivity[]> => requests.get("/activities"),
+  details: (id: string):Promise<IActivity> => requests.get(`/activities/${id}`),
   create: (activity: IActivity) => requests.post(`/activities`, activity),
   update: (activity: IActivity) => requests.put(`/activities/${activity.id}`, activity),
   delete: (id: string) => requests.del(`/activities/${id}`)
 };
 
+const User = {
+   current: ():Promise<IUser> => requests.get(`/user`),
+   login: (user:IUserFormValues): Promise<IUser> => requests.post(`/user/login`,  user),
+   register: (user:IUserFormValues): Promise<IUser> => requests.post(`/user/register`,  user)
+}
 export default {
-  Activities
+  Activities,
+  User
 };
