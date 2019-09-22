@@ -7,7 +7,7 @@ import { Container, Grid } from 'semantic-ui-react';
 
 import { Chat, Header, Info, Sidebar } from '../../components/Activity';
 import { LoadingIndicator } from '../../components/LoadingIndicator';
-import ActivityStore from '../../stores/activityStore';
+import { RootStoreContext } from '../../stores/rootStore';
 
 interface DetailsParams {
   id: string;
@@ -15,8 +15,8 @@ interface DetailsParams {
 
 export const Detail: React.FC<RouteComponentProps<DetailsParams>> = observer(
   ({ match, history }) => {
-    const activityStore = useContext(ActivityStore);
-    const {loadActivity, loading } = activityStore;
+    const rootStore = useContext(RootStoreContext);
+    const {loadActivity, loading } = rootStore.activityStore;
     const [activity,setActivity] = useState();
 
     useEffect(() => {

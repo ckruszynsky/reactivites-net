@@ -9,20 +9,20 @@ import { v4 as uuid } from 'uuid';
 import { ActivityForm } from '../../components/Activity';
 import { PageHeader } from '../../components/PageHeader';
 import { ActivityFormValues, IActivityFormValues } from '../../models';
-import ActivityStore from '../../stores/activityStore';
+import { RootStoreContext } from '../../stores/rootStore';
 
 interface DetailParams {
   id: string;
 }
 export const NewActivity: React.FC<RouteComponentProps<DetailParams>> = observer(
   ({match, history}) => {
-    const activityStore = useContext(ActivityStore);
+    const rootStore = useContext(RootStoreContext);
     const {
       submitting,
       loadActivity,
       createActivity,
       editActivity,
-    } = activityStore;
+    } = rootStore.activityStore;
 
     const [activity, setActivity] = useState<IActivityFormValues>(new ActivityFormValues());
     const [loading,setloading] = useState(false);

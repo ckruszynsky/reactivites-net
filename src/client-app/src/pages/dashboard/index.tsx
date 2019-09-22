@@ -7,17 +7,18 @@ import { Container, Grid } from 'semantic-ui-react';
 import { List } from '../../components/Activity';
 import { LoadingIndicator } from '../../components/LoadingIndicator';
 import { PageHeader } from '../../components/PageHeader';
-import ActivityStore from '../../stores/activityStore';
+import { RootStoreContext } from '../../stores/rootStore';
 
 export const Dashboard = observer(() => {
-  const activityStore = useContext(ActivityStore);
-  const {activitiesByDate} = activityStore;
+  const rootStore = useContext(RootStoreContext);
+  const {loadActivities,loading} = rootStore.activityStore;
+  const {activitiesByDate} = rootStore.activityStore;
  
   useEffect(() => {
-    activityStore.loadActivities();
-  }, [activityStore]);
+    loadActivities();
+  }, [loadActivities]);
 
-  if (activityStore.loading) {
+  if (loading) {
     return <LoadingIndicator content="Loading activities...." inverted={true} />;
   }
 
