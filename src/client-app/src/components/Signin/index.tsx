@@ -33,7 +33,7 @@ const Signin: React.FC<{
             />
             {submitError && !dirtySinceLastSubmit && <Label color='red' basic content={submitError.statusText} />}
             <br />
-            <Button disabled={invalid && !dirtySinceLastSubmit || pristine} positive content="Login" loading={submitting} />
+            <Button disabled={(invalid && !dirtySinceLastSubmit) || pristine} positive content="Login" loading={submitting} />
             <pre>{JSON.stringify(form.getState(), null, 2)}</pre>
           </Form>
         )}
