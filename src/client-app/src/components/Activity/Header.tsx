@@ -1,9 +1,9 @@
-import { format } from 'date-fns';
+import {format} from 'date-fns';
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Button, Header as SemanticHeader, Image, Item, Segment } from 'semantic-ui-react';
+import {Link} from 'react-router-dom';
+import {Button, Header as SemanticHeader, Image, Item, Segment} from 'semantic-ui-react';
 
-import { IActivity } from '../../models';
+import {IActivity} from '../../models';
 
 const activityImageStyle = {
   filter: "brightness(30%)"
@@ -18,10 +18,10 @@ const activityImageTextStyle = {
   color: "white"
 };
 
-export const Header: React.FC<{ activity: IActivity }> = ({ activity }) => {
+export const Header: React.FC<{activity: IActivity}> = ({activity}) => {
   return (
     <Segment.Group>
-      <Segment basic attached="top" style={{ padding: "0" }}>
+      <Segment basic attached="top" style={{padding: "0"}}>
         <Image
           src={`/assets/categoryImages/${activity.category}.jpg`}
           fluid
@@ -31,10 +31,10 @@ export const Header: React.FC<{ activity: IActivity }> = ({ activity }) => {
           <Item.Group>
             <Item>
               <Item.Content>
-                <SemanticHeader size="huge" 
-                    content={activity.title} 
-                    style={{ color: "white" }} />
-                <p>{format(activity.date,'eeee,MMMM do')}</p>
+                <SemanticHeader size="huge"
+                  content={activity.title}
+                  style={{color: "white"}} />
+                <p>{format(activity.date, 'eeee,MMMM do')}</p>
                 <p>
                   Hosted by <strong>Bob</strong>
                 </p>
@@ -46,7 +46,7 @@ export const Header: React.FC<{ activity: IActivity }> = ({ activity }) => {
       <Segment clearing attached="bottom">
         <Button color="teal">Join Activity</Button>
         <Button>Cancel attendance</Button>
-        <Button as={Link} to={`/manage/${activity.id}`} color="orange" floated="right">
+        <Button as={Link} to={`/manage/${activity.id}`} color="orange">
           Manage Event
         </Button>
       </Segment>
