@@ -17,7 +17,7 @@ import {NewActivity} from '../newActivity';
 
 const App: React.FC<RouteComponentProps> = observer(({location}) => {
   const rootStore = useContext(RootStoreContext);
-  const {isLoggedIn, user} = rootStore.userStore;
+  const {isLoggedIn, user, logout} = rootStore.userStore;
 
   return (
     <Fragment>
@@ -25,7 +25,7 @@ const App: React.FC<RouteComponentProps> = observer(({location}) => {
       <Route exact path="/" component={Home} />
       <Route path={'/(.+)'} render={() => (
         <Fragment>
-          <Navbar isLoggedIn={isLoggedIn} user={user} logout={() => console.log('logout')} />
+          <Navbar isLoggedIn={isLoggedIn} user={user} logout={logout} />
           <Container className="appContainer">
             <Switch>
               <Route exact path="/activities" component={Dashboard} />

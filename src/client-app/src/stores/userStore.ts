@@ -23,9 +23,16 @@ export class UserStore {
       runInAction('logging in user', () => {
         this.user = user;
       });
+      this.rootStore.commonStore.setToken(user.token);
       history.push('/activities');
     } catch (error) {
       throw error;
     }
+  };
+
+  @action logout = () => {
+    this.rootStore.commonStore.setToken(null);
+    this.user = null;
+    history.push('/');
   };
 }
