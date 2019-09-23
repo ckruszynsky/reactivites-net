@@ -37,18 +37,19 @@ export class ActivityStore {
   }
   @action loadActivities = async () => {
     this.loading = true;
-    const activities = await agent.Activities.list();
     try {
+      const activities = await agent.Activities.list();
       runInAction('loading activities', () => {
         activities.forEach(act => {
           act.date = new Date(act.date);
           this.activityRegistry.set(act.id, act);
         });
+        this.loading = false;
       });
     } catch (error) {
-      console.error(error);
-    } finally {
-      runInAction('load activities set initial false', () => (this.loading = false));
+      runInAction('load activities error', () => {
+        this.loading = false;
+      });
     }
   };
 
@@ -70,9 +71,7 @@ export class ActivityStore {
         return activity;
       }
     } catch (error) {
-      runInAction('load activity error', () => {
-        this.loading = false;
-      });
+      this.loading = false;
       console.log(error.response);
     }
   };
@@ -88,10 +87,10 @@ export class ActivityStore {
       runInAction('Create Activity', () => {
         this.activityRegistry.set(activity.id, activity);
         history.push(`/activities/${activity.id}`);
+        this.submitting = false;
       });
     } catch (error) {
       toast.error('Problem submitting data');
-    } finally {
       runInAction('Create Activity reset modes', () => {
         this.submitting = false;
       });
@@ -107,7 +106,6 @@ export class ActivityStore {
       runInAction('Delete Activity', () => this.activityRegistry.delete(id));
     } catch (error) {
       console.error(error);
-    } finally {
       runInAction('Delete Activity reset submit', () => (this.submitting = false));
     }
   };
@@ -120,10 +118,10 @@ export class ActivityStore {
         this.activityRegistry.set(activity.id, activity);
         this.currentActivity = activity;
         history.push(`/activities/${activity.id}`);
+        this.submitting = false;
       });
     } catch (error) {
       console.error(error);
-    } finally {
       runInAction('Edit Activity reset modes', () => {
         this.submitting = false;
       });
