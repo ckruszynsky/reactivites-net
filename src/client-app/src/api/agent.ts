@@ -65,7 +65,16 @@ const requests = {
     axios
       .delete(url)
       .then(sleep(0))
-      .then(responseBody)
+      .then(responseBody),
+  postForm: (url: string, file: Blob) => {
+    let formData = new FormData();
+    formData.append('File', file);
+    return axios
+      .post(url, formData, {
+        headers: {'Content-type': 'multipart/form-data'}
+      })
+      .then(responseBody);
+  }
 };
 
 const Activities = {
