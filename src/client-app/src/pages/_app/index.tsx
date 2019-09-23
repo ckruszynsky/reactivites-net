@@ -8,6 +8,7 @@ import {Container} from 'semantic-ui-react';
 
 import {NotFound} from '../../components/Errors';
 import {LoadingIndicator} from '../../components/LoadingIndicator';
+import {ModalContainer} from '../../components/Modal/ModalContainer';
 import {Navbar} from '../../components/Navbar';
 import {RootStoreContext} from '../../stores/rootStore';
 import {Dashboard} from '../dashboard';
@@ -37,6 +38,7 @@ const App: React.FC<RouteComponentProps> = observer(({location}) => {
 
   return (
     <Fragment>
+      <ModalContainer />
       <ToastContainer position='bottom-right' />
       <Route exact path="/" component={Home} />
       <Route path={'/(.+)'} render={() => (
