@@ -1,25 +1,30 @@
-import { action, computed, observable } from 'mobx';
+import {action, computed, observable, runInAction} from 'mobx';
 
 import agent from '../api/agent';
-import { IUser, IUserFormValues } from './../models/user';
-import { RootStore } from './rootStore';
+import {IUser, IUserFormValues} from './../models/user';
+import {RootStore} from './rootStore';
 
 export class UserStore {
-    rootStore:RootStore;
-    constructor(rootStore:RootStore){
-        this.rootStore = rootStore;
-    }
-    
-    @observable user: IUser | null = null;
+  rootStore: RootStore;
+  constructor(rootStore: RootStore) {
+    this.rootStore = rootStore;
+  }
 
-    @computed get isLoggedIn () {return !!this.user }
+  @observable user: IUser | null = null;
 
-    @action login = async(values:IUserFormValues) =>{
-        try {
-            const user = await agent.User.login(values);
-            this.user = user;
-        } catch (error) {
-            console.log(error);
-        }
+  @computed get isLoggedIn() {
+    return !!this.user;
+  }
+
+  @action login = async (values: IUserFormValues) => {
+    try {
+      const user = await agent.User.login(values);
+      runInAction('logging in user', () => {
+        this.user = user;
+      });
+      console.log(user);
+    } catch (error) {
+      console.log(error);
     }
+  };
 }
