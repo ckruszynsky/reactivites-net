@@ -4,9 +4,10 @@ import {FORM_ERROR} from 'final-form';
 import React from 'react';
 import {Field, Form as FinalForm} from 'react-final-form';
 import {combineValidators, isRequired} from 'revalidate';
-import {Button, Form, Header, Label} from 'semantic-ui-react';
+import {Button, Form, Header} from 'semantic-ui-react';
 
 import {IUserFormValues} from '../../models/user';
+import {ErrorMessage} from '../Errors';
 import {TextInput} from '../Form/TextInput';
 
 const validate = combineValidators({
@@ -23,7 +24,7 @@ const Signin: React.FC<{
         onSubmit={(values: IUserFormValues) => onLogin(values).catch(error => ({[FORM_ERROR]: error}))}
         validate={validate}
         render={({handleSubmit, submitting, submitError, invalid, pristine, dirtySinceLastSubmit}) => (
-          <Form size="large" onSubmit={handleSubmit}>
+          <Form size="large" onSubmit={handleSubmit} error>
             <Header as='h2' content='Login to Reactivities' color='teal' textAlign='center' />
             <Field name="email" component={TextInput} placeholder="Email Address" />
             <Field
@@ -32,7 +33,7 @@ const Signin: React.FC<{
               placeholder="Password"
               type="password"
             />
-            {submitError && !dirtySinceLastSubmit && <Label color='red' basic content={submitError.statusText} />}
+            {submitError && !dirtySinceLastSubmit && <ErrorMessage error={submitError} text='Invalid email or password' />}
             <br />
             <Button disabled={(invalid && !dirtySinceLastSubmit) || pristine} color='teal' content="Login" loading={submitting} fluid />
           </Form>
