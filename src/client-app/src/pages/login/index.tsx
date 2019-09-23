@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 
-import Signin from '../../components/Signin';
+import {Signin} from '../../components/Signin';
 import {RootStoreContext} from '../../stores/rootStore';
 
 

@@ -41,6 +41,17 @@ export class UserStore {
     }
   };
 
+  @action register = async (values: IUserFormValues) => {
+    try {
+      const user = await agent.User.register(values);
+      this.rootStore.commonStore.setToken(user.token);
+      this.rootStore.modalStore.closeModal();
+      history.push('/activities');
+    } catch (error) {
+      throw error;
+    }
+  };
+
   @action logout = () => {
     this.rootStore.commonStore.setToken(null);
     this.user = null;

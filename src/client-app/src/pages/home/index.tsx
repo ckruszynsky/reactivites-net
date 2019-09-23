@@ -6,6 +6,7 @@ import {Button, Container, Header, Image, Segment} from 'semantic-ui-react';
 
 import {RootStoreContext} from '../../stores/rootStore';
 import {Login} from '../login';
+import {Register} from '../register';
 
 export const Home = () => {
     const rootStore = useContext(RootStoreContext);
@@ -32,7 +33,7 @@ export const Home = () => {
                             <Button size='huge' inverted onClick={() => openModal(<Login />)}>
                                 Login
                             </Button>
-                            <Button as={Link} to='/register' size='huge' inverted>
+                            <Button size='huge' inverted onClick={() => openModal(<Register />)}>
                                 Register
                             </Button>
                         </Fragment>

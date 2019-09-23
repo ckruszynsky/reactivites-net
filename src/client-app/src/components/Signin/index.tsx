@@ -14,7 +14,8 @@ const validate = combineValidators({
   email: isRequired('email'),
   password: isRequired('password')
 })
-const Signin: React.FC<{
+
+export const Signin: React.FC<{
   onLogin: (values: IUserFormValues) => Promise<void>;
 }> = ({
   onLogin
@@ -42,4 +43,3 @@ const Signin: React.FC<{
     );
   };
 
-export default Signin;
