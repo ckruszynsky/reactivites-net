@@ -2,6 +2,7 @@ import axios, {AxiosResponse} from 'axios';
 import {toast} from 'react-toastify';
 
 import {IActivity} from '../models';
+import {IPhoto, IProfile} from '../models/profile';
 import {IUser, IUserFormValues} from '../models/user';
 import {history} from '../util/router';
 
@@ -24,6 +25,17 @@ axios.interceptors.response.use(undefined, error => {
   }
   throw error.response;
 });
+
+axios.interceptors.request.use(
+  config => {
+    const token = window.localStorage.getItem('jwt');
+    if (token) config.headers.Authorization = `Bearer ${token}`;
+    return config;
+  },
+  error => {
+    return Promise.reject(error);
+  }
+);
 
 const responseBody = (response: AxiosResponse) => {
   if (response && response.data) {
@@ -69,7 +81,23 @@ const User = {
   login: (user: IUserFormValues): Promise<IUser> => requests.post(`/user/login`, user),
   register: (user: IUserFormValues): Promise<IUser> => requests.post(`/user/register`, user)
 };
+
+const Profiles = {
+  get: (username: string): Promise<IProfile> => requests.get(`/profiles/${username}`),
+  uploadPhoto: (photo: Blob): Promise<IPhoto> => requests.postForm(`/photos`, photo),
+  setMainPhoto: (id: string) => requests.post(`/photos/${id}/setMain`, {}),
+  deletePhoto: (id: string) => requests.del(`/photos/${id}`),
+  updateProfile: (profile: Partial<IProfile>) => requests.put(`/profiles`, profile),
+  follow: (username: string) => requests.post(`/profiles/${username}/follow`, {}),
+  unfollow: (username: string) => requests.del(`/profiles/${username}/follow`),
+  listFollowings: (username: string, predicate: string) =>
+    requests.get(`/profiles/${username}/follow?predicate=${predicate}`),
+  listActivities: (username: string, predicate: string) =>
+    requests.get(`/profiles/${username}/activities?predicate=${predicate}`)
+};
+
 export default {
   Activities,
-  User
+  User,
+  Profiles
 };
