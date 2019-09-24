@@ -2,6 +2,7 @@
 using Application.Activities;
 using Application.Contracts;
 using API.Middleware;
+using AutoMapper;
 using Domain;
 using FluentValidation.AspNetCore;
 using Infrastructure.Security;
@@ -52,9 +53,8 @@ namespace API
                 });
             });
 
-            services.AddMediatR (
-                typeof (List.Handler).Assembly
-            );
+            services.AddMediatR (typeof (List.Handler).Assembly);
+            services.AddAutoMapper (typeof (List.Handler).Assembly);
 
             services.AddMvc (opt =>
                 {
@@ -92,7 +92,7 @@ namespace API
                     };
                 });
             services.AddScoped<IJwtGenerator, JwtGenerator> ();
-            services.AddScoped<IUserAccessor,UserAccessor>();
+            services.AddScoped<IUserAccessor, UserAccessor> ();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
