@@ -77,6 +77,16 @@ namespace API
             identityBuilder.AddEntityFrameworkStores<DataContext> ();
             identityBuilder.AddSignInManager<SignInManager<AppUser>> ();
 
+            services.AddAuthorization (opts =>
+            {
+                opts.AddPolicy ("IsActivityHost", policy =>
+                {
+                    policy.Requirements.Add (new IsHostPolicy ());
+                });
+            });
+
+            services.AddTransient<IAuthorizationHandler, IsHostRequirementHandler> ();
+
             var key = new SymmetricSecurityKey (Encoding.UTF8.GetBytes (Configuration["TokenKey"]));
 
             services.AddAuthentication (JwtBearerDefaults.AuthenticationScheme)
@@ -91,6 +101,7 @@ namespace API
                     ValidateIssuer = false
                     };
                 });
+
             services.AddScoped<IJwtGenerator, JwtGenerator> ();
             services.AddScoped<IUserAccessor, UserAccessor> ();
         }
