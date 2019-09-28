@@ -1,24 +1,9 @@
-﻿using System.Text;
-using Application.Activities;
-using Application.Contracts;
-using API.Middleware;
-using AutoMapper;
-using Domain;
-using FluentValidation.AspNetCore;
-using Infrastructure.Security;
-using MediatR;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
+﻿using Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
-using Persistence;
 
 namespace API
 {
@@ -34,87 +19,31 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices (IServiceCollection services)
         {
-            services.AddDbContext<DataContext> (options =>
-            {
-                options
-                    .UseSqlite (
-                        Configuration.GetConnectionString ("DefaultConnection")
-                    );
-            });
+            EFCoreConfig.ServiceConfiguration (
+                services,
+                Configuration.GetConnectionString ("DefaultConnection")
+            );
 
-            services.AddCors (Options =>
-            {
-                Options.AddPolicy ("CorsPolicy", policy =>
-                {
-                    policy
-                        .AllowAnyHeader ()
-                        .AllowAnyMethod ()
-                        .WithOrigins ("http://localhost:3000");
-                });
-            });
+            CorsConfig.ServiceConfiguration (
+                services,
+                Configuration["CrossOrigin:Domains"].Split (",")
+            );
 
-            services.AddMediatR (typeof (List.Handler).Assembly);
-            services.AddAutoMapper (typeof (List.Handler).Assembly);
-
-            services.AddMvc (opt =>
-                {
-                    //adds so that any requests made will need to be authorized.
-                    var policy = new AuthorizationPolicyBuilder ()
-                        .RequireAuthenticatedUser ()
-                        .Build ();
-
-                    opt.Filters.Add (new AuthorizeFilter (policy));
-
-                })
-                .AddFluentValidation (
-                    cfg =>
-                    cfg.RegisterValidatorsFromAssemblyContaining<Create> ()
-                )
-                .SetCompatibilityVersion (CompatibilityVersion.Version_2_2);
-
-            var builder = services.AddIdentityCore<AppUser> ();
-            var identityBuilder = new IdentityBuilder (builder.UserType, builder.Services);
-            identityBuilder.AddEntityFrameworkStores<DataContext> ();
-            identityBuilder.AddSignInManager<SignInManager<AppUser>> ();
-
-            services.AddAuthorization (opts =>
-            {
-                opts.AddPolicy ("IsActivityHost", policy =>
-                {
-                    policy.Requirements.Add (new IsHostPolicy ());
-                });
-            });
-
-            services.AddTransient<IAuthorizationHandler, IsHostRequirementHandler> ();
-
-            var key = new SymmetricSecurityKey (Encoding.UTF8.GetBytes (Configuration["TokenKey"]));
-
-            services.AddAuthentication (JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer (opt =>
-                {
-                    //instruct our api what need to be validated when a token is received
-                    opt.TokenValidationParameters = new TokenValidationParameters
-                    {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = key,
-                    ValidateAudience = false,
-                    ValidateIssuer = false
-                    };
-                });
-
-            services.AddScoped<IJwtGenerator, JwtGenerator> ();
-            services.AddScoped<IUserAccessor, UserAccessor> ();
+            MediatRConfig.ServiceConfiguration (services);
+            AutoMapperConfig.ServiceConfiguration (services);
+            MvcConfig.ServiceConfiguration (services, CompatibilityVersion.Version_2_2);
+            IdentityConfig.ServiceConfiguration (services);
+            AuthorizationConfig.ServicesConfiguration (services);
+            JwtAuthenticationConfig.ServiceConfiguration (services, Configuration["TokenKey"]);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure (IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseMiddleware<ErrorHandlingMiddleware> ();
-
-            //app.UseHttpsRedirection();
-            app.UseAuthentication ();
-            app.UseCors ("CorsPolicy");
-            app.UseMvc ();
+            ErrorHandlingConfig.ApplicationConfiguration (app);
+            JwtAuthenticationConfig.ApplicationConfiguration (app);
+            CorsConfig.ApplicationConfiguration (app);
+            MvcConfig.ApplicationConfiguration (app);
         }
     }
 }
