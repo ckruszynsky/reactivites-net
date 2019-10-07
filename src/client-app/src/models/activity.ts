@@ -6,11 +6,20 @@ export interface IActivity {
   date: Date;
   city: string;
   venue: string;
+  attendees:IAttendee[];
 }
 
 export interface IActivityFormValues extends Partial<IActivity> {
   time?: Date;
 }
+
+export interface IAttendee {
+    username:string;
+    displayName:string;
+    image:string;
+    isHost:boolean;
+}
+
 
 export class ActivityFormValues implements IActivityFormValues {
   id?: string = undefined;
