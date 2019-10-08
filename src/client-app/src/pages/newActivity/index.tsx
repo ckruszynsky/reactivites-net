@@ -1,15 +1,15 @@
 import './styles.scss';
 
-import { observer } from 'mobx-react-lite';
-import React, { useContext, useEffect, useState } from 'react';
-import { RouteComponentProps } from 'react-router';
-import { Container, Grid } from 'semantic-ui-react';
-import { v4 as uuid } from 'uuid';
+import {observer} from 'mobx-react-lite';
+import React, {useContext, useEffect, useState} from 'react';
+import {RouteComponentProps} from 'react-router';
+import {Container, Grid} from 'semantic-ui-react';
+import {v4 as uuid} from 'uuid';
 
-import { ActivityForm } from '../../components/Activity';
-import { PageHeader } from '../../components/PageHeader';
-import { ActivityFormValues, IActivityFormValues } from '../../models';
-import { RootStoreContext } from '../../stores/rootStore';
+import {ActivityForm} from '../../components/Activity';
+import {PageHeader} from '../../components/PageHeader';
+import {ActivityFormValues, IActivityFormValues, IAttendee} from '../../models';
+import {RootStoreContext} from '../../stores/rootStore';
 
 interface DetailParams {
   id: string;
@@ -46,7 +46,8 @@ export const NewActivity: React.FC<RouteComponentProps<DetailParams>> = observer
           description:activity.description!,
           date: activity.date!,
           city: activity.city!,
-          venue: activity.venue!
+          venue: activity.venue!,
+          attendees:new Array<IAttendee>()
         };
         createActivity(newActivity);
       } else {
@@ -57,7 +58,7 @@ export const NewActivity: React.FC<RouteComponentProps<DetailParams>> = observer
           description:activity.description!,
           date: activity.date!,
           city: activity.city!,
-          venue: activity.venue!
+          venue: activity.venue!          
         }
         editActivity(editedActivity);  
       }

@@ -1,9 +1,10 @@
-import { format } from 'date-fns';
+import {format} from 'date-fns';
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Button, Icon, Item, Segment } from 'semantic-ui-react';
+import {Link} from 'react-router-dom';
+import {Button, Icon, Item, Segment} from 'semantic-ui-react';
 
-import { IActivity } from '../../models';
+import {IActivity} from '../../models';
+import {AttendeesListItem} from './AttendeesListItem';
 
 interface ListItemParams {
   activity: IActivity;
@@ -25,7 +26,9 @@ export const ListItem: React.FC<ListItemParams> = ({ activity }) => {
       <Segment>
         <Icon name="clock" /> {format(activity.date,'h:mm a')} <Icon name="marker" /> {activity.venue}, {activity.city}
       </Segment>
-      <Segment secondary>Attendees will go here</Segment>
+      <Segment secondary>
+        <AttendeesListItem attendees={activity.attendees} />
+      </Segment>
       <Segment clearing>
         <span>{activity.description}</span>
         <Button as={Link} to={`/activities/${activity.id}`} floated="right" content="View" color="blue" />
