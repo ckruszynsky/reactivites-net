@@ -1,13 +1,13 @@
 import './styles.scss';
 
-import { observer } from 'mobx-react-lite';
-import React, { useContext, useEffect, useState } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
-import { Container, Grid } from 'semantic-ui-react';
+import {observer} from 'mobx-react-lite';
+import React, {useContext, useEffect, useState} from 'react';
+import {RouteComponentProps} from 'react-router-dom';
+import {Container, Grid} from 'semantic-ui-react';
 
-import { Chat, Header, Info, Sidebar } from '../../components/Activity';
-import { LoadingIndicator } from '../../components/LoadingIndicator';
-import { RootStoreContext } from '../../stores/rootStore';
+import {Chat, Header, Info, Sidebar} from '../../components/Activity';
+import {LoadingIndicator} from '../../components/LoadingIndicator';
+import {RootStoreContext} from '../../stores/rootStore';
 
 interface DetailsParams {
   id: string;
@@ -36,7 +36,7 @@ export const Detail: React.FC<RouteComponentProps<DetailsParams>> = observer(
             <Chat activity={activity} />
           </Grid.Column>
           <Grid.Column width={6}>
-            <Sidebar activity={activity} />
+            <Sidebar attendees={activity.attendees} />
           </Grid.Column>
         </Grid>
       </Container>
