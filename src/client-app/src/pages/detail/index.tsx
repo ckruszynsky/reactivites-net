@@ -14,14 +14,14 @@ interface DetailsParams {
 }
 
 export const Detail: React.FC<RouteComponentProps<DetailsParams>> = observer(
-  ({ match, history }) => {
+  ({match}) => {
     const rootStore = useContext(RootStoreContext);
-    const {loadActivity, loading, cancelAttendance,attendActivity } = rootStore.activityStore;
-    const [activity,setActivity] = useState();
+    const {loadActivity, loading, cancelAttendance, attendActivity, processing} = rootStore.activityStore;
+    const [activity, setActivity] = useState();
 
     useEffect(() => {
       loadActivity(match.params.id).then(act => setActivity(act));
-    }, [loadActivity, match.params.id]);
+    });
 
     if (loading || !activity) {
       return <LoadingIndicator content="Loading activity..." />;
@@ -31,9 +31,11 @@ export const Detail: React.FC<RouteComponentProps<DetailsParams>> = observer(
       <Container className="detailsContainer">
         <Grid>
           <Grid.Column width={10}>
-            <Header activity={activity} onCancelAttendance={cancelAttendance} 
-              onAttendActivity={attendActivity} 
-              />
+            <Header activity={activity}
+              onCancelAttendance={cancelAttendance}
+              onAttendActivity={attendActivity}
+              loading={processing}
+            />
             <Info activity={activity} />
             <Chat activity={activity} />
           </Grid.Column>

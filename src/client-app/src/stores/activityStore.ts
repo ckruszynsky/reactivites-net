@@ -12,6 +12,7 @@ export class ActivityStore {
   rootStore: RootStore;
   @observable activityRegistry = new Map();
   @observable loading = false;
+  @observable processing = false;
   @observable currentActivity: IActivity | null = null;
   @observable submitting = false;
   @observable target = '';
@@ -131,20 +132,49 @@ export class ActivityStore {
     }
   };
 
-  @action attendActivity = () => {
+  @action attendActivity = async () => {
     const attendee = createAttendee(this.rootStore.userStore.user!);
-    if(this.currentActivity){
-      this.currentActivity.attendees.push(attendee);
-      this.currentActivity.isGoing = true;
-      this.activityRegistry.set(this.currentActivity.id, this.currentActivity)
-    }
-  }  
+    this.processing = true;
+    try {
+      await agent.Activities.attend(this.currentActivity!.id);
+      runInAction(() => {
+        if (this.currentActivity) {
+          this.currentActivity.attendees.push(attendee);
+          this.currentActivity.isGoing = true;
+          this.activityRegistry.set(this.currentActivity.id, this.currentActivity);          
+        }
+        this.processing = false;
+      });
+    } catch (error) {
+      runInAction(() => {
+        this.processing = false;
+      });
 
-  @action cancelAttendance = () => {    
-    if(this.currentActivity){
-      this.currentActivity.attendees = this.currentActivity.attendees.filter(a => a.username !== this.rootStore.userStore.user!.username);
-      this.currentActivity.isGoing = false;
-      this.activityRegistry.set(this.currentActivity.id, this.currentActivity);
+      toast.error('Problem signing up to activity');
     }
-  }
+  };
+
+  @action cancelAttendance = async () => {
+    this.processing = true;
+    try {
+      await agent.Activities.unattend(this.currentActivity!.id);
+      runInAction(()=> {
+        if (this.currentActivity) {
+          this.currentActivity.attendees = this.currentActivity.attendees.filter(
+            a => a.username !== this.rootStore.userStore.user!.username
+          );
+          this.currentActivity.isGoing = false;
+          this.activityRegistry.set(this.currentActivity.id, this.currentActivity);          
+        }
+        this.processing = false;
+      });      
+    } catch (error) {
+      runInAction(() => {
+        this.processing = false;
+      });
+
+      toast.error('Problem cancelling attendance');
+    }
+   
+  };
 }

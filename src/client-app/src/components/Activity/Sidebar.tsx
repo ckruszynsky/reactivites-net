@@ -1,11 +1,10 @@
-import {observer} from 'mobx-react-lite';
 import React, {Fragment} from 'react';
 import {Link} from 'react-router-dom';
 import {Image, Item, Label, List, Segment} from 'semantic-ui-react';
 
 import {IAttendee} from '../../models';
 
-export const Sidebar: React.FC<{attendees: IAttendee[]}> = observer(({attendees}) => {
+export const Sidebar: React.FC<{attendees: IAttendee[]}> = ({attendees}) => {
   const isHost = false;
   return (
     <Fragment>
@@ -38,4 +37,4 @@ export const Sidebar: React.FC<{attendees: IAttendee[]}> = observer(({attendees}
       </Segment>
     </Fragment>
   );
-});
+};
