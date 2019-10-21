@@ -4,8 +4,7 @@ import {Image, Item, Label, List, Segment} from 'semantic-ui-react';
 
 import {IAttendee} from '../../models';
 
-export const Sidebar: React.FC<{attendees: IAttendee[]}> = ({attendees}) => {
-  const isHost = false;
+export const Sidebar: React.FC<{attendees: IAttendee[]}> = ({attendees}) => {  
   return (
     <Fragment>
       <Segment
@@ -21,7 +20,7 @@ export const Sidebar: React.FC<{attendees: IAttendee[]}> = ({attendees}) => {
         <List relaxed divided>
           {attendees.map((attendee => (
             <Item key={attendee.username} style={{position: "relative"}}>
-              {isHost && <Label style={{position: "absolute"}} color="orange" ribbon="right">
+              {attendee.isHost && <Label style={{position: "absolute"}} color="orange" ribbon="right">
                 Host
              </Label>}
               <Image size="tiny" src={attendee.image || "/assets/user.png"} />

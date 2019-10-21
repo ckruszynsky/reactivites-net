@@ -88,6 +88,12 @@ export class ActivityStore {
     this.submitting = true;
     try {
       await agent.Activities.create(activity);
+      const attendee = createAttendee(this.rootStore.userStore.user!);
+      attendee.isHost = true;
+      let attendees = [];
+      attendees.push(attendee);
+      activity.attendees = attendees;
+      activity.isHost = true;
       runInAction('Create Activity', () => {
         this.activityRegistry.set(activity.id, activity);
         history.push(`/activities/${activity.id}`);
