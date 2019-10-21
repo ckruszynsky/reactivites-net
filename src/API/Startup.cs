@@ -1,4 +1,5 @@
 ﻿using Configuration;
+using Infrastructure.Photos;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -35,6 +36,9 @@ namespace API
             IdentityConfig.ServiceConfiguration (services);
             AuthorizationConfig.ServicesConfiguration (services);
             JwtAuthenticationConfig.ServiceConfiguration (services, Configuration["TokenKey"]);
+            PhotoAccessorConfig.ServiceConfiguration(services);
+            services.Configure<CloudinarySettings>(Configuration.GetSection("Cloudinary"));
+             
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
