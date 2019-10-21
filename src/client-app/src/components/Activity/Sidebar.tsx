@@ -1,16 +1,17 @@
+import {observer} from 'mobx-react-lite';
 import React, {Fragment} from 'react';
 import {Link} from 'react-router-dom';
 import {Image, Item, Label, List, Segment} from 'semantic-ui-react';
 
 import {IAttendee} from '../../models';
 
-export const Sidebar: React.FC<{ attendees: IAttendee[] }> = ({ attendees }) => {
+export const Sidebar: React.FC<{attendees: IAttendee[]}> = observer(({attendees}) => {
   const isHost = false;
   return (
     <Fragment>
       <Segment
         textAlign="center"
-        style={{ border: "none" }}
+        style={{border: "none"}}
         attached="top"
         secondary
         inverted
@@ -20,21 +21,21 @@ export const Sidebar: React.FC<{ attendees: IAttendee[] }> = ({ attendees }) => 
       <Segment attached>
         <List relaxed divided>
           {attendees.map((attendee => (
-             <Item key={attendee.username} style={{ position: "relative" }}>
-             {isHost && <Label style={{ position: "absolute" }} color="orange" ribbon="right">
-               Host
+            <Item key={attendee.username} style={{position: "relative"}}>
+              {isHost && <Label style={{position: "absolute"}} color="orange" ribbon="right">
+                Host
              </Label>}
-             <Image size="tiny" src={ attendee.image || "/assets/user.png"} />
-             <Item.Content verticalAlign="middle">
-               <Item.Header as="h3">
-                 <Link to={`/profile/${attendee.username}`}>{attendee.displayName}</Link>
-               </Item.Header>
-               <Item.Extra style={{ color: "orange" }}>Following</Item.Extra>
-             </Item.Content>
-           </Item>
-          )))}        
+              <Image size="tiny" src={attendee.image || "/assets/user.png"} />
+              <Item.Content verticalAlign="middle">
+                <Item.Header as="h3">
+                  <Link to={`/profile/${attendee.username}`}>{attendee.displayName}</Link>
+                </Item.Header>
+                <Item.Extra style={{color: "orange"}}>Following</Item.Extra>
+              </Item.Content>
+            </Item>
+          )))}
         </List>
       </Segment>
     </Fragment>
   );
-};
+});

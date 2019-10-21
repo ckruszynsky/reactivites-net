@@ -5,7 +5,7 @@ import {toast} from 'react-toastify';
 import agent from '../api/agent';
 import {IActivity} from '../models';
 import {history} from '../util/router';
-import {setActivityProps} from './../util/setActivityProps';
+import {createAttendee, setActivityProps} from './../util/setActivityProps';
 import {RootStore} from './rootStore';
 
 export class ActivityStore {
@@ -130,4 +130,22 @@ export class ActivityStore {
       });
     }
   };
+
+  @action attendActivity = () => {
+    const attendee = createAttendee(this.rootStore.userStore.user!);
+    if(this.currentActivity){
+      this.currentActivity.attendees.push(attendee);
+      this.currentActivity.isGoing = true;
+      this.activityRegistry.set(this.currentActivity.id, this.currentActivity)
+    }
+  }  
+
+  @action cancelAttendance = () => {
+    console.log('canceling attendance');
+    if(this.currentActivity){
+      this.currentActivity.attendees = this.currentActivity.attendees.filter(a => a.username !== this.rootStore.userStore.user!.username);
+      this.currentActivity.isGoing = false;
+      this.activityRegistry.set(this.currentActivity.id, this.currentActivity);
+    }
+  }
 }
