@@ -16,7 +16,7 @@ interface DetailsParams {
 export const Detail: React.FC<RouteComponentProps<DetailsParams>> = observer(
   ({ match, history }) => {
     const rootStore = useContext(RootStoreContext);
-    const {loadActivity, loading } = rootStore.activityStore;
+    const {loadActivity, loading, cancelAttendance,attendActivity } = rootStore.activityStore;
     const [activity,setActivity] = useState();
 
     useEffect(() => {
@@ -31,7 +31,9 @@ export const Detail: React.FC<RouteComponentProps<DetailsParams>> = observer(
       <Container className="detailsContainer">
         <Grid>
           <Grid.Column width={10}>
-            <Header activity={activity} />
+            <Header activity={activity} onCancelAttendance={cancelAttendance} 
+              onAttendActivity={attendActivity} 
+              />
             <Info activity={activity} />
             <Chat activity={activity} />
           </Grid.Column>

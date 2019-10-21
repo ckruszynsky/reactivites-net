@@ -140,8 +140,7 @@ export class ActivityStore {
     }
   }  
 
-  @action cancelAttendance = () => {
-    console.log('canceling attendance');
+  @action cancelAttendance = () => {    
     if(this.currentActivity){
       this.currentActivity.attendees = this.currentActivity.attendees.filter(a => a.username !== this.rootStore.userStore.user!.username);
       this.currentActivity.isGoing = false;
