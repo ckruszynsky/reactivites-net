@@ -3,7 +3,7 @@ import {Image, List, Popup} from 'semantic-ui-react';
 
 import {IAttendee} from '../../models';
 
-export const AttendeesListItem:React.FC<{attendees:IAttendee[] | undefined}> = ({attendees}) => {
+export const AttendeesListItem:React.FC<{attendees:IAttendee[]}> = ({attendees}) => {
     return (
         <List horizontal>
             {attendees && attendees.map((attendee:IAttendee) => (

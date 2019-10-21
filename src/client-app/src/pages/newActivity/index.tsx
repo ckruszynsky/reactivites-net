@@ -58,7 +58,8 @@ export const NewActivity: React.FC<RouteComponentProps<DetailParams>> = observer
           description:activity.description!,
           date: activity.date!,
           city: activity.city!,
-          venue: activity.venue!          
+          venue: activity.venue!,
+          attendees:activity.attendees!
         }
         editActivity(editedActivity);  
       }

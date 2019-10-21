@@ -5,6 +5,7 @@ import {toast} from 'react-toastify';
 import agent from '../api/agent';
 import {IActivity} from '../models';
 import {history} from '../util/router';
+import {setActivityProps} from './../util/setActivityProps';
 import {RootStore} from './rootStore';
 
 export class ActivityStore {
@@ -37,11 +38,12 @@ export class ActivityStore {
   }
   @action loadActivities = async () => {
     this.loading = true;
+    const user = this.rootStore.userStore.user!;
     try {
       const activities = await agent.Activities.list();
       runInAction('loading activities', () => {
         activities.forEach(act => {
-          act.date = new Date(act.date);
+          act = setActivityProps(act, user);
           this.activityRegistry.set(act.id, act);
         });
         this.loading = false;
@@ -61,9 +63,10 @@ export class ActivityStore {
         return activity;
       } else {
         this.loading = true;
-        const activity = await agent.Activities.details(id);
+        const user = this.rootStore.userStore.user!;
+        let activity = await agent.Activities.details(id);
         runInAction('load Activity', () => {
-          activity.date = new Date();
+          activity = setActivityProps(activity, user);
           this.currentActivity = activity;
           this.activityRegistry.set(activity.id, activity);
           this.loading = false;

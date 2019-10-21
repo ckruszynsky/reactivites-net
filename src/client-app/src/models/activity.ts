@@ -6,7 +6,9 @@ export interface IActivity {
   date: Date;
   city: string;
   venue: string;
-  attendees?:IAttendee[];
+  attendees:Array<IAttendee>;
+  isGoing?: boolean;
+  isHost?: boolean;
 }
 
 export interface IActivityFormValues extends Partial<IActivity> {
