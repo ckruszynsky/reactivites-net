@@ -1,4 +1,5 @@
-﻿using Application.Contracts;
+﻿using System;
+using Application.Contracts;
 using Application.Photos;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
@@ -33,14 +34,18 @@ namespace Infrastructure.Photos
                     };
                     uploadResult = _cloudinary.Upload (uploadParams);
                 }
-
-                return new PhotoUploadResult
-                {
-                    Id = uploadResult.PublicId,
-                    Url = uploadResult.SecureUri.AbsoluteUri
-                };
             }
-            return new EmptyPhotoUploadResult ();
+
+            if (uploadResult.Error != null)
+            {
+                throw new Exception (uploadResult.Error.Message);
+            }
+            
+            return new PhotoUploadResult
+            {
+                Id = uploadResult.PublicId,
+                    Url = uploadResult.SecureUri.AbsoluteUri
+            };
         }
 
         public string Delete (string id)
