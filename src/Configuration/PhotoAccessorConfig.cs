@@ -7,7 +7,7 @@ namespace Configuration
     public class PhotoAccessorConfig
     {
          public static void ServiceConfiguration(IServiceCollection services) {
-            services.AddScoped<IPhotoAccessor,PhotoAccessor>();
+            services.AddScoped<IPhotoAccessor,CloudinaryPhotoAccessor>();
          }
     }
 }
