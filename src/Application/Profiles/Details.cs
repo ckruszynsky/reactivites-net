@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Contracts;
 using AutoMapper;
 using Domain;
 using MediatR;
@@ -16,18 +17,19 @@ namespace Application.Profiles
         }
         public class Handler : IRequestHandler<Query, Profile>
         {
-            private readonly DataContext _context;
+            private readonly IDbContextResolver _contextResolver;
             private readonly IMapper _mapper;
 
-            public Handler (DataContext context, IMapper mapper)
+            public Handler (IDbContextResolver contextResolver, IMapper mapper)
             {
-                _context = context;
+                _contextResolver = contextResolver;
                 _mapper = mapper;
             }
 
             public async Task<Profile> Handle (Query request, CancellationToken cancellationToken)
             {
-                var user = await _context.Users
+                var context =  _contextResolver.GetContext();
+                var user = await context.Set<AppUser>()
                     .Include (x => x.Photos)
                     .SingleOrDefaultAsync (x => x.UserName == request.Username);
                     

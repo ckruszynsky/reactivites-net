@@ -2,7 +2,9 @@ using System;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Contracts;
 using Application.Errors;
+using Domain;
 using FluentValidation;
 using MediatR;
 using Persistence;
@@ -26,35 +28,35 @@ namespace Application.Activities
 
         public class CommandValidator : AbstractValidator<Command>
         {
-            public CommandValidator()
+            public CommandValidator ()
             {
-                RuleFor(x => x.Title).NotEmpty();
-                RuleFor(x => x.Description).NotEmpty();
-                RuleFor(x => x.Category).NotEmpty();
-                RuleFor(x => x.Date).NotEmpty();
-                RuleFor(x => x.City).NotEmpty();
-                RuleFor(x => x.Venue).NotEmpty();
+                RuleFor (x => x.Title).NotEmpty ();
+                RuleFor (x => x.Description).NotEmpty ();
+                RuleFor (x => x.Category).NotEmpty ();
+                RuleFor (x => x.Date).NotEmpty ();
+                RuleFor (x => x.City).NotEmpty ();
+                RuleFor (x => x.Venue).NotEmpty ();
             }
         }
         public class Handler : IRequestHandler<Command>
         {
-            private readonly DataContext _context;
-            public Handler(DataContext context)
+            private readonly IDbContextResolver _contextResolver;
+            public Handler (IDbContextResolver contextResolver)
             {
-                _context = context;
+                _contextResolver = contextResolver;
             }
-            public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
+            public async Task<Unit> Handle (Command request, CancellationToken cancellationToken)
             {
-                //logic goes here
-                var activity = await _context.Activities.FindAsync(request.Id);
+                var context = _contextResolver.GetContext ();
+                var activity = await context.Set<Activity> ().FindAsync (request.Id);
 
-                 if (activity == null)
+                if (activity == null)
                 {
                     var errors = new
                     {
-                        activity = $"Activity with id: ${request.Id} could not be found."
+                    activity = $"Activity with id: ${request.Id} could not be found."
                     };
-                    throw new RestException(HttpStatusCode.NotFound,errors);
+                    throw new RestException (HttpStatusCode.NotFound, errors);
 
                 }
                 activity.Title = request.Title ?? activity.Title;
@@ -64,12 +66,12 @@ namespace Application.Activities
                 activity.City = request.City ?? activity.City;
                 activity.Venue = request.Venue ?? activity.Venue;
 
-                var success = await _context.SaveChangesAsync() > 0;
+                var success = await context.SaveChangesAsync () > 0;
                 if (success)
                 {
                     return Unit.Value;
                 }
-                throw new Exception("Problem saving changes");
+                throw new Exception ("Problem saving changes");
             }
         }
     }

@@ -2,6 +2,8 @@ using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Application.Contracts;
+using Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -15,10 +17,10 @@ namespace Infrastructure.Security
     public class IsHostRequirementHandler : AuthorizationHandler<IsHostPolicy>
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly DataContext _dataContext;
-        public IsHostRequirementHandler (IHttpContextAccessor httpContextAccessor, DataContext dataContext)
+        private readonly IDbContextResolver _contextResolver;
+        public IsHostRequirementHandler (IHttpContextAccessor httpContextAccessor, IDbContextResolver contextResolver)
         {
-            _dataContext = dataContext;
+            _contextResolver = contextResolver;
             _httpContextAccessor = httpContextAccessor;
 
         }
@@ -26,13 +28,14 @@ namespace Infrastructure.Security
         {
             if (context.Resource is AuthorizationFilterContext authContext)
             {
+                var dbContext = _contextResolver.GetContext();
                 var currentUserName = _httpContextAccessor.HttpContext.User?.Claims?
                     .SingleOrDefault (x => x.Type == ClaimTypes.NameIdentifier)?.Value;
 
                 var activityId = Guid.Parse (authContext.RouteData.Values["id"].ToString ());
 
-                var activity = _dataContext
-                    .Activities
+                var activity = dbContext
+                    .Set<Activity>()
                     .Include (x => x.UserActivities)
                     .ThenInclude (x => x.AppUser)
                     .FirstOrDefaultAsync (x => x.Id == activityId)

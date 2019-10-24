@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Contracts;
 using Application.Errors;
+using Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
@@ -20,17 +21,18 @@ namespace Application.Photos
 
         public class Handler : IRequestHandler<Command>
         {
-            private readonly DataContext _context;
+            private readonly IDbContextResolver _contextResolver;
             private readonly IUserAccessor _userAccessor;
-            public Handler(DataContext context, IUserAccessor userAccessor)
+            public Handler(IDbContextResolver contextResolver, IUserAccessor userAccessor)
             {
                 _userAccessor = userAccessor;
-                _context = context;
+                _contextResolver = contextResolver;
 
             }
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var user = await _context.Users
+                var context = _contextResolver.GetContext();
+                var user = await context.Set<AppUser>()
                         .Include(u=> u.Photos)
                         .SingleOrDefaultAsync(x=> x.UserName == _userAccessor.GetCurrentUsername());
 
@@ -43,7 +45,7 @@ namespace Application.Photos
                 currentMain.IsMain = false;
                 photo.IsMain = true;
 
-                var success = await _context.SaveChangesAsync() > 0;
+                var success = await context.SaveChangesAsync() > 0;
                 if (success)
                 {
                     return Unit.Value;

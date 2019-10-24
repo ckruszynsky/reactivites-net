@@ -1,3 +1,5 @@
+using Application.Contracts;
+using Application.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +16,8 @@ namespace Configuration
             {
                 options.UseSqlite(connectionString);
             });
+
+            services.AddScoped<IDbContextResolver,DbContextResolver<DataContext>>();
         }
     }
 }

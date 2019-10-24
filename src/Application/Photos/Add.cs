@@ -20,23 +20,24 @@ namespace Application.Photos
 
         public class Handler : IRequestHandler<Command, Photo>
         {
-            private readonly DataContext _context;
+            private readonly IDbContextResolver _contextResolver;
             private readonly IUserAccessor _userAccessor;
             private readonly IPhotoAccessor _photoAccessor;
-            public Handler (DataContext context, IUserAccessor userAccessor, IPhotoAccessor photoAccessor)
+            public Handler (IDbContextResolver contextResovler, IUserAccessor userAccessor, IPhotoAccessor photoAccessor)
             {
                 _photoAccessor = photoAccessor;
                 _userAccessor = userAccessor;
-                _context = context;
+                _contextResolver = contextResovler;
 
             }
             public async Task<Photo> Handle (Command request, CancellationToken cancellationToken)
             {
+                var context = _contextResolver.GetContext ();
                 var uploadResult = _photoAccessor.Add (request.File);
-                var user = await _context.Users
+                var user = await context.Set<AppUser> ()
                     .Include (x => x.Photos)
                     .SingleOrDefaultAsync (x => x.UserName == _userAccessor.GetCurrentUsername ());
-                    
+
                 var photo = new Photo
                 {
                     Url = uploadResult.Url,
@@ -47,7 +48,7 @@ namespace Application.Photos
                     photo.IsMain = true;
                 }
                 user.Photos.Add (photo);
-                var success = await _context.SaveChangesAsync () > 0;
+                var success = await context.SaveChangesAsync () > 0;
                 if (success)
                 {
                     return photo;

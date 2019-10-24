@@ -37,12 +37,12 @@ namespace Application.Activities
         }
         public class Handler : IRequestHandler<Command>
         {
-            private readonly DataContext _context;
+            private readonly IDbContextResolver _contextResolver;
             private readonly IUserAccessor _userAccessor;
-            public Handler (DataContext context, IUserAccessor userAccessor)
+            public Handler (IDbContextResolver contextResolver, IUserAccessor userAccessor)
             {
                 _userAccessor = userAccessor;
-                _context = context;
+                _contextResolver = contextResolver;
 
             }
             public async Task<Unit> Handle (Command request, CancellationToken cancellationToken)
@@ -58,9 +58,12 @@ namespace Application.Activities
                     Category = request.Category
                 };
 
-                _context.Activities.Add (activity);
+                var context = _contextResolver.GetContext();
 
-                var user = await _context.Users.SingleOrDefaultAsync (x => x.UserName == _userAccessor.GetCurrentUsername ());
+                context.Set<Activity>().Add (activity);
+
+                var user = await context.Set<AppUser>()
+                    .SingleOrDefaultAsync (x => x.UserName == _userAccessor.GetCurrentUsername ());
 
                 var attendee = new UserActivity
                 {
@@ -70,9 +73,9 @@ namespace Application.Activities
                     DateJoined = DateTime.Now
                 };
 
-                _context.UserActivities.Add (attendee);
+                context.Set<UserActivity>().Add (attendee);
 
-                var success = await _context.SaveChangesAsync () > 0;
+                var success = await context.SaveChangesAsync () > 0;
                 if (success)
                 {
                     return Unit.Value;

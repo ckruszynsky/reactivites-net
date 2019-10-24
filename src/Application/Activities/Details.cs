@@ -2,6 +2,7 @@ using System;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Contracts;
 using Application.Errors;
 using AutoMapper;
 using Domain;
@@ -20,17 +21,18 @@ namespace Application.Activities
 
         public class Handler : IRequestHandler<Query, ActivityDto>
         {
-            private readonly DataContext _context;
+            private readonly IDbContextResolver _contextResolver;
             private readonly IMapper _mapper;
-            public Handler (DataContext context, IMapper mapper)
+            public Handler (IDbContextResolver contextResolver, IMapper mapper)
             {
                 _mapper = mapper;
-                _context = context;
+                _contextResolver = contextResolver;
 
             }
             public async Task<ActivityDto> Handle (Query request, CancellationToken cancellationToken)
             {
-                var activity = await _context.Activities
+                var context = _contextResolver.GetContext();
+                var activity = await context.Set<Activity>()
                     .Include (ua => ua.UserActivities)
                     .ThenInclude (au => au.AppUser)
                     .SingleOrDefaultAsync (x => x.Id == request.Id);

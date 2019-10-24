@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Contracts;
 using Application.Errors;
+using Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
@@ -19,17 +20,18 @@ namespace Application.Activities
 
         public class Handler : IRequestHandler<Command>
         {
-            private readonly DataContext _context;
+            private readonly IDbContextResolver _contextResolver;
             private readonly IUserAccessor _userAccessor;
-            public Handler (DataContext context, IUserAccessor userAccessor)
+            public Handler (IDbContextResolver contextResolver, IUserAccessor userAccessor)
             {
                 _userAccessor = userAccessor;
-                _context = context;
+                _contextResolver = contextResolver;
 
             }
             public async Task<Unit> Handle (Command request, CancellationToken cancellationToken)
             {
-                var activity = await _context.Activities.FindAsync (request.Id);
+                var context = _contextResolver.GetContext();
+                var activity = await context.Set<Activity>().FindAsync (request.Id);
 
                 if (activity == null)
                 {
@@ -39,10 +41,10 @@ namespace Application.Activities
                     });
                 }
 
-                var user = await _context.Users
+                var user = await context.Set<AppUser>()
                     .SingleOrDefaultAsync (u => u.UserName == _userAccessor.GetCurrentUsername ());
 
-                var attendance = await _context.UserActivities
+                var attendance = await context.Set<UserActivity>()
                     .SingleOrDefaultAsync (ua => ua.ActivityId == activity.Id && ua.AppUserId == user.Id);
 
                 if (attendance == null)
@@ -55,9 +57,9 @@ namespace Application.Activities
                     throw new RestException (HttpStatusCode.BadRequest, new { Attendance = "You cannot remove yourself from an event which you are hosting." });
                 }
 
-                _context.UserActivities.Remove (attendance);
+                context.Set<UserActivity>().Remove (attendance);
 
-                var success = await _context.SaveChangesAsync () > 0;
+                var success = await context.SaveChangesAsync () > 0;
                 if (success)
                 {
                     return Unit.Value;
