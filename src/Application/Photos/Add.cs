@@ -33,7 +33,10 @@ namespace Application.Photos
             public async Task<Photo> Handle (Command request, CancellationToken cancellationToken)
             {
                 var uploadResult = _photoAccessor.Add (request.File);
-                var user = await _context.Users.SingleOrDefaultAsync (x => x.UserName == _userAccessor.GetCurrentUsername ());
+                var user = await _context.Users
+                    .Include (x => x.Photos)
+                    .SingleOrDefaultAsync (x => x.UserName == _userAccessor.GetCurrentUsername ());
+                    
                 var photo = new Photo
                 {
                     Url = uploadResult.Url,
