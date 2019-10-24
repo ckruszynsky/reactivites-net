@@ -30,6 +30,7 @@ namespace Application.Activities
                 var activities = await context.Set<Activity> ()
                     .Include (ua => ua.UserActivities)
                     .ThenInclude (au => au.AppUser)
+                    .ThenInclude(ap => ap.Photos)
                     .ToListAsync (cancellationToken);
                 return _mapper.Map<List<Activity>, List<ActivityDto>> (activities);
             }
