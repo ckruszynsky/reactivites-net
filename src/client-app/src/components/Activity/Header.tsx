@@ -20,6 +20,7 @@ const activityImageTextStyle = {
 
 export const Header: React.FC<{activity: IActivity, onAttendActivity: () => void, onCancelAttendance: () => void, loading: boolean}> =
 ({activity, onAttendActivity, onCancelAttendance, loading}) => {
+    const host = activity.attendees.filter(x=> x.isHost)[0];
     return (
       <Segment.Group>
         <Segment basic attached="top" style={{padding: "0"}}>
@@ -37,7 +38,7 @@ export const Header: React.FC<{activity: IActivity, onAttendActivity: () => void
                     style={{color: "white"}} />
                   <p>{format(activity.date, 'eeee,MMMM do')}</p>
                   <p>
-                    Hosted by <strong>Bob</strong>
+                    Hosted by <Link to={`/profile/${host.username}`}>{host.displayName}</Link>
                   </p>
                 </Item.Content>
               </Item>
