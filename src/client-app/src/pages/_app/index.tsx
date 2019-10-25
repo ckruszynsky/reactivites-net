@@ -14,8 +14,8 @@ import {RootStoreContext} from '../../stores/rootStore';
 import {Dashboard} from '../dashboard';
 import {Detail} from '../detail';
 import {Home} from '../home';
-import {Login} from '../login';
 import {NewActivity} from '../newActivity';
+import {Profile} from '../profiles';
 
 const App: React.FC<RouteComponentProps> = observer(({location}) => {
   const rootStore = useContext(RootStoreContext);
@@ -49,7 +49,7 @@ const App: React.FC<RouteComponentProps> = observer(({location}) => {
               <Route exact path="/activities" component={Dashboard} />
               <Route exact path="/activities/:id" component={Detail} />
               <Route key={location.key} path={["/new", '/manage/:id']} component={NewActivity} />
-              <Route path={'/login'} component={Login} />
+              <Route path={'/profile/:username'} component={Profile} />                         
               <Route component={NotFound} />
             </Switch>
           </Container>
