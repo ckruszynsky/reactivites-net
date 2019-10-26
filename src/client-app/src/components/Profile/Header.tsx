@@ -1,7 +1,9 @@
 import React from 'react';
-import {Button, Divider, Grid, Header, Item, Reveal, Segment, Statistic} from 'semantic-ui-react';
+import { Button, Divider, Grid, Header, Item, Reveal, Segment, Statistic } from 'semantic-ui-react';
 
-export const ProfileHeader = () => {
+import { IProfile } from '../../models/profile';
+
+export const ProfileHeader:React.FC<{profile:IProfile}> = ({profile}) => {
   return (
     <Segment>
       <Grid>
@@ -11,18 +13,18 @@ export const ProfileHeader = () => {
               <Item.Image
                 avatar
                 size='small'
-                src={'/assets/user.png'}
+                src={ profile.image || '/assets/user.png'}
               />
               <Item.Content verticalAlign='middle'>
-                <Header as='h1'>DisplayName</Header>
+                <Header as='h1'>{profile.displayName}</Header>
               </Item.Content>
             </Item>
           </Item.Group>
         </Grid.Column>
         <Grid.Column width={4}>
           <Statistic.Group widths={2}>
-            <Statistic label='Followers' value='5'/>
-            <Statistic label='Following' value='42'/>
+            <Statistic label='Followers' value={profile.followersCount}/>
+            <Statistic label='Following' value={profile.followingCount}/>
           </Statistic.Group>
           <Divider/>
           <Reveal animated='move'>
