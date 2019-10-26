@@ -13,29 +13,27 @@ interface ProfileParams {
   username: string;
 }
 
-export const Profile: React.FC<RouteComponentProps<ProfileParams>> = observer(
-  ({match}) => {
-    const rootStore = useContext(RootStoreContext);
-    const {loadingProfile, loadProfile,profile} = rootStore.profileStore;
+export const Profile: React.FC<RouteComponentProps<ProfileParams>> = observer(({ match }) => {
+  const rootStore = useContext(RootStoreContext);
+  const { loadingProfile, loadProfile, profile } = rootStore.profileStore;
 
-    useEffect(() => {
-      loadProfile(match.params.username);
-    },[loadProfile,match]);
+  useEffect(() => {
+    loadProfile(match.params.username);
+  }, [loadProfile, match]);
 
-     if(loadingProfile) {
-       return <LoadingIndicator content="Loading profile..." />;
-     }
-    return (
-      <Container>
-        <Grid>
-          <Grid.Row>
-          <Grid.Column>
-            {profile && <ProfileHeader profile={profile} /> }
-            <Content />
-          </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Container>
-    );
+  if (loadingProfile) {
+    return <LoadingIndicator content="Loading profile..." />;
   }
-);
+  return (
+    <Container>
+      <Grid>
+        <Grid.Row>
+          <Grid.Column>
+            {profile && <ProfileHeader profile={profile} />}
+            {profile && <Content profile={profile} />}
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+    </Container>
+  );
+});
