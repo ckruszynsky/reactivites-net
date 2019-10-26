@@ -5,6 +5,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import {RouteComponentProps} from 'react-router-dom';
 import {Container, Grid} from 'semantic-ui-react';
 
+import {ProfileHeader} from '../../components/Profile';
 import {RootStoreContext} from '../../stores/rootStore';
 
 interface ProfileParams {
@@ -14,11 +15,15 @@ interface ProfileParams {
 export const Profile: React.FC<RouteComponentProps<ProfileParams>> = observer(
   ({match}) => {
     const rootStore = useContext(RootStoreContext);
-    
+
     return (
-      <Container className="detailsContainer">
+      <Container>
         <Grid>
-            <h1>Profile Page</h1>         
+          <Grid.Row>
+          <Grid.Column>
+            <ProfileHeader />
+          </Grid.Column>
+          </Grid.Row>
         </Grid>
       </Container>
     );
