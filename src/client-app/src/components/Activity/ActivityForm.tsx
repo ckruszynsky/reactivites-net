@@ -105,7 +105,7 @@ export const ActivityForm: React.FC<ActivityFormProps> = ({
             />
             <Button
               floated="right"
-              positive
+              color='pink'
               type="submit"
               content="Submit"
               disabled={loading || invalid || pristine}

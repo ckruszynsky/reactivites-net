@@ -1,7 +1,7 @@
 import React from 'react';
-import { Button, Divider, Grid, Header, Item, Reveal, Segment, Statistic } from 'semantic-ui-react';
+import {Button, Divider, Grid, Header, Item, Reveal, Segment, Statistic} from 'semantic-ui-react';
 
-import { IProfile } from '../../models/profile';
+import {IProfile} from '../../models/profile';
 
 export const ProfileHeader:React.FC<{profile:IProfile}> = ({profile}) => {
   return (
@@ -30,8 +30,8 @@ export const ProfileHeader:React.FC<{profile:IProfile}> = ({profile}) => {
           <Reveal animated='move'>
             <Reveal.Content visible style={{ width: '100%' }}>
               <Button
-                fluid
-                color='teal'
+                fluid                
+                color='green'
                 content='Following'
               />
             </Reveal.Content>
@@ -39,7 +39,7 @@ export const ProfileHeader:React.FC<{profile:IProfile}> = ({profile}) => {
               <Button
                 fluid
                 basic
-                color={true ? 'red' : 'green'}
+                color={true ? 'purple' : 'pink'}
                 content={true ? 'Unfollow' : 'Follow'}
               />
             </Reveal.Content>

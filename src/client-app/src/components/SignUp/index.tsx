@@ -46,7 +46,7 @@ export const Signup: React.FC<{
                         />
                         {submitError && !dirtySinceLastSubmit && <ErrorMessage error={submitError} />}
                         <br />
-                        <Button disabled={(invalid && !dirtySinceLastSubmit) || pristine} color='teal' content="Register" loading={submitting} fluid />
+                        <Button disabled={(invalid && !dirtySinceLastSubmit) || pristine} color='pink' content="Register" loading={submitting} fluid />
                     </Form>
                 )}
             />

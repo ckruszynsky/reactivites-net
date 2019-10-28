@@ -20,7 +20,7 @@ export const Navbar: React.FC<{
         </Menu.Item>
         <Menu.Item name="Activities" as={NavLink} to="/activities" />
         <Menu.Item>
-          <Button animated color='pink' as={NavLink} to="/new">
+          <Button animated basic color='pink' as={NavLink} to="/new">
               <Button.Content visible>
                 Create Activity
               </Button.Content>

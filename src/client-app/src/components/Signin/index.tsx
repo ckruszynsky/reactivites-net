@@ -36,7 +36,7 @@ export const Signin: React.FC<{
             />
             {submitError && !dirtySinceLastSubmit && <ErrorMessage error={submitError} text='Invalid email or password' />}
             <br />
-            <Button disabled={(invalid && !dirtySinceLastSubmit) || pristine} color='teal' content="Login" loading={submitting} fluid />
+            <Button disabled={(invalid && !dirtySinceLastSubmit) || pristine} color='pink' content="Login" loading={submitting} fluid />
           </Form>
         )}
       />
