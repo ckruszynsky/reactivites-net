@@ -1,7 +1,7 @@
 import './styles.scss';
 
 import {observer} from 'mobx-react-lite';
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {RouteComponentProps} from 'react-router-dom';
 import {Container, Grid} from 'semantic-ui-react';
 

@@ -1,4 +1,4 @@
-import React, {Fragment, StyleHTMLAttributes} from 'react';
+import React, {Fragment} from 'react';
 import {Button, Comment, Form, Header, Icon, Segment} from 'semantic-ui-react';
 
 import {IActivity} from '../../models';

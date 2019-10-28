@@ -10,7 +10,7 @@ export const PhotoListItem: React.FC<{
     <Image src={photo.url} />
     {isLoggedInUserProfile &&
         <Button.Group fluid widths={2}>
-            <Button animated basic color="pink" content='Main'>
+            <Button animated basic color="pink">
                 <Button.Content visible>
                     <Icon name="user plus" />
                 </Button.Content>
