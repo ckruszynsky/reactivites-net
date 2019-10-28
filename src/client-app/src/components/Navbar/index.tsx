@@ -2,7 +2,7 @@ import './styles.scss';
 
 import React from 'react';
 import {Link, NavLink} from 'react-router-dom';
-import {Button, Container, Dropdown, Image, Menu} from 'semantic-ui-react';
+import {Button, Container, Dropdown, Icon, Image, Menu} from 'semantic-ui-react';
 
 import {IUser} from '../../models/user';
 
@@ -20,7 +20,14 @@ export const Navbar: React.FC<{
         </Menu.Item>
         <Menu.Item name="Activities" as={NavLink} to="/activities" />
         <Menu.Item>
-          <Button positive content="Create Activity" as={NavLink} to="/new" />
+          <Button animated color='pink' as={NavLink} to="/new">
+              <Button.Content visible>
+                Create Activity
+              </Button.Content>
+              <Button.Content hidden>
+                <Icon name="add"/>                 
+              </Button.Content>
+          </Button>
         </Menu.Item>
         {user &&
           <Menu.Item position='right'>

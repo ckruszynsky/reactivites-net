@@ -1,8 +1,8 @@
-import { format } from 'date-fns';
+import {format} from 'date-fns';
 import React from 'react';
-import { Grid, Icon, Segment } from 'semantic-ui-react';
+import {Grid, Icon, Segment} from 'semantic-ui-react';
 
-import { IActivity } from '../../models';
+import {IActivity} from '../../models';
 
 export const Info:React.FC<{activity:IActivity}> = ({activity}) => {
   return (
@@ -10,7 +10,7 @@ export const Info:React.FC<{activity:IActivity}> = ({activity}) => {
       <Segment attached="top">
         <Grid>
           <Grid.Column width={1}>
-            <Icon size="large" color="teal" name="info" />
+            <Icon size="large" color="purple" name="info" />
           </Grid.Column>
           <Grid.Column width={15}>
             <p>{activity.description}</p>
@@ -20,7 +20,7 @@ export const Info:React.FC<{activity:IActivity}> = ({activity}) => {
       <Segment attached>
         <Grid verticalAlign="middle">
           <Grid.Column width={1}>
-            <Icon name="calendar" size="large" color="teal" />
+            <Icon name="calendar" size="large" color="purple" />
           </Grid.Column>
           <Grid.Column width={15}>
             <span>{format(activity.date,'eeee,MMMM do')} @  {format(activity.date,'h:mm a')} </span>
@@ -30,7 +30,7 @@ export const Info:React.FC<{activity:IActivity}> = ({activity}) => {
       <Segment attached>
         <Grid verticalAlign="middle">
           <Grid.Column width={1}>
-            <Icon name="marker" size="large" color="teal" />
+            <Icon name="marker" size="large" color="purple" />
           </Grid.Column>
           <Grid.Column width={11}>
             <span>

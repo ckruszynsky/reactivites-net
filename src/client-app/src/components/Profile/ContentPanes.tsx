@@ -1,10 +1,10 @@
 import React from 'react';
-import { Tab } from 'semantic-ui-react';
+import {Tab} from 'semantic-ui-react';
 
-import { IProfile } from '../../models/profile';
+import {IProfile} from '../../models/profile';
 import Photos from './Photos';
 
-export const getContentPanes = (profile: IProfile) => {
+export const getContentPanes = (profile: IProfile,isLoggedInUserProfile:boolean) => {
   return [
     {
       menuItem: "About",
@@ -14,7 +14,7 @@ export const getContentPanes = (profile: IProfile) => {
       menuItem: "Photos",
       render: () => (
         <Tab.Pane>
-          <Photos photos={profile.photos}/>
+          <Photos photos={profile.photos} isLoggedInUserProfile={isLoggedInUserProfile}/>
         </Tab.Pane>
       )
     },

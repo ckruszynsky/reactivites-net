@@ -1,12 +1,17 @@
-import React, { Fragment } from 'react';
-import { Button, Comment, Form, Header, Segment } from 'semantic-ui-react';
+import React, {Fragment, StyleHTMLAttributes} from 'react';
+import {Button, Comment, Form, Header, Icon, Segment} from 'semantic-ui-react';
 
-import { IActivity } from '../../models';
+import {IActivity} from '../../models';
+
+const HeaderStyle= {
+   backgroundColor:'#2D3047',
+   border:'none'
+};
 
 export const Chat: React.FC<{ activity: IActivity }> = ({ activity }) => {
   return (
     <Fragment>
-      <Segment textAlign="center" attached="top" inverted color="teal" style={{ border: "none" }}>
+      <Segment textAlign="center" attached="top" inverted style={HeaderStyle}>
         <Header>Chat about this event</Header>
       </Segment>
       <Segment attached>
@@ -41,7 +46,14 @@ export const Chat: React.FC<{ activity: IActivity }> = ({ activity }) => {
 
           <Form reply>
             <Form.TextArea />
-            <Button content="Add Reply" labelPosition="left" icon="edit" primary />
+            <Button animated color="pink">
+              <Button.Content visible>
+                  Reply
+              </Button.Content>
+              <Button.Content hidden>
+                  <Icon name="reply" />
+              </Button.Content>
+            </Button>
           </Form>
         </Comment.Group>
       </Segment>

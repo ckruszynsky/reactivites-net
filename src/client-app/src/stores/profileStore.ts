@@ -1,8 +1,8 @@
-import { action, observable, runInAction } from 'mobx';
+import {action, computed, observable, runInAction} from 'mobx';
 
 import agent from '../api/agent';
-import { IProfile } from './../models/profile';
-import { RootStore } from './rootStore';
+import {IProfile} from './../models/profile';
+import {RootStore} from './rootStore';
 
 export class ProfileStore {
     rootStore:RootStore;
@@ -12,6 +12,13 @@ export class ProfileStore {
 
     @observable profile:IProfile | null = null;
     @observable loadingProfile = true;
+
+    @computed get isCurrentUser(){
+      if(this.rootStore.userStore.user && this.profile){
+        return this.rootStore.userStore.user.username === this.profile.username;
+      }
+      return false;
+    }
 
     @action loadProfile = async(username:string) => {
       this.loadingProfile = true;

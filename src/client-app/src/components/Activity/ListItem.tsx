@@ -42,7 +42,14 @@ export const ListItem: React.FC<ListItemParams> = ({activity}) => {
       </Segment>
       <Segment clearing>
         <span>{activity.description}</span>
-        <Button as={Link} to={`/activities/${activity.id}`} floated="right" content="View" color="blue" />
+        <Button animated as={Link} to={`/activities/${activity.id}`} floated="right" color="pink">
+            <Button.Content visible>
+              View
+            </Button.Content>
+            <Button.Content hidden>
+              <Icon name="folder open outline" />
+            </Button.Content>
+        </Button>
       </Segment>
     </Segment.Group>
   );

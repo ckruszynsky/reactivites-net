@@ -16,7 +16,7 @@ export const List: React.FC<ListProps> = ({
     <Fragment>
       {activities.map(([group, acts]) => (
         <Fragment key={group}>
-          <Label size='large' color='teal'>
+          <Label size='large' style={{backgroundColor:'#2D3047', color:'#fff'}}>
             {format(group, 'eeee, MMMM do')}
           </Label>
           <Item.Group divided>

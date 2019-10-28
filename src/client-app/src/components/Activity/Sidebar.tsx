@@ -4,23 +4,27 @@ import {Image, Item, Label, List, Segment} from 'semantic-ui-react';
 
 import {IAttendee} from '../../models';
 
+const HeaderStyle= {
+  backgroundColor:'#2D3047',
+  border:'none'
+};
 export const Sidebar: React.FC<{attendees: IAttendee[]}> = ({attendees}) => {  
   return (
     <Fragment>
       <Segment
         textAlign="center"
-        style={{border: "none"}}
+        style={HeaderStyle}
         attached="top"
         secondary
         inverted
-        color="teal">
+        >
         {attendees.length}  {attendees.length === 1 ? 'Person' : 'People'} going
       </Segment>
       <Segment attached>
         <List relaxed divided>
           {attendees.map((attendee => (
             <Item key={attendee.username} style={{position: "relative"}}>
-              {attendee.isHost && <Label style={{position: "absolute"}} color="orange" ribbon="right">
+              {attendee.isHost && <Label style={{position: "absolute", backgroundColor:'#4062BB', color:'#fff'}}  ribbon="right">
                 Host
              </Label>}
               <Image size="tiny" src={attendee.image || "/assets/user.png"} />
@@ -28,7 +32,7 @@ export const Sidebar: React.FC<{attendees: IAttendee[]}> = ({attendees}) => {
                 <Item.Header as="h3">
                   <Link to={`/profile/${attendee.username}`}>{attendee.displayName}</Link>
                 </Item.Header>
-                <Item.Extra style={{color: "orange"}}>Following</Item.Extra>
+                <Item.Extra style={{color: "#52489C"}}>Following</Item.Extra>
               </Item.Content>
             </Item>
           )))}
