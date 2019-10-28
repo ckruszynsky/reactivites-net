@@ -7,5 +7,9 @@ import {getContentPanes} from './ContentPanes';
 const menuOptions = { fluid: true, vertical: true };
 
 export const Content:React.FC<{profile:IProfile, isLoggedInUserProfile:boolean}> = ({profile,isLoggedInUserProfile}) => {
-  return <Tab menu={menuOptions} menuPosition="right" panes={getContentPanes(profile, isLoggedInUserProfile)} />;
+  return <Tab 
+          menu={menuOptions} 
+          menuPosition="right" 
+          panes={getContentPanes(profile, isLoggedInUserProfile)}
+          activeIndex={1} />;
 };

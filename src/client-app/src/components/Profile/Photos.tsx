@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
-import {Button, Card, Grid, Header, Icon, Image} from 'semantic-ui-react';
+import {Button, Card, Grid, Header, Icon} from 'semantic-ui-react';
 
 import {IPhoto} from '../../models/profile';
+import {PhotoUpload} from '../PhotoUpload';
+import {PhotoListItem} from './PhotoListItem';
 
 const Photos: React.FC<{photos: IPhoto[], isLoggedInUserProfile: boolean}> = ({photos, isLoggedInUserProfile}) => {
-    const [addPhotoMode, setAddPhotoMode] = useState(false);
+    const [addPhotoMode, setAddPhotoMode] = useState(true);
     return (
         <>
             <Grid>
@@ -16,39 +18,16 @@ const Photos: React.FC<{photos: IPhoto[], isLoggedInUserProfile: boolean}> = ({p
                                 {addPhotoMode ? 'Cancel' : 'Add Photo'}
                             </Button.Content>
                             <Button.Content hidden>
-                                {addPhotoMode ? (<Icon name="cancel" />) :(<Icon name="add" />)}
+                                {addPhotoMode ? (<Icon name="cancel" />) : (<Icon name="add" />)}
                             </Button.Content>
                         </Button>
                     }
                 </Grid.Column>
-
                 <Grid.Column width={16}>
-                    {addPhotoMode ? (<p>Photo widget will go here</p>) : (
+                    {addPhotoMode ? (<PhotoUpload />) : (
                         <Card.Group itemsPerRow={5}>
-                            {photos.map((photo) => (
-                                <Card key={photo.id}>
-                                    <Image src={photo.url} />
-                                    {isLoggedInUserProfile &&
-                                        <Button.Group fluid widths={2}>
-                                            <Button animated basic color="pink" content='Main'>
-                                                <Button.Content visible>
-                                                    <Icon name="user plus" />
-                                                </Button.Content>
-                                                <Button.Content hidden>
-                                                    Set Main
-                                                    </Button.Content>
-                                            </Button>
-                                            <Button animated basic color="purple">
-                                                <Button.Content visible>
-                                                    <Icon name="trash" />
-                                                </Button.Content>
-                                                <Button.Content hidden>
-                                                    Remove
-                                                    </Button.Content>
-                                            </Button>
-                                        </Button.Group>
-                                    }
-                                </Card>
+                            {photos.map((photo:IPhoto) => (
+                                <PhotoListItem photo={photo} isLoggedInUserProfile={isLoggedInUserProfile} />
                             ))}
                         </Card.Group>
                     )}

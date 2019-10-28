@@ -13,9 +13,9 @@ interface ProfileParams {
   username: string;
 }
 
-export const Profile: React.FC<RouteComponentProps<ProfileParams>> = observer(({ match }) => {
+export const Profile: React.FC<RouteComponentProps<ProfileParams>> = observer(({match}) => {
   const rootStore = useContext(RootStoreContext);
-  const { loadingProfile, loadProfile, profile, isCurrentUser } = rootStore.profileStore;
+  const {loadingProfile, loadProfile, profile, isCurrentUser} = rootStore.profileStore;
 
   useEffect(() => {
     loadProfile(match.params.username);
@@ -27,12 +27,10 @@ export const Profile: React.FC<RouteComponentProps<ProfileParams>> = observer(({
   return (
     <Container>
       <Grid>
-        <Grid.Row>
-          <Grid.Column>
-            {profile && <ProfileHeader profile={profile} />}
-            {profile && <Content profile={profile} isLoggedInUserProfile={isCurrentUser} />}
-          </Grid.Column>
-        </Grid.Row>
+        <Grid.Column width={16}>
+          {profile && <ProfileHeader profile={profile} />}
+          {profile && <Content profile={profile} isLoggedInUserProfile={isCurrentUser} />}
+        </Grid.Column>
       </Grid>
     </Container>
   );
