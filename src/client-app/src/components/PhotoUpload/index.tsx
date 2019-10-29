@@ -1,6 +1,7 @@
 import React, {Fragment, useEffect, useState} from 'react';
-import {Grid, Header, Image} from 'semantic-ui-react';
+import {Grid, Header} from 'semantic-ui-react';
 
+import PhotoCropper from './PhotoCropper';
 import {PhotoDropzone} from './PhotoDropzone';
 
 const headerStyle = {
@@ -9,7 +10,7 @@ const headerStyle = {
 }
 export const PhotoUpload = () => {
     const [files, setFiles] = useState<any[]>([]);
-
+    const [image,setImage] = useState<Blob|null>(null);
     //clean up for photo upload 
     //on unmount
     useEffect(()=> {
@@ -19,23 +20,28 @@ export const PhotoUpload = () => {
     })
     return (
         <Fragment>
-            <Grid>
+            <Grid >
+                <Grid.Row stretched>
                 <Grid.Column width={4}>
                     <Header style={headerStyle} sub content='Step 1 - Add Photo' />
                     <PhotoDropzone addFile={setFiles} />
-                </Grid.Column>
-                <Grid.Column width={1} />
+                </Grid.Column>          
+                <Grid.Column width={1}></Grid.Column>             
                 <Grid.Column width={4}>
                     <Header sub style={headerStyle} content='Step 2 - Resize image' />
-                </Grid.Column>
-                <Grid.Column width={1} />
+                    {files.length > 0 && 
+                        <PhotoCropper setImage={setImage} imagePreview={files[0].preview}  />
+                    }                    
+                </Grid.Column>    
+                <Grid.Column width={2}></Grid.Column>                            
                 <Grid.Column width={4}>
                     <Header sub style={headerStyle} content='Step 3 - Preview & Upload' />
                     {files.length > 0 &&
-                        <Image src={files[0].preview} />
+                        <div className='img-preview' style={{minHeight:'200px', overflow:'hidden'}}></div>
                     }
 
                 </Grid.Column>
+                </Grid.Row>
             </Grid>
         </Fragment>
     );
