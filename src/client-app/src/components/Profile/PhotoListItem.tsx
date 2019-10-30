@@ -16,7 +16,8 @@ export const PhotoListItem: React.FC<{
     setMainPhoto,
     deletePhoto,
     loading}) => {
-        const [target,setTarget] = useState<string|undefined>();
+        const [target, setTarget] = useState<string | undefined>();
+        const [deleteTarget, setDeleteTarget] = useState<string | undefined>();
 
         return (<Card key={photo.id}>
             <Image src={photo.url} />
@@ -25,18 +26,24 @@ export const PhotoListItem: React.FC<{
                     <Button name={photo.id}
                         inverted color="pink"
                         icon="plus"
-                        onClick={(e) => { 
-                            setTarget(e.currentTarget.name); 
+                        onClick={(e) => {
+                            setTarget(e.currentTarget.name);
                             setMainPhoto(photo)
                         }
-                    } 
-                    loading={loading && target === photo.id}
-                    disabled={photo.isMain}
+                        }
+                        loading={loading && target === photo.id}
+                        disabled={photo.isMain}
                     />
-                    <Button inverted 
-                        color="purple" 
-                        icon="trash" 
-                        onClick={() => deletePhoto(photo)}
+                    <Button inverted
+                        name={photo.id}
+                        color="purple"
+                        icon="trash"
+                        loading={loading && deleteTarget === photo.id}
+                        onClick={(e) => {
+                            deletePhoto(photo);
+                            setDeleteTarget(e.currentTarget.name);
+                        }
+                        }
                         disabled={photo.isMain} />
                 </Button.Group>}
         </Card>)
