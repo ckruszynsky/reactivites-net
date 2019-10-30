@@ -85,7 +85,7 @@ export class ProfileStore {
     try {
       await agent.Profiles.deletePhoto(photo.id);
       runInAction(() => {        
-        this.profile!.photos = this.profile!.photos.filter(a => a.id === photo.id);        
+        this.profile!.photos = this.profile!.photos.filter(a => a.id !== photo.id);        
         this.loading = false;
       });
     } catch (error) {
