@@ -15,8 +15,8 @@ interface ProfileParams {
 
 export const Profile: React.FC<RouteComponentProps<ProfileParams>> = observer(({match}) => {
   const rootStore = useContext(RootStoreContext);
-  const {loadingProfile, loadProfile, profile, isCurrentUser} = rootStore.profileStore;
-
+  const {loadingProfile, loadProfile, profile, isCurrentUser, uploadPhoto, uploadingPhoto} = rootStore.profileStore;
+  
   useEffect(() => {
     loadProfile(match.params.username);
   }, [loadProfile, match]);
@@ -29,7 +29,10 @@ export const Profile: React.FC<RouteComponentProps<ProfileParams>> = observer(({
       <Grid>
         <Grid.Column width={16}>
           {profile && <ProfileHeader profile={profile} />}
-          {profile && <Content profile={profile} isLoggedInUserProfile={isCurrentUser} />}
+          {profile && <Content profile={profile} 
+                      isLoggedInUserProfile={isCurrentUser}
+                      uploadPhoto={uploadPhoto}
+                      uploadingPhoto={uploadingPhoto} />}
         </Grid.Column>
       </Grid>
     </Container>

@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import {Button, Comment, Form, Header, Icon, Segment} from 'semantic-ui-react';
+import {Button, Comment, Form, Header, Segment} from 'semantic-ui-react';
 
 import {IActivity} from '../../models';
 
@@ -46,14 +46,7 @@ export const Chat: React.FC<{ activity: IActivity }> = ({ activity }) => {
 
           <Form reply>
             <Form.TextArea />
-            <Button animated color="pink">
-              <Button.Content visible>
-                  Reply
-              </Button.Content>
-              <Button.Content hidden>
-                  <Icon name="reply" />
-              </Button.Content>
-            </Button>
+            <Button inverted color="pink" content="Reply" icon="reply"/>                          
           </Form>
         </Comment.Group>
       </Segment>

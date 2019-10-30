@@ -1,7 +1,7 @@
 import {format} from 'date-fns';
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {Button, Header as SemanticHeader, Icon, Image, Item, Segment} from 'semantic-ui-react';
+import {Button, Header as SemanticHeader, Image, Item, Segment} from 'semantic-ui-react';
 
 import {IActivity} from '../../models';
 
@@ -48,18 +48,12 @@ export const Header: React.FC<{activity: IActivity, onAttendActivity: () => void
         <Segment clearing attached="bottom">
 
           {activity.isHost ? (
-            <Button animated as={Link} to={`/manage/${activity.id}`} color="pink">
-              <Button.Content visible>
-                  Manage Event
-              </Button.Content>
-              <Button.Content hidden>
-                <Icon name="edit outline" />
-              </Button.Content>
-            </Button>
+            <Button as={Link} to={`/manage/${activity.id}`} color="pink" content="Manage Event" 
+            icon="edit outline" />                        
           ) : activity.isGoing ? (
-            <Button loading={loading} onClick={onCancelAttendance}>Cancel attendance</Button>
+            <Button color="purple" inverted loading={loading} onClick={onCancelAttendance}>Cancel attendance</Button>
           ) : (
-                <Button color="teal" loading={loading} onClick={onAttendActivity}>Join Activity</Button>
+                <Button color="pink" inverted loading={loading} onClick={onAttendActivity}>Join Activity</Button>
 
               )}
 

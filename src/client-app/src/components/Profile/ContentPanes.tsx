@@ -4,7 +4,12 @@ import {Tab} from 'semantic-ui-react';
 import {IProfile} from '../../models/profile';
 import Photos from './Photos';
 
-export const getContentPanes = (profile: IProfile,isLoggedInUserProfile:boolean) => {
+export const getContentPanes = (
+  profile: IProfile,
+  isLoggedInUserProfile:boolean,
+  uploadPhoto: (file:Blob) => Promise<void>,
+  uploadingPhoto:boolean
+) => {
   return [
     {
       menuItem: "About",
@@ -14,7 +19,10 @@ export const getContentPanes = (profile: IProfile,isLoggedInUserProfile:boolean)
       menuItem: "Photos",
       render: () => (
         <Tab.Pane>
-          <Photos photos={profile.photos} isLoggedInUserProfile={isLoggedInUserProfile}/>
+          <Photos photos={profile.photos} 
+                  isLoggedInUserProfile={isLoggedInUserProfile}
+                  uploadPhoto={uploadPhoto}
+                  uploadingPhoto={uploadingPhoto}/>
         </Tab.Pane>
       )
     },
