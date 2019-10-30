@@ -1,5 +1,6 @@
 import './styles.scss';
 
+import {observer} from 'mobx-react-lite';
 import React from 'react';
 import {Link, NavLink} from 'react-router-dom';
 import {Button, Container, Dropdown, Image, Menu} from 'semantic-ui-react';
@@ -10,7 +11,7 @@ export const Navbar: React.FC<{
   isLoggedIn: boolean;
   user: IUser | null,
   logout: () => void
-}> = ({isLoggedIn, user, logout}) => {
+}> = observer(({isLoggedIn, user, logout}) => {
   return (
     <Menu fixed="top" inverted>
       <Container>
@@ -36,4 +37,4 @@ export const Navbar: React.FC<{
       </Container>
     </Menu>
   );
-};
+});

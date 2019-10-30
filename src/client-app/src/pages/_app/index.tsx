@@ -22,7 +22,7 @@ const App: React.FC<RouteComponentProps> = observer(({location}) => {
   const {isLoggedIn, user, logout, getUser} = rootStore.userStore;
   const {setAppLoaded, token, appLoaded} = rootStore.commonStore;
 
-
+  
   //check to see if we have a token, and if we do 
   //then we will go and fetch the user from our api
   //and if we don't then we just set the app loaded

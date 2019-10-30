@@ -1,14 +1,17 @@
 import React from 'react';
 import {Tab} from 'semantic-ui-react';
 
-import {IProfile} from '../../models/profile';
+import {IPhoto, IProfile} from '../../models/profile';
 import Photos from './Photos';
 
 export const getContentPanes = (
   profile: IProfile,
   isLoggedInUserProfile:boolean,
   uploadPhoto: (file:Blob) => Promise<void>,
-  uploadingPhoto:boolean
+  uploadingPhoto:boolean,
+  setMainPhoto: (photo:IPhoto) => Promise<void>,
+  deletePhoto: (photo:IPhoto) => Promise<void>,
+  loading: boolean
 ) => {
   return [
     {
@@ -22,7 +25,10 @@ export const getContentPanes = (
           <Photos photos={profile.photos} 
                   isLoggedInUserProfile={isLoggedInUserProfile}
                   uploadPhoto={uploadPhoto}
-                  uploadingPhoto={uploadingPhoto}/>
+                  uploadingPhoto={uploadingPhoto}
+                  setMainPhoto={setMainPhoto} 
+                  deletePhoto={deletePhoto}
+                  loading={loading} />
         </Tab.Pane>
       )
     },
