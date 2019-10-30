@@ -24,6 +24,7 @@ export const Profile: React.FC<RouteComponentProps<ProfileParams>> = observer(({
     uploadingPhoto,
     setMainPhoto,
     deletePhoto,
+    updateProfile,
     loading
   } = rootStore.profileStore;
   
@@ -45,7 +46,8 @@ export const Profile: React.FC<RouteComponentProps<ProfileParams>> = observer(({
                       uploadingPhoto={uploadingPhoto}
                       setMainPhoto={setMainPhoto} 
                       deletePhoto={deletePhoto}
-                      loading={loading} />}
+                      loading={loading} 
+                      updateProfile={updateProfile}/>}
         </Grid.Column>
       </Grid>
     </Container>

@@ -6,7 +6,7 @@ import {PhotoUpload} from '../PhotoUpload';
 import {IProfileContentProps} from './IProfileContentProps';
 import {PhotoListItem} from './PhotoListItem';
 
-export interface IPhotosProps extends Omit<IProfileContentProps, 'profile'> {
+export interface IPhotosProps extends Omit<IProfileContentProps, 'profile'| 'updateProfile'> {
     photos: IPhoto[];
 }
 
@@ -27,7 +27,7 @@ const Photos: React.FC<IPhotosProps> = ({
         <>
             <Grid>
                 <Grid.Column width={16} style={{paddingBottom: 0}}>
-                    <Header floated='left' icon="image" content="Photos" />
+                    <Header size="large" floated='left' icon="image" content="Photos" />
                     {isLoggedInUserProfile &&
                         <Button floated='right'
                             inverted
@@ -42,7 +42,7 @@ const Photos: React.FC<IPhotosProps> = ({
                     {addPhotoMode && isLoggedInUserProfile ? (<PhotoUpload uploadPhoto={handleUploadImage} loading={uploadingPhoto} />) : (
                         <Card.Group itemsPerRow={5}>
                             {photos.map((photo: IPhoto) => (
-                                <PhotoListItem photo={photo}
+                                <PhotoListItem key={photo.id} photo={photo}
                                     isLoggedInUserProfile={isLoggedInUserProfile}
                                     setMainPhoto={setMainPhoto}
                                     deletePhoto={deletePhoto}

@@ -37,6 +37,24 @@ export class ProfileStore {
     }
   };
 
+  @action updateProfile = async (displayName: string, bio: string) => {
+    this.loading = true;
+    try {
+      await agent.Profiles.updateProfile({displayName, bio});
+      runInAction(() => {
+        this.profile!.bio = bio;
+        this.profile!.displayName = displayName;
+        this.loading = false;
+      });
+    } catch (error) {
+      console.log(error);
+      toast.error('Problem updating user profile.');
+      runInAction(() => {
+        this.loading = false;
+      });
+    }
+  };
+
   @action uploadPhoto = async (file: Blob) => {
     this.uploadingPhoto = true;
     try {
@@ -80,12 +98,12 @@ export class ProfileStore {
     }
   };
 
-  @action deletePhoto = async (photo:IPhoto) => {
+  @action deletePhoto = async (photo: IPhoto) => {
     this.loading = true;
     try {
       await agent.Profiles.deletePhoto(photo.id);
-      runInAction(() => {        
-        this.profile!.photos = this.profile!.photos.filter(a => a.id !== photo.id);        
+      runInAction(() => {
+        this.profile!.photos = this.profile!.photos.filter(a => a.id !== photo.id);
         this.loading = false;
       });
     } catch (error) {
@@ -95,6 +113,5 @@ export class ProfileStore {
         this.loading = false;
       });
     }
-
   };
 }

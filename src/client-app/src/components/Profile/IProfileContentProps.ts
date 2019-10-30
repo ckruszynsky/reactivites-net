@@ -7,5 +7,6 @@ export interface IProfileContentProps {
     uploadingPhoto: boolean,
     setMainPhoto: (photo:IPhoto)=> Promise<void>,
     deletePhoto: (photo:IPhoto) => Promise<void>,
+    updateProfile:(displayName:string, bio:string ) => Promise<void>,
     loading:boolean
 }

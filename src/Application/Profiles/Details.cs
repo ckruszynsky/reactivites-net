@@ -28,6 +28,7 @@ namespace Application.Profiles
 
             public async Task<Profile> Handle (Query request, CancellationToken cancellationToken)
             {
+                
                 var context =  _contextResolver.GetContext();
                 var user = await context.Set<AppUser>()
                     .Include (x => x.Photos)

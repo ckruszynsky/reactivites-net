@@ -2,7 +2,9 @@ import React from 'react';
 import {Tab} from 'semantic-ui-react';
 
 import {IPhoto, IProfile} from '../../models/profile';
+import {About} from './About';
 import Photos from './Photos';
+
 
 export const getContentPanes = (
   profile: IProfile,
@@ -11,12 +13,18 @@ export const getContentPanes = (
   uploadingPhoto:boolean,
   setMainPhoto: (photo:IPhoto) => Promise<void>,
   deletePhoto: (photo:IPhoto) => Promise<void>,
+  updateProfile:(displayName:string, bio:string) => Promise<void>,
   loading: boolean
 ) => {
   return [
     {
       menuItem: "About",
-      render: () => <Tab.Pane>About Content</Tab.Pane>
+      render: () => <Tab.Pane>
+        <About profile={profile} 
+             isLoggedInUserProfile={isLoggedInUserProfile}
+             updateProfile={updateProfile}
+             loading={loading}
+        /></Tab.Pane>
     },
     {
       menuItem: "Photos",

@@ -13,7 +13,8 @@ export const Content:React.FC<IProfileContentProps> = ({
     uploadingPhoto,
     setMainPhoto,
     deletePhoto,
-    loading
+    loading,
+    updateProfile
   }) => {
   return <Tab 
           menu={menuOptions} 
@@ -24,8 +25,9 @@ export const Content:React.FC<IProfileContentProps> = ({
                   uploadPhoto, 
                   uploadingPhoto,
                   setMainPhoto,
-                  deletePhoto,
+                  deletePhoto,                  
+                  updateProfile,
                   loading
                   )}
-          activeIndex={1} />;
+        />;
 };
