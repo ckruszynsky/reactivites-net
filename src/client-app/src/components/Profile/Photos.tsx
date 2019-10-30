@@ -7,6 +7,7 @@ import {PhotoListItem} from './PhotoListItem';
 
 const Photos: React.FC<{photos: IPhoto[], isLoggedInUserProfile: boolean}> = ({photos, isLoggedInUserProfile}) => {
     const [addPhotoMode, setAddPhotoMode] = useState(true);
+  
     return (
         <>
             <Grid>
@@ -24,7 +25,7 @@ const Photos: React.FC<{photos: IPhoto[], isLoggedInUserProfile: boolean}> = ({p
                     }
                 </Grid.Column>
                 <Grid.Column width={16}>
-                    {addPhotoMode ? (<PhotoUpload />) : (
+                    {addPhotoMode && isLoggedInUserProfile ? (<PhotoUpload />) : (
                         <Card.Group itemsPerRow={5}>
                             {photos.map((photo:IPhoto) => (
                                 <PhotoListItem photo={photo} isLoggedInUserProfile={isLoggedInUserProfile} />
