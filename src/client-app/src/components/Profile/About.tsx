@@ -37,11 +37,15 @@ export const About: React.FC<{
                 <FinalForm initialValues={{displayName: profile.displayName, bio: profile.bio}} 
                         onSubmit={({displayName, bio}) => updateProfile(displayName, bio)} 
                         validate={validate}                     
-                        render={({handleSubmit}) => (
-                    <Form onSubmit={handleSubmit} loading={loading}>
+                        render={({handleSubmit,invalid,pristine,submitting}) => (
+                    <Form onSubmit={handleSubmit}>
                     <Field name='displayName' component={TextInput} placeholder='Display Name' />
                     <Field name="bio" component={TextAreaInput} rows={25} />
-                    <Button color="pink" type="submit" content="Update Profile" />
+                    <Button color="pink" 
+                            type="submit" 
+                            content="Update Profile"
+                            loading={submitting}
+                            disabled={invalid || pristine} />
                 </Form>)} />
 
             </Grid.Column>
