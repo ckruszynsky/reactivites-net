@@ -17,6 +17,7 @@ export const PhotoUpload:React.FC<{
 }) => {
     const [files, setFiles] = useState<any[]>([]);
     const [image,setImage] = useState<Blob|null>(null);
+    const [target,setTarget] = useState<string | undefined>();
     //clean up for photo upload 
     //on unmount
     useEffect(()=> {
@@ -46,8 +47,15 @@ export const PhotoUpload:React.FC<{
                         <Fragment>
                             <div className='img-preview' style={{minHeight:'200px', overflow:'hidden'}}></div>
                             <Button.Group widths={2}>
-                                <Button color="pink" icon="check" loading={loading} onClick={()=> uploadPhoto(image!)} />
-                                <Button color="purple" icon="close" loading={loading} onClick={()=> setFiles([])} />
+                                <Button name="upload" 
+                                        color="pink" 
+                                        icon="check" 
+                                        loading={loading && target === "upload"} 
+                                        onClick={(e)=> {
+                                            setTarget(e.currentTarget.name);
+                                            uploadPhoto(image!);
+                                        }} />
+                                <Button name="close" color="purple" icon="close" onClick={()=> setFiles([])} />
                             </Button.Group>
                         </Fragment>
 
