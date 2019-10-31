@@ -1,55 +1,21 @@
-import React, {Fragment} from 'react';
-import {Field, Form as FinalForm} from 'react-final-form';
-import {combineValidators, isRequired} from 'revalidate';
-import {Button, Container, Form, Grid, Header} from 'semantic-ui-react';
+import React, {Fragment, useState} from 'react';
+import {Button, Grid, Header} from 'semantic-ui-react';
 
 import {IProfile} from '../../models/profile';
-import {TextAreaInput, TextInput} from '../Form';
+import {ProfileDescription} from './ProfileDescription';
+import {ProfileEditForm} from './ProfileEditForm';
 
 
-const validate = combineValidators({
-    displayName: isRequired({message: 'A Display name is required.'})
-});
 
 export const About: React.FC<{
-    profile: IProfile, 
-    isLoggedInUserProfile: boolean, 
-    updateProfile: (displayName:string, bio:string) => Promise<void>,
-    loading:boolean}> =
-    ({profile, isLoggedInUserProfile,updateProfile, loading}) => {
-        const ProfileDescription = <Fragment>
-            <Grid.Row>
-                <Grid.Column width={16}>
-                    <Header>{`Name: ${profile.displayName}`} </Header>
-                </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
-                <Grid.Column width={16}>
-                    <Header>Bio</Header>
-                    <Container text>
-                        {profile.bio}
-                    </Container>
-                </Grid.Column>
-            </Grid.Row>
-        </Fragment>;
-        const ProfileEditForm = <Grid.Row>
-            <Grid.Column>
-                <FinalForm initialValues={{displayName: profile.displayName, bio: profile.bio}} 
-                        onSubmit={({displayName, bio}) => updateProfile(displayName, bio)} 
-                        validate={validate}                     
-                        render={({handleSubmit,invalid,pristine,submitting}) => (
-                    <Form onSubmit={handleSubmit}>
-                    <Field name='displayName' component={TextInput} placeholder='Display Name' />
-                    <Field name="bio" component={TextAreaInput} rows={25} />
-                    <Button color="pink" 
-                            type="submit" 
-                            content="Update Profile"
-                            loading={submitting}
-                            disabled={invalid || pristine} />
-                </Form>)} />
+    profile: IProfile,
+    isLoggedInUserProfile: boolean,
+    updateProfile: (displayName: string, bio: string) => Promise<void>,
+    loading: boolean
+}> =
+    ({profile, isLoggedInUserProfile, updateProfile, loading}) => {
 
-            </Grid.Column>
-        </Grid.Row>;
+        const [editMode, setEditMode] = useState<boolean>(false);
         return (
             <>
                 <Grid>
@@ -59,9 +25,27 @@ export const About: React.FC<{
                                 icon="user circle outline"
                                 content="About"
                                 size="large"></Header>
+                            {isLoggedInUserProfile &&
+                                <Button floated='right'
+                                    inverted
+                                    color='pink'
+                                    onClick={() => setEditMode(!editMode)}
+                                    content={editMode ? 'Cancel' : 'Edit Profile'}
+                                    icon={editMode ? "cancel" : "edit"}>
+                                </Button>
+                            }
                         </Grid.Column>
                     </Grid.Row>
-                    {!isLoggedInUserProfile ? ProfileDescription :ProfileEditForm}
+                    {!editMode ? 
+                        (<ProfileDescription 
+                            displayName={profile.displayName}
+                            bio={profile.bio} />) : 
+                        (<ProfileEditForm
+                            displayName={profile.displayName}
+                            bio={profile.bio}
+                            updateProfile={updateProfile}
+                         />)
+                    }
                 </Grid>
             </>
         )
