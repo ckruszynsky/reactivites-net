@@ -38,8 +38,13 @@ export const Profile: React.FC<RouteComponentProps<ProfileParams>> = observer(({
   return (
     <Container>
       <Grid>
+        <Grid.Row>
         <Grid.Column width={16}>
           {profile && <ProfileHeader profile={profile} />}
+        </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column width={16}>
           {profile && <Content profile={profile} 
                       isLoggedInUserProfile={isCurrentUser}
                       uploadPhoto={uploadPhoto}
@@ -48,7 +53,9 @@ export const Profile: React.FC<RouteComponentProps<ProfileParams>> = observer(({
                       deletePhoto={deletePhoto}
                       loading={loading} 
                       updateProfile={updateProfile}/>}
-        </Grid.Column>
+        
+          </Grid.Column>
+        </Grid.Row>
       </Grid>
     </Container>
   );

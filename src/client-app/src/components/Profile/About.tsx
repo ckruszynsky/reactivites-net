@@ -18,7 +18,7 @@ export const About: React.FC<{
         const [editMode, setEditMode] = useState<boolean>(false);
         return (
             <>
-                <Grid>
+                <Grid stackable>
                     <Grid.Row>
                         <Grid.Column width={16}>
                             <Header floated='left'
@@ -36,6 +36,7 @@ export const About: React.FC<{
                             }
                         </Grid.Column>
                     </Grid.Row>
+                    </Grid>
                     {!editMode ? 
                         (<ProfileDescription 
                             displayName={profile.displayName}
@@ -45,8 +46,7 @@ export const About: React.FC<{
                             bio={profile.bio}
                             updateProfile={updateProfile}
                          />)
-                    }
-                </Grid>
+                    }                
             </>
         )
     }

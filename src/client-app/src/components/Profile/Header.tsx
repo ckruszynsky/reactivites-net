@@ -1,13 +1,23 @@
 import React from 'react';
-import {Button, Divider, Grid, Header, Item, Reveal, Segment, Statistic} from 'semantic-ui-react';
+import {
+  Button,
+  Divider,
+  Grid,
+  Header,
+  Item,
+  Reveal,
+  Segment,
+  Statistic,
+} from 'semantic-ui-react';
 
 import {IProfile} from '../../models/profile';
 
 export const ProfileHeader:React.FC<{profile:IProfile}> = ({profile}) => {
   return (
     <Segment>
-      <Grid>
-        <Grid.Column width={12}>
+      <Grid columns={2} stackable>
+        <Grid.Row>
+        <Grid.Column width={11}>
           <Item.Group>
             <Item>
               <Item.Image
@@ -45,6 +55,7 @@ export const ProfileHeader:React.FC<{profile:IProfile}> = ({profile}) => {
             </Reveal.Content>
           </Reveal>
         </Grid.Column>
+        </Grid.Row>
       </Grid>
     </Segment>
   );
