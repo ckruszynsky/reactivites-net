@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import {Grid, Header} from 'semantic-ui-react';
 
 export const ProfileDescription: React.FC<{displayName: string, bio: string}> = ({displayName, bio}) => (
