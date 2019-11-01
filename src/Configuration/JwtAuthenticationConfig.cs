@@ -1,4 +1,5 @@
 using System.Text;
+using System.Threading.Tasks;
 using Application.Contracts;
 using Infrastructure.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -25,10 +26,29 @@ namespace Configuration
                     ValidateAudience = false,
                     ValidateIssuer = false
                     };
+
+                    opt.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = HandleMessageReceived ()
+                    };
                 });
 
             services.AddScoped<IJwtGenerator, JwtGenerator> ();
             services.AddScoped<IUserAccessor, UserAccessor> ();
+        }
+
+        private static System.Func<MessageReceivedContext, Task> HandleMessageReceived ()
+        {
+            return context =>
+            {
+                var accessToken = context.Request.Query["access_token"];
+                var path = context.HttpContext.Request.Path;
+                if (!string.IsNullOrEmpty (accessToken) && path.StartsWithSegments ("/chat"))
+                {
+                    context.Token = accessToken;
+                }
+                return Task.CompletedTask;
+            };
         }
 
         public static void ApplicationConfiguration (IApplicationBuilder appBuilder)
