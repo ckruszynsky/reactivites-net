@@ -8,7 +8,7 @@ import {v4 as uuid} from 'uuid';
 
 import {ActivityForm} from '../../components/Activity';
 import {PageHeader} from '../../components/PageHeader';
-import {ActivityFormValues, IActivityFormValues, IAttendee} from '../../models';
+import {ActivityFormValues, IActivityFormValues, IAttendee, IComment} from '../../models';
 import {RootStoreContext} from '../../stores/rootStore';
 
 interface DetailParams {
@@ -47,7 +47,8 @@ export const NewActivity: React.FC<RouteComponentProps<DetailParams>> = observer
           date: activity.date!,
           city: activity.city!,
           venue: activity.venue!,
-          attendees:new Array<IAttendee>()
+          attendees:new Array<IAttendee>(),
+          comments:new Array<IComment>()
         };
         createActivity(newActivity);
       } else {
@@ -59,7 +60,8 @@ export const NewActivity: React.FC<RouteComponentProps<DetailParams>> = observer
           date: activity.date!,
           city: activity.city!,
           venue: activity.venue!,
-          attendees:activity.attendees!
+          attendees:activity.attendees!,
+          comments: activity.comments!
         }
         editActivity(editedActivity);  
       }
