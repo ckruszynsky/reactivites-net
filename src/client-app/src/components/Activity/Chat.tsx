@@ -1,9 +1,10 @@
 import {formatDistance} from 'date-fns';
-import React, {Fragment} from 'react';
+import {observer} from 'mobx-react-lite';
+import React, {Fragment, useContext, useEffect} from 'react';
 import {Field, Form as FinalForm} from 'react-final-form';
 import {Button, Comment, Form, Header, Segment} from 'semantic-ui-react';
 
-import {IActivity} from '../../models';
+import {RootStoreContext} from '../../stores/rootStore';
 import {Link} from '../../util/router';
 import {TextAreaInput} from '../Form';
 
@@ -12,8 +13,22 @@ const HeaderStyle= {
    border:'none'
 };
 
-export const Chat:React.FC<{activity:IActivity, addComment: (value:any) => Promise<void> }> = ({activity,addComment}) => {
-  
+export const Chat = observer(() => {
+  const rootStore = useContext(RootStoreContext);
+  const {
+    createHubConnection,
+    stopHubConnection,
+    addComment,
+    currentActivity
+  } = rootStore.activityStore;
+
+  useEffect(() => {
+    createHubConnection();
+    return () => {
+      stopHubConnection();
+    }
+  }, [createHubConnection, stopHubConnection])
+
   return (
     <Fragment>
     <Segment
@@ -27,7 +42,7 @@ export const Chat:React.FC<{activity:IActivity, addComment: (value:any) => Promi
     </Segment>
     <Segment attached>
       <Comment.Group>
-        {activity && activity.comments && activity.comments.map((comment) => (
+        {currentActivity && currentActivity.comments && currentActivity.comments.map((comment) => (
         <Comment key={comment.id}>
         <Comment.Avatar src={comment.image || '/assets/user.png'} />
         <Comment.Content>
@@ -65,4 +80,4 @@ export const Chat:React.FC<{activity:IActivity, addComment: (value:any) => Promi
     </Segment>
   </Fragment>
   );
-};
+});

@@ -31,11 +31,12 @@ namespace Application.Activities
             }
             public async Task<ActivityDto> Handle (Query request, CancellationToken cancellationToken)
             {
-                var context = _contextResolver.GetContext();
-                var activity = await context.Set<Activity>()
+                var context = _contextResolver.GetContext ();
+                var activity = await context.Set<Activity> ()
+                    .Include (a => a.Comments)
                     .Include (ua => ua.UserActivities)
                     .ThenInclude (au => au.AppUser)
-                    .ThenInclude(ap => ap.Photos)
+                    .ThenInclude (ap => ap.Photos)
                     .SingleOrDefaultAsync (x => x.Id == request.Id);
 
                 if (activity == null)
@@ -48,6 +49,7 @@ namespace Application.Activities
 
                 }
                 var activityToReturn = _mapper.Map<Activity, ActivityDto> (activity);
+
                 return activityToReturn;
             }
         }

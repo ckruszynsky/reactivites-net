@@ -229,7 +229,11 @@ export class ActivityStore {
 			})
 
 		this.hubConnection.on('ReceiveComment', comment => {
-			this.currentActivity!.comments.push(comment)
+			runInAction(() => {
+				if (this.currentActivity != null) {
+					this.currentActivity.comments.push(comment)
+				}
+			})
 		})
 	}
 }

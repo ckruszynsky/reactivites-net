@@ -21,18 +21,13 @@ export const Detail: React.FC<RouteComponentProps<DetailsParams>> = observer(
       loading, 
       cancelAttendance, 
       attendActivity, 
-      processing, 
-      addComment,
-      createHubConnection,
-      stopHubConnection} = rootStore.activityStore;
+      processing
+    } = rootStore.activityStore;
     const [activity, setActivity] = useState();
 
     useEffect(() => {
-      createHubConnection();
-      
-      loadActivity(match.params.id).then(act => setActivity(act));
-      return () => { stopHubConnection(); }
-    },[createHubConnection,stopHubConnection,loadActivity,match.params.id]);
+      loadActivity(match.params.id).then(act => setActivity(act));     
+    });
 
     if (loading || !activity) {
       return <LoadingIndicator content="Loading activity..." />;
@@ -48,7 +43,7 @@ export const Detail: React.FC<RouteComponentProps<DetailsParams>> = observer(
               loading={processing}
             />
             <Info activity={activity} />
-            <Chat activity={activity} addComment={addComment}  />
+            <Chat  />
           </Grid.Column>
           <Grid.Column width={6}>
             <Sidebar attendees={activity.attendees} />
