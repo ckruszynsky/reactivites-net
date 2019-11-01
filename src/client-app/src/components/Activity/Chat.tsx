@@ -34,9 +34,8 @@ export const Chat = observer(() => {
     <Segment
       textAlign='center'
       attached='top'
-      inverted
-      color='teal'
-      style={{ border: 'none' }}
+      inverted      
+      style={HeaderStyle}
     >
       <Header>Chat about this event</Header>
     </Segment>
@@ -70,7 +69,7 @@ export const Chat = observer(() => {
               content='Add Reply'
               labelPosition='left'
               icon='edit'
-              primary
+              color="pink"
             />
           </Form>
           )}
