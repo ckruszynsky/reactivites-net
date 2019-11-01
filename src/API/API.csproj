@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <UserSecretsId>634656f0-bce9-4ade-bb8b-f399c3ff8655</UserSecretsId>    
@@ -7,6 +7,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.6" />
   </ItemGroup>
   <ItemGroup>

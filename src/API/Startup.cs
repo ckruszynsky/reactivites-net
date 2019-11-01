@@ -1,4 +1,5 @@
-﻿using Configuration;
+﻿using API.SignalR;
+using Configuration;
 using Infrastructure.Photos;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,13 +33,14 @@ namespace API
 
             MediatRConfig.ServiceConfiguration (services);
             AutoMapperConfig.ServiceConfiguration (services);
+            SignalRConfiguration.ServiceConfiguration (services);
             MvcConfig.ServiceConfiguration (services, CompatibilityVersion.Version_2_2);
             IdentityConfig.ServiceConfiguration (services);
             AuthorizationConfig.ServicesConfiguration (services);
             JwtAuthenticationConfig.ServiceConfiguration (services, Configuration["TokenKey"]);
-            PhotoAccessorConfig.ServiceConfiguration(services);
-            services.Configure<CloudinarySettings>(Configuration.GetSection("Cloudinary"));
-             
+            PhotoAccessorConfig.ServiceConfiguration (services);
+            services.Configure<CloudinarySettings> (Configuration.GetSection ("Cloudinary"));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,6 +49,7 @@ namespace API
             ErrorHandlingConfig.ApplicationConfiguration (app);
             JwtAuthenticationConfig.ApplicationConfiguration (app);
             CorsConfig.ApplicationConfiguration (app);
+            SignalRConfiguration.ApplicationConfiguration<ChatHub> (app);
             MvcConfig.ApplicationConfiguration (app);
         }
     }
