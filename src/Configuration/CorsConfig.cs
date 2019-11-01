@@ -19,7 +19,8 @@ namespace Configuration
                     policy
                         .AllowAnyHeader ()
                         .AllowAnyMethod ()
-                        .WithOrigins (origins);
+                        .WithOrigins (origins)
+                        .AllowCredentials ();
                 });
             });
         }

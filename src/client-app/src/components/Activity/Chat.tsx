@@ -1,55 +1,68 @@
+import {formatDistance} from 'date-fns';
 import React, {Fragment} from 'react';
+import {Field, Form as FinalForm} from 'react-final-form';
 import {Button, Comment, Form, Header, Segment} from 'semantic-ui-react';
 
 import {IActivity} from '../../models';
+import {Link} from '../../util/router';
+import {TextAreaInput} from '../Form';
 
 const HeaderStyle= {
    backgroundColor:'#2D3047',
    border:'none'
 };
 
-export const Chat: React.FC<{ activity: IActivity }> = ({ activity }) => {
+export const Chat:React.FC<{activity:IActivity, addComment: (value:any) => Promise<void> }> = ({activity,addComment}) => {
+  
   return (
     <Fragment>
-      <Segment textAlign="center" attached="top" inverted style={HeaderStyle}>
-        <Header>Chat about this event</Header>
-      </Segment>
-      <Segment attached>
-        <Comment.Group>
-          <Comment>
-            <Comment.Avatar src="/assets/user.png" />
-            <Comment.Content>
-              <Comment.Author as="a">Matt</Comment.Author>
-              <Comment.Metadata>
-                <div>Today at 5:42PM</div>
-              </Comment.Metadata>
-              <Comment.Text>How artistic!</Comment.Text>
-              <Comment.Actions>
-                <Comment.Action>Reply</Comment.Action>
-              </Comment.Actions>
-            </Comment.Content>
-          </Comment>
+    <Segment
+      textAlign='center'
+      attached='top'
+      inverted
+      color='teal'
+      style={{ border: 'none' }}
+    >
+      <Header>Chat about this event</Header>
+    </Segment>
+    <Segment attached>
+      <Comment.Group>
+        {activity && activity.comments && activity.comments.map((comment) => (
+        <Comment key={comment.id}>
+        <Comment.Avatar src={comment.image || '/assets/user.png'} />
+        <Comment.Content>
+          <Comment.Author as={Link} to={`/profile/${comment.username}`}>{comment.displayName}</Comment.Author>
+          <Comment.Metadata>
+            <div>{formatDistance(comment.createdAt, new Date())}</div>
+          </Comment.Metadata>
+          <Comment.Text>{comment.body}</Comment.Text>
+        </Comment.Content>
+      </Comment>
+        ))}
 
-          <Comment>
-            <Comment.Avatar src="/assets/user.png" />
-            <Comment.Content>
-              <Comment.Author as="a">Joe Henderson</Comment.Author>
-              <Comment.Metadata>
-                <div>5 days ago</div>
-              </Comment.Metadata>
-              <Comment.Text>Dude, this is awesome. Thanks so much</Comment.Text>
-              <Comment.Actions>
-                <Comment.Action>Reply</Comment.Action>
-              </Comment.Actions>
-            </Comment.Content>
-          </Comment>
-
-          <Form reply>
-            <Form.TextArea />
-            <Button inverted color="pink" content="Reply" icon="reply"/>                          
+        <FinalForm 
+          onSubmit={addComment}
+          render={({handleSubmit, submitting, form}) => (
+            <Form onSubmit={() => handleSubmit()!.then(() => form.reset())}>
+            <Field 
+              name='body'
+              component={TextAreaInput}
+              rows={2}
+              placeholder='Add your comment'
+            />
+            <Button
+              loading={submitting}
+              content='Add Reply'
+              labelPosition='left'
+              icon='edit'
+              primary
+            />
           </Form>
-        </Comment.Group>
-      </Segment>
-    </Fragment>
+          )}
+        />
+
+      </Comment.Group>
+    </Segment>
+  </Fragment>
   );
 };

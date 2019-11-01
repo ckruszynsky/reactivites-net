@@ -197,7 +197,18 @@ export class ActivityStore {
 		}
 	}
 
-	@action stopHubConnection = () => {
+	@action addComment = async (values: any) => {
+		values.activityId = this.currentActivity!.id
+
+		try {
+			await this.hubConnection!.invoke('SendComment', values)
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
+	@action
+	stopHubConnection = () => {
 		this.hubConnection!.stop()
 	}
 

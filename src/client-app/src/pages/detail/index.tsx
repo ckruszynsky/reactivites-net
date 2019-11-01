@@ -16,12 +16,23 @@ interface DetailsParams {
 export const Detail: React.FC<RouteComponentProps<DetailsParams>> = observer(
   ({match}) => {
     const rootStore = useContext(RootStoreContext);
-    const {loadActivity, loading, cancelAttendance, attendActivity, processing} = rootStore.activityStore;
+    const {
+      loadActivity, 
+      loading, 
+      cancelAttendance, 
+      attendActivity, 
+      processing, 
+      addComment,
+      createHubConnection,
+      stopHubConnection} = rootStore.activityStore;
     const [activity, setActivity] = useState();
 
     useEffect(() => {
+      createHubConnection();
+      
       loadActivity(match.params.id).then(act => setActivity(act));
-    });
+      return () => { stopHubConnection(); }
+    },[createHubConnection,stopHubConnection,loadActivity,match.params.id]);
 
     if (loading || !activity) {
       return <LoadingIndicator content="Loading activity..." />;
@@ -37,7 +48,7 @@ export const Detail: React.FC<RouteComponentProps<DetailsParams>> = observer(
               loading={processing}
             />
             <Info activity={activity} />
-            <Chat activity={activity} />
+            <Chat activity={activity} addComment={addComment}  />
           </Grid.Column>
           <Grid.Column width={6}>
             <Sidebar attendees={activity.attendees} />
