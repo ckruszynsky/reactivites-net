@@ -39,6 +39,7 @@ namespace API
             AuthorizationConfig.ServicesConfiguration (services);
             JwtAuthenticationConfig.ServiceConfiguration (services, Configuration["TokenKey"]);
             PhotoAccessorConfig.ServiceConfiguration (services);
+            ProfileReaderConfiguration.ServiceConfiguration(services);
             services.Configure<CloudinarySettings> (Configuration.GetSection ("Cloudinary"));
 
         }
