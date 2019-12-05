@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
-using AutoMapper;
 using Domain;
 
 namespace Application.Profiles
@@ -17,14 +15,6 @@ namespace Application.Profiles
                 .ForMember (x => x.Bio, opts => opts.MapFrom (src => src.Bio))
                 .ForMember (x => x.FollowersCount, opts => opts.MapFrom(src => src.Followers.Count))
                 .ForMember( x=> x.FollowingCount, opts => opts.MapFrom(src => src.Followings.Count));
-        }
-    }
-
-    public class MainPhotoResolver : IValueResolver<AppUser, Profile, string>
-    {
-        public string Resolve (AppUser source, Profile destination, string destMember, ResolutionContext context)
-        {
-            return source.Photos.FirstOrDefault (x => x.IsMain == true)?.Url;
         }
     }
 }
