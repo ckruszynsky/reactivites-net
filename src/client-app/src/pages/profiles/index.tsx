@@ -27,12 +27,14 @@ export const Profile: React.FC<RouteComponentProps<ProfileParams>> = observer(({
     updateProfile,
     follow,
     unfollow,    
-    loading
+    loading,
+    followings,
+    loadFollowings
   } = rootStore.profileStore;
   
   useEffect(() => {
-    loadProfile(match.params.username);
-  }, [loadProfile, match]);
+    loadProfile(match.params.username);        
+  }, [loadProfile,loadFollowings, match]);
 
   if (loadingProfile) {
     return <LoadingIndicator content="Loading profile..." />;
@@ -60,7 +62,9 @@ export const Profile: React.FC<RouteComponentProps<ProfileParams>> = observer(({
                       setMainPhoto={setMainPhoto} 
                       deletePhoto={deletePhoto}
                       loading={loading} 
-                      updateProfile={updateProfile}/>}
+                      updateProfile={updateProfile}
+                      followings={followings}
+                    />}
         
           </Grid.Column>
         </Grid.Row>

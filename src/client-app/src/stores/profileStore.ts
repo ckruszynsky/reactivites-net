@@ -15,6 +15,7 @@ export class ProfileStore {
 	@observable loadingProfile = true;
 	@observable uploadingPhoto = false;
 	@observable loading = false;
+	@observable followings: IProfile[] = [];
 
 	@computed
 	get isCurrentUser() {
@@ -139,9 +140,9 @@ export class ProfileStore {
 				this.loading = false;
 			});
 		}
-  };
-  
-  @action
+	};
+
+	@action
 	unfollow = async (username: string) => {
 		this.loading = true;
 		try {
@@ -153,6 +154,26 @@ export class ProfileStore {
 			});
 		} catch (error) {
 			toast.error('Problem unfollowing user');
+			runInAction(() => {
+				this.loading = false;
+			});
+		}
+	};
+
+	@action
+	loadFollowings = async (predicate: string) => {
+		this.loading = true;
+		try {
+			const profiles = await agent.Profiles.listFollowings(
+				this.profile!.username,
+				predicate
+			);
+			runInAction(() => {
+				this.followings = profiles;
+				this.loading = false;
+			});
+		} catch (error) {
+			toast.error('Problem loading followings');
 			runInAction(() => {
 				this.loading = false;
 			});

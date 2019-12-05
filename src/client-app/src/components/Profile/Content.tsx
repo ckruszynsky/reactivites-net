@@ -14,7 +14,8 @@ export const Content:React.FC<IProfileContentProps> = ({
     setMainPhoto,
     deletePhoto,
     loading,
-    updateProfile
+    updateProfile,
+    followings    
   }) => {
   return <Tab 
           menu={menuOptions} 
@@ -27,7 +28,8 @@ export const Content:React.FC<IProfileContentProps> = ({
                   setMainPhoto,
                   deletePhoto,                  
                   updateProfile,
-                  loading
+                  loading,
+                  followings
                   )}
         />;
 };

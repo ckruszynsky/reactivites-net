@@ -6,7 +6,7 @@ import {PhotoUpload} from '../PhotoUpload';
 import {IProfileContentProps} from './IProfileContentProps';
 import {PhotoListItem} from './PhotoListItem';
 
-export interface IPhotosProps extends Omit<IProfileContentProps, 'profile'| 'updateProfile'> {
+export interface IPhotosProps extends Omit<IProfileContentProps, 'profile'| 'updateProfile' | 'followings'|'loadFollowings'> {
     photos: IPhoto[];
 }
 

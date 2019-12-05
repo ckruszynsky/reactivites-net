@@ -8,5 +8,6 @@ export interface IProfileContentProps {
     setMainPhoto: (photo:IPhoto)=> Promise<void>,
     deletePhoto: (photo:IPhoto) => Promise<void>,
     updateProfile:(displayName:string, bio:string ) => Promise<void>,
+    followings: IProfile[],
     loading:boolean
 }

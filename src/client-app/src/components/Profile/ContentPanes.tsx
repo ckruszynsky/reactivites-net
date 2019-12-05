@@ -4,6 +4,7 @@ import {Tab} from 'semantic-ui-react';
 import {IPhoto, IProfile} from '../../models/profile';
 import {About} from './About';
 import Photos from './Photos';
+import {ProfileFollowings} from './ProfileFollowings';
 
 
 export const getContentPanes = (
@@ -14,7 +15,8 @@ export const getContentPanes = (
   setMainPhoto: (photo:IPhoto) => Promise<void>,
   deletePhoto: (photo:IPhoto) => Promise<void>,
   updateProfile:(displayName:string, bio:string) => Promise<void>,
-  loading: boolean
+  loading: boolean,
+  followings: IProfile[]  
 ) => {
   return [
     {
@@ -46,11 +48,17 @@ export const getContentPanes = (
     },
     {
       menuItem: "Followers",
-      render: () => <Tab.Pane>Followers Content</Tab.Pane>
+      render: () => 
+      <Tab.Pane loading={loading}>
+        <ProfileFollowings profile={profile} followings={followings}></ProfileFollowings>
+      </Tab.Pane>
     },
     {
       menuItem: "Following",
-      render: () => <Tab.Pane>Following Content</Tab.Pane>
+      render: () =>  
+      <Tab.Pane>
+      <ProfileFollowings profile={profile} followings={followings}></ProfileFollowings>
+    </Tab.Pane>
     }
   ];
 };
