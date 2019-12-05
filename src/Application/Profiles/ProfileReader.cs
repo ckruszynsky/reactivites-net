@@ -21,31 +21,32 @@ namespace Application.Profiles
             _contextResolver = contextResolver;
 
         }
-        public async Task<Profile> ReadProfile (string username)
+        public async Task<Profile> ReadProfile (string profileUserName)
         {
             var context = _contextResolver.GetContext ();
 
-            var followingUser = await context.Set<AppUser> ()
-                .SingleOrDefaultAsync (au => au.UserName == username);
+            var profileUser = await context.Set<AppUser> ()
+                .Include(x=> x.Followers)
+                .Include(x => x.Followings)
+                .Include(x=> x.Photos)
+                .SingleOrDefaultAsync (au => au.UserName == profileUserName);
 
             var currentUserName = _userAccessor.GetCurrentUsername ();
 
-            if (followingUser == null)
+            if (profileUser == null)
             {
                 throw new RestException (HttpStatusCode.NotFound, new { User = "Not found" });
             }
 
-            var currentUser = await context.Set<AppUser> ()
-                .Include(x=> x.Photos)
-                .Include(x=> x.Followers)
+            var currentUser = await context.Set<AppUser> ()                                
                 .Include(x=> x.Followings)
                 .SingleOrDefaultAsync (au => au.UserName == currentUserName);
 
-            var profile = _mapper.Map<AppUser, Profile> (followingUser);
+            var profile = _mapper.Map<AppUser, Profile> (profileUser);
 
             //returns if the currently logged in user is following the particular user 
             //that was passed to the method.
-            if(currentUser.Followings.Any(x=> x.TargetId == followingUser.Id)){
+            if(currentUser.Followings.Any(x=> x.TargetId == profileUser.Id)){
                 profile.IsFollowed = true;
             }
             return profile;
