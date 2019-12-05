@@ -42,10 +42,6 @@ export const Profile: React.FC<RouteComponentProps<ProfileParams>> = observer(({
     return <LoadingIndicator content="Loading profile..." />;
   }
 
-  const onLoadFollowing = (predicate:string) => {
-    loadFollowings(predicate);
-  }
-
   return (
     <Container>
       <Grid>
