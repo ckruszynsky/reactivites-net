@@ -2,6 +2,10 @@ import React from 'react';
 import {Image, List, Popup} from 'semantic-ui-react';
 
 import {IAttendee} from '../../models';
+const styles = {
+    borderColor: '#e03997',
+    borderWidth:2
+};
 
 export const AttendeesListItem:React.FC<{attendees:IAttendee[]}> = ({attendees}) => {
     return (
@@ -11,7 +15,13 @@ export const AttendeesListItem:React.FC<{attendees:IAttendee[]}> = ({attendees})
                 <Popup 
                     header={attendee.displayName}
                     trigger={
-                        <Image size='mini' circular src={ attendee.image || '/assets/user.png'}  />
+                        <Image 
+                            size='mini' 
+                            circular 
+                            src={ attendee.image || '/assets/user.png'}
+                            bordered
+                            style={attendee.following ? styles : null}  
+                        />
                     }
                />
             </List.Item>

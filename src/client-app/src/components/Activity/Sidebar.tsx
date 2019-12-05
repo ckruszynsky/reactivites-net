@@ -32,7 +32,9 @@ export const Sidebar: React.FC<{attendees: IAttendee[]}> = ({attendees}) => {
                 <Item.Header as="h3">
                   <Link to={`/profile/${attendee.username}`}>{attendee.displayName}</Link>
                 </Item.Header>
-                <Item.Extra style={{color: "#52489C"}}>Following</Item.Extra>
+                {attendee.following && 
+                  <Item.Extra style={{color: "#e03997", fontWeight:'bold'}}>Following</Item.Extra>
+                }
               </Item.Content>
             </Item>
           )))}

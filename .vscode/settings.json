@@ -2,6 +2,5 @@
     "typescript.format.enable": false,
     "typescriptHero.imports.multiLineWrapThreshold": 90,
     "typescriptHero.imports.organizeOnSave": true,
-    "prettier.printWidth": 90,
     "editor.minimap.maxColumn": 95
 }
