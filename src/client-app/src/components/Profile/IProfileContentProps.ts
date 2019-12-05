@@ -9,5 +9,7 @@ export interface IProfileContentProps {
     deletePhoto: (photo:IPhoto) => Promise<void>,
     updateProfile:(displayName:string, bio:string ) => Promise<void>,
     followings: IProfile[],
+    setActiveTab: (activeIndex: any) => void,
+    activeTab:number,
     loading:boolean
 }

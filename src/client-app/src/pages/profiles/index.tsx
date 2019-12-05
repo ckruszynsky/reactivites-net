@@ -29,7 +29,9 @@ export const Profile: React.FC<RouteComponentProps<ProfileParams>> = observer(({
     unfollow,    
     loading,
     followings,
-    loadFollowings
+    loadFollowings,
+    setActiveTab,
+    activeTab
   } = rootStore.profileStore;
   
   useEffect(() => {
@@ -39,6 +41,11 @@ export const Profile: React.FC<RouteComponentProps<ProfileParams>> = observer(({
   if (loadingProfile) {
     return <LoadingIndicator content="Loading profile..." />;
   }
+
+  const onLoadFollowing = (predicate:string) => {
+    loadFollowings(predicate);
+  }
+
   return (
     <Container>
       <Grid>
@@ -63,7 +70,9 @@ export const Profile: React.FC<RouteComponentProps<ProfileParams>> = observer(({
                       deletePhoto={deletePhoto}
                       loading={loading} 
                       updateProfile={updateProfile}
-                      followings={followings}
+                      followings={followings}          
+                      setActiveTab={setActiveTab}      
+                      activeTab={activeTab}      
                     />}
         
           </Grid.Column>

@@ -15,9 +15,12 @@ export const Content:React.FC<IProfileContentProps> = ({
     deletePhoto,
     loading,
     updateProfile,
-    followings    
+    followings,
+    setActiveTab,
+    activeTab
   }) => {
   return <Tab 
+          onTabChange={(e,data)=> setActiveTab(data.activeIndex)}
           menu={menuOptions} 
           menuPosition="right" 
           panes={getContentPanes(
@@ -29,7 +32,8 @@ export const Content:React.FC<IProfileContentProps> = ({
                   deletePhoto,                  
                   updateProfile,
                   loading,
-                  followings
+                  followings,
+                  activeTab          
                   )}
         />;
 };

@@ -16,7 +16,8 @@ export const getContentPanes = (
   deletePhoto: (photo:IPhoto) => Promise<void>,
   updateProfile:(displayName:string, bio:string) => Promise<void>,
   loading: boolean,
-  followings: IProfile[]  
+  followings: IProfile[]  ,
+  activeTab:number
 ) => {
   return [
     {
@@ -50,14 +51,14 @@ export const getContentPanes = (
       menuItem: "Followers",
       render: () => 
       <Tab.Pane loading={loading}>
-        <ProfileFollowings profile={profile} followings={followings}></ProfileFollowings>
+        <ProfileFollowings profile={profile} followings={followings} activeTab={activeTab}></ProfileFollowings>
       </Tab.Pane>
     },
     {
       menuItem: "Following",
       render: () =>  
       <Tab.Pane>
-      <ProfileFollowings profile={profile} followings={followings}></ProfileFollowings>
+      <ProfileFollowings profile={profile} followings={followings} activeTab={activeTab}></ProfileFollowings>
     </Tab.Pane>
     }
   ];

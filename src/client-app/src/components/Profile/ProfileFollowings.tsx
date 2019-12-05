@@ -5,8 +5,9 @@ import {IProfile} from '../../models/profile';
 
 export const ProfileFollowings:React.FC<{
   profile:IProfile,
-  followings:IProfile[]
-}> = ({profile,followings}) => {  
+  followings:IProfile[],
+  activeTab:number
+}> = ({profile,followings,activeTab}) => {  
   return (
     <Tab.Pane>
       <Grid>
@@ -15,7 +16,7 @@ export const ProfileFollowings:React.FC<{
             floated='left'
             icon='user'
             content={
-              true
+              activeTab === 3
                 ? `People following ${profile!.displayName}`
                 : `People ${profile!.displayName} is following`
             }
