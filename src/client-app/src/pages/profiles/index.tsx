@@ -25,6 +25,8 @@ export const Profile: React.FC<RouteComponentProps<ProfileParams>> = observer(({
     setMainPhoto,
     deletePhoto,
     updateProfile,
+    follow,
+    unfollow,    
     loading
   } = rootStore.profileStore;
   
@@ -40,7 +42,13 @@ export const Profile: React.FC<RouteComponentProps<ProfileParams>> = observer(({
       <Grid>
         <Grid.Row>
         <Grid.Column width={16}>
-          {profile && <ProfileHeader profile={profile} />}
+          {profile && <ProfileHeader 
+              profile={profile} 
+              isCurrentUser={isCurrentUser}
+              loading={loading}
+              follow={follow}
+              unfollow={unfollow}
+            />}
         </Grid.Column>
         </Grid.Row>
         <Grid.Row>
