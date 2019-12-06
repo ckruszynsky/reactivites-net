@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
 
-import { IActivity } from '../models';
+import { IActivity, IActivitiesEnvelope } from '../models';
 import { IPhoto, IProfile } from '../models/profile';
 import { IUser, IUserFormValues } from '../models/user';
 import { history } from '../util/router';
@@ -70,7 +70,8 @@ const requests = {
 };
 
 const Activities = {
-	list: (): Promise<IActivity[]> => requests.get('/activities'),
+	list: (params: URLSearchParams): Promise<IActivitiesEnvelope> =>
+    axios.get('/activities', {params: params}).then(responseBody),
 	details: (id: string): Promise<IActivity> =>
 		requests.get(`/activities/${id}`),
 	create: (activity: IActivity) => requests.post(`/activities`, activity),
