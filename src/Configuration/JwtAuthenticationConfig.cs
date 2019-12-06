@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 using System.Threading.Tasks;
 using Application.Contracts;
@@ -21,10 +22,11 @@ namespace Configuration
                     //instruct our api what need to be validated when a token is received
                     opt.TokenValidationParameters = new TokenValidationParameters
                     {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = key,
-                    ValidateAudience = false,
-                    ValidateIssuer = false
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = key,
+                        ValidateAudience = false,
+                        ValidateIssuer = false,
+                        ValidateLifetime = true                      
                     };
 
                     opt.Events = new JwtBearerEvents

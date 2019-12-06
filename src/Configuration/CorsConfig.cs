@@ -17,6 +17,7 @@ namespace Configuration
                 Options.AddPolicy (Constants.CorsPolicies.CORSPOLICY, policy =>
                 {
                     policy
+                        .WithExposedHeaders("WWW-Authenticate")
                         .AllowAnyHeader ()
                         .AllowAnyMethod ()
                         .WithOrigins (origins)
