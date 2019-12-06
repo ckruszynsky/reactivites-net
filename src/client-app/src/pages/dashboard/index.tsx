@@ -9,6 +9,7 @@ import { LoadingIndicator } from '../../components/LoadingIndicator';
 import { PageHeader } from '../../components/PageHeader';
 import { RootStoreContext } from '../../stores/rootStore';
 import InfiniteScroll from 'react-infinite-scroller';
+import ActivityFilters from '../../components/Activity/ActivityFilters';
 
 export const Dashboard = observer(() => {
   const rootStore = useContext(RootStoreContext);
@@ -35,7 +36,7 @@ export const Dashboard = observer(() => {
       <Grid>
         <Grid.Row>
           <Grid.Column>
-            <PageHeader as="h2">Activity Dashboard</PageHeader>
+            <PageHeader as="h1">Activities</PageHeader>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
@@ -48,8 +49,8 @@ export const Dashboard = observer(() => {
             <List activities={activitiesByDate} />
             </InfiniteScroll>            
           </Grid.Column>
-          <Grid.Column width={6}>
-            <h2>Activity Filters</h2>
+          <Grid.Column width={6}>            
+            <ActivityFilters></ActivityFilters>
           </Grid.Column>
           <Grid.Column width={10}>
             <Loader active={loadingNext} />
