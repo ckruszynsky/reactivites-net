@@ -1,14 +1,15 @@
 import './styles.scss';
 
-import React, {Fragment, useContext} from 'react';
-import {Link} from 'react-router-dom';
-import {Button, Container, Header, Image, Segment} from 'semantic-ui-react';
+import React, { Fragment, useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { Button, Container, Header, Image, Segment } from 'semantic-ui-react';
 
-import {RootStoreContext} from '../../stores/rootStore';
-import {Login} from '../login';
-import {Register} from '../register';
+import { RootStoreContext } from '../../stores/rootStore';
+import { Login } from '../login';
+import { Register } from '../register';
 
 export const Home = () => {
+    const token = window.localStorage.getItem("jwt");
     const rootStore = useContext(RootStoreContext);
     const {isLoggedIn, user} = rootStore.userStore;
     const {openModal} = rootStore.modalStore;
@@ -20,7 +21,7 @@ export const Home = () => {
                     <Image size='massive' src='/assets/logo.png' alt='logo' style={{marginBottom: 12}} />
                     Reactivities
                  </Header>
-                {isLoggedIn && user ? (
+                {isLoggedIn && user && token ? (
                     <Fragment>
                         <Header as='h2' inverted content={`Welcome back ${user.displayName}`} />
                         <Button as={Link} to='/activities' size='huge' inverted>

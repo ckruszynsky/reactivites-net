@@ -26,7 +26,8 @@ namespace Configuration
                         IssuerSigningKey = key,
                         ValidateAudience = false,
                         ValidateIssuer = false,
-                        ValidateLifetime = true                      
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.FromMinutes(0)                   
                     };
 
                     opt.Events = new JwtBearerEvents

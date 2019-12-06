@@ -1,4 +1,4 @@
-import { action, computed, observable, runInAction, reaction } from 'mobx';
+import { action, computed, observable, reaction, runInAction } from 'mobx';
 import { toast } from 'react-toastify';
 
 import agent from '../api/agent';
@@ -55,7 +55,9 @@ export class ProfileStore {
 				this.loadingProfile = false;
 			});
 		} catch (error) {
-			this.loadingProfile = false;
+			runInAction(()=> {
+				this.loadingProfile = false;		
+			});
 			console.log(error);
 		}
 	};
