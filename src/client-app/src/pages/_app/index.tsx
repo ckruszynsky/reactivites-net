@@ -16,6 +16,7 @@ import {Detail} from '../detail';
 import {Home} from '../home';
 import {NewActivity} from '../newActivity';
 import {Profile} from '../profiles';
+import PrivateRoute from '../../util/PrivateRoute';
 
 const App: React.FC<RouteComponentProps> = observer(({location}) => {
   const rootStore = useContext(RootStoreContext);
@@ -34,6 +35,7 @@ const App: React.FC<RouteComponentProps> = observer(({location}) => {
     }
   }, [getUser, setAppLoaded, token]);
 
+  
   if (!appLoaded) return <LoadingIndicator content='Loading Application' />
 
   return (
@@ -46,10 +48,10 @@ const App: React.FC<RouteComponentProps> = observer(({location}) => {
           <Navbar isLoggedIn={isLoggedIn} user={user} logout={logout} />
           <Container className="appContainer">
             <Switch>
-              <Route exact path="/activities" component={Dashboard} />
-              <Route exact path="/activities/:id" component={Detail} />
-              <Route key={location.key} path={["/new", '/manage/:id']} component={NewActivity} />
-              <Route path={'/profile/:username'} component={Profile} />                         
+              <PrivateRoute exact path="/activities" component={Dashboard} />
+              <PrivateRoute exact path="/activities/:id" component={Detail} />
+              <PrivateRoute key={location.key} path={["/new", '/manage/:id']} component={NewActivity} />
+              <PrivateRoute path={'/profile/:username'} component={Profile} />                         
               <Route component={NotFound} />
             </Switch>
           </Container>
