@@ -31,7 +31,7 @@ export const Profile: React.FC<RouteComponentProps<ProfileParams>> = observer(({
     followings,
     loadFollowings,
     setActiveTab,
-    activeTab
+    activeTab,    
   } = rootStore.profileStore;
   
   useEffect(() => {

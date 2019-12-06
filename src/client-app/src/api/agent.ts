@@ -71,7 +71,7 @@ const requests = {
 
 const Activities = {
 	list: (params: URLSearchParams): Promise<IActivitiesEnvelope> =>
-    axios.get('/activities', {params: params}).then(responseBody),
+		axios.get('/activities', { params: params }).then(responseBody),
 	details: (id: string): Promise<IActivity> =>
 		requests.get(`/activities/${id}`),
 	create: (activity: IActivity) => requests.post(`/activities`, activity),
@@ -105,7 +105,7 @@ const Profiles = {
 	listFollowings: (username: string, predicate: string) =>
 		requests.get(`/profiles/${username}/follow?predicate=${predicate}`),
 	listActivities: (username: string, predicate: string) =>
-    requests.get(`/profiles/${username}/activities?predicate=${predicate}`),    
+		requests.get(`/profiles/${username}/activities?predicate=${predicate}`)
 };
 
 export default {

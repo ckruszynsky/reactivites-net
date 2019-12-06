@@ -5,6 +5,7 @@ import {IPhoto, IProfile} from '../../models/profile';
 import {About} from './About';
 import Photos from './Photos';
 import {ProfileFollowings} from './ProfileFollowings';
+import ProfileActivities from './ProfileActivities';
 
 
 export const getContentPanes = (
@@ -45,7 +46,9 @@ export const getContentPanes = (
     },
     {
       menuItem: "Activities",
-      render: () => <Tab.Pane>Activities Content</Tab.Pane>
+      render: () => <Tab.Pane>
+        <ProfileActivities/>
+      </Tab.Pane>
     },
     {
       menuItem: "Followers",
