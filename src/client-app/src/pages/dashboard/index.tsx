@@ -13,8 +13,16 @@ import ActivityFilters from '../../components/Activity/ActivityFilters';
 
 export const Dashboard = observer(() => {
   const rootStore = useContext(RootStoreContext);
-  const {loadActivities,loading} = rootStore.activityStore;
-  const {activitiesByDate, setPage,page,totalPages} = rootStore.activityStore;
+  const {
+    activitiesByDate
+    ,setPage
+    ,page
+    ,totalPages
+    ,loadActivities
+    ,loading
+    ,predicate
+    ,setPredicate
+  } = rootStore.activityStore;
   const [loadingNext,setLoadingNext] = useState(false);
   
   const  handleGetNext = () => {
@@ -50,7 +58,9 @@ export const Dashboard = observer(() => {
             </InfiniteScroll>            
           </Grid.Column>
           <Grid.Column width={6}>            
-            <ActivityFilters></ActivityFilters>
+            <ActivityFilters
+              predicate={predicate}
+              setPredicate={setPredicate} />                              
           </Grid.Column>
           <Grid.Column width={10}>
             <Loader active={loadingNext} />

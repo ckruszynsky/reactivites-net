@@ -19,8 +19,8 @@ namespace API.Controllers
             return await Mediator.Send (new List.Query (
                 limit,
                 offset,
-                isHost,
                 isGoing,
+                isHost,
                 startDate
             ));
         }

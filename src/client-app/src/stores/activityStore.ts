@@ -1,5 +1,5 @@
 import {HubConnection, HubConnectionBuilder, LogLevel} from '@aspnet/signalr';
-import {action, computed, observable, runInAction} from 'mobx';
+import {action, computed, observable, runInAction, reaction} from 'mobx';
 import {SyntheticEvent} from 'react';
 import {toast} from 'react-toastify';
 
@@ -32,6 +32,15 @@ export class ActivityStore {
 
 	constructor(rootStore: RootStore) {
 		this.rootStore = rootStore
+
+		reaction(
+			()=>this.predicate.keys(),
+			()=> {
+				this.page = 0;
+				this.activityRegistry.clear();
+				this.loadActivities();
+			}
+		);
 	}
 
 	@observable predicate = new Map();
