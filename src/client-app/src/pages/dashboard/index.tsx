@@ -2,14 +2,14 @@ import './styles.scss';
 
 import { observer } from 'mobx-react-lite';
 import React, { useContext, useEffect, useState } from 'react';
-import { Container, Grid, Button, Loader } from 'semantic-ui-react';
+import { Container, Grid, Loader } from 'semantic-ui-react';
 
 import { List } from '../../components/Activity';
-import { LoadingIndicator } from '../../components/LoadingIndicator';
 import { PageHeader } from '../../components/PageHeader';
 import { RootStoreContext } from '../../stores/rootStore';
 import InfiniteScroll from 'react-infinite-scroller';
 import ActivityFilters from '../../components/Activity/ActivityFilters';
+import ActivityListItemPlaceholder from '../../components/Activity/ActivityListItemPlaceholder';
 
 export const Dashboard = observer(() => {
   const rootStore = useContext(RootStoreContext);
@@ -35,9 +35,6 @@ export const Dashboard = observer(() => {
     loadActivities();
   }, [loadActivities]);
 
-  if (loading && page ===0) {
-    return <LoadingIndicator content="Loading activities...." inverted={true} />;
-  }
 
   return (
     <Container className="dashboardContainer">
@@ -49,13 +46,16 @@ export const Dashboard = observer(() => {
         </Grid.Row>
         <Grid.Row>
           <Grid.Column width={10}>
-            <InfiniteScroll
+            {loading && page === 0 ? <ActivityListItemPlaceholder /> : (
+              <InfiniteScroll
              pageStart={0}
              loadMore={handleGetNext}
              hasMore={!loadingNext && page + 1 < totalPages}
              initialLoad={false}>
             <List activities={activitiesByDate} />
             </InfiniteScroll>            
+            )}
+            
           </Grid.Column>
           <Grid.Column width={6}>            
             <ActivityFilters
