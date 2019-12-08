@@ -1,13 +1,13 @@
-import {HubConnection, HubConnectionBuilder, LogLevel} from '@aspnet/signalr';
-import {action, computed, observable, runInAction, reaction} from 'mobx';
-import {SyntheticEvent} from 'react';
-import {toast} from 'react-toastify';
+import { HubConnection, HubConnectionBuilder, LogLevel } from '@aspnet/signalr';
+import { action, computed, observable, reaction, runInAction, toJS } from 'mobx';
+import { SyntheticEvent } from 'react';
+import { toast } from 'react-toastify';
 
 import agent from '../api/agent';
-import {IActivity} from '../models';
-import {history} from '../util/router';
-import {createAttendee, setActivityProps} from './../util/setActivityProps';
-import {RootStore} from './rootStore';
+import { IActivity } from '../models';
+import { history } from '../util/router';
+import { createAttendee, setActivityProps } from './../util/setActivityProps';
+import { RootStore } from './rootStore';
 
 const LIMIT = 2;
 export class ActivityStore {
@@ -114,7 +114,7 @@ export class ActivityStore {
 			if (this.activityRegistry.has(id)) {
 				const activity = this.activityRegistry.get(id)
 				this.currentActivity = activity
-				return activity
+				return toJS(activity); //create a deep clone of the observable
 			} else {
 				this.loading = true
 				const user = this.rootStore.userStore.user!
