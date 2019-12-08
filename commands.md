@@ -109,4 +109,9 @@ git remote prune origin
 npx create-react-app client-app --use-npm --typescript
 ```
 
-# Publishing client application
+# creating a production build client application
+
+* run the command 
+```
+  npm run build
+```
