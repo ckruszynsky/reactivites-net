@@ -3,12 +3,13 @@ import {Link} from 'react-router-dom';
 import {Image, Item, Label, List, Segment} from 'semantic-ui-react';
 
 import {IAttendee} from '../../models';
+import {observer} from 'mobx-react-lite';
 
 const HeaderStyle= {
   backgroundColor:'#2D3047',
   border:'none'
 };
-export const Sidebar: React.FC<{attendees: IAttendee[]}> = ({attendees}) => {  
+export const Sidebar: React.FC<{attendees: IAttendee[]}> = observer(({attendees}) => {  
   return (
     <Fragment>
       <Segment
@@ -42,4 +43,4 @@ export const Sidebar: React.FC<{attendees: IAttendee[]}> = ({attendees}) => {
       </Segment>
     </Fragment>
   );
-};
+});
