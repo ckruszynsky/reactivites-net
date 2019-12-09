@@ -20,7 +20,7 @@ import PrivateRoute from '../../util/PrivateRoute';
 
 const App: React.FC<RouteComponentProps> = observer(({location}) => {
   const rootStore = useContext(RootStoreContext);
-  const {isLoggedIn, user, logout, getUser} = rootStore.userStore;
+  const {getUser} = rootStore.userStore;
   const {setAppLoaded, token, appLoaded} = rootStore.commonStore;
 
   
@@ -45,7 +45,7 @@ const App: React.FC<RouteComponentProps> = observer(({location}) => {
       <Route exact path="/" component={Home} />
       <Route path={'/(.+)'} render={() => (
         <Fragment>
-          <Navbar isLoggedIn={isLoggedIn} user={user} logout={logout} />
+          <Navbar />
           <Container className="appContainer">
             <Switch>
               <PrivateRoute exact path="/activities" component={Dashboard} />

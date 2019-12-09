@@ -14,27 +14,23 @@ import ActivityListItemPlaceholder from '../../components/Activity/ActivityListI
 export const Dashboard = observer(() => {
   const rootStore = useContext(RootStoreContext);
   const {
-    activitiesByDate
-    ,setPage
-    ,page
-    ,totalPages
-    ,loadActivities
-    ,loading
-    ,predicate
-    ,setPredicate
+    loadActivities,
+    loading,
+    setPage,
+    page,
+    totalPages
   } = rootStore.activityStore;
-  const [loadingNext,setLoadingNext] = useState(false);
-  
-  const  handleGetNext = () => {
+  const [loadingNext, setLoadingNext] = useState(false);
+
+  const handleGetNext = () => {
     setLoadingNext(true);
-    setPage(page+1);
-    loadActivities().then(()=> setLoadingNext(false));
-  }
+    setPage(page + 1);
+    loadActivities().then(() => setLoadingNext(false));
+  };
 
   useEffect(() => {
     loadActivities();
   }, [loadActivities]);
-
 
   return (
     <Container className="dashboardContainer">
@@ -52,15 +48,13 @@ export const Dashboard = observer(() => {
              loadMore={handleGetNext}
              hasMore={!loadingNext && page + 1 < totalPages}
              initialLoad={false}>
-            <List activities={activitiesByDate} />
+            <List />
             </InfiniteScroll>            
             )}
             
           </Grid.Column>
           <Grid.Column width={6}>            
-            <ActivityFilters
-              predicate={predicate}
-              setPredicate={setPredicate} />                              
+            <ActivityFilters />                              
           </Grid.Column>
           <Grid.Column width={10}>
             <Loader active={loadingNext} />

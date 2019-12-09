@@ -1,17 +1,16 @@
 import './styles.scss';
 
 import {observer} from 'mobx-react-lite';
-import React from 'react';
+import React, {useContext} from 'react';
 import {Link, NavLink} from 'react-router-dom';
 import {Button, Container, Dropdown, Image, Menu} from 'semantic-ui-react';
 
 import {IUser} from '../../models/user';
+import {RootStoreContext} from '../../stores/rootStore';
 
-export const Navbar: React.FC<{
-  isLoggedIn: boolean;
-  user: IUser | null,
-  logout: () => void
-}> = observer(({isLoggedIn, user, logout}) => {
+export const Navbar: React.FC = observer(() => {
+  const rootStore = useContext(RootStoreContext);
+  const { user, logout } = rootStore.userStore;
   return (
     <Menu fixed="top" inverted>
       <Container>

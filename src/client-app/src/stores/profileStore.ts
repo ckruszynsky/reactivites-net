@@ -62,24 +62,21 @@ export class ProfileStore {
 		}
 	};
 
-	@action
-	updateProfile = async (displayName: string, bio: string) => {
-		this.loading = true;
+	@action updateProfile = async (profile: Partial<IProfile>) => {
 		try {
-			await agent.Profiles.updateProfile({ displayName, bio });
-			runInAction(() => {
-				this.profile!.bio = bio;
-				this.profile!.displayName = displayName;
-				this.loading = false;
-			});
+		  await agent.Profiles.updateProfile(profile);
+		  runInAction(() => {
+			if (
+			  profile.displayName !== this.rootStore.userStore.user!.displayName
+			) {
+			  this.rootStore.userStore.user!.displayName = profile.displayName!;
+			}
+			this.profile = { ...this.profile!, ...profile };
+		  });
 		} catch (error) {
-			console.log(error);
-			toast.error('Problem updating user profile.');
-			runInAction(() => {
-				this.loading = false;
-			});
+		  toast.error('Problem updating profile');
 		}
-	};
+	  };	
 
 	@action
 	uploadPhoto = async (file: Blob) => {

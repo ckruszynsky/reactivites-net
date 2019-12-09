@@ -1,15 +1,20 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Tab, Grid, Header, Card } from 'semantic-ui-react';
 import {ProfileCard} from './ProfileCard';
 import {IProfile} from '../../models/profile';
+import {observer} from 'mobx-react-lite';
+import {RootStoreContext} from '../../stores/rootStore';
 
-export const ProfileFollowings:React.FC<{
-  profile:IProfile,
-  followings:IProfile[],
-  activeTab:number
-}> = ({profile,followings,activeTab}) => {  
+export const ProfileFollowings:React.FC = observer(() => {  
+  const rootStore = useContext(RootStoreContext);
+  const {
+    profile,
+    followings,
+    loading,
+    activeTab
+  } = rootStore.profileStore;
   return (
-    <Tab.Pane>
+    <Tab.Pane loading={loading}>
       <Grid>
         <Grid.Column width={16}>
           <Header
@@ -32,5 +37,5 @@ export const ProfileFollowings:React.FC<{
       </Grid>
     </Tab.Pane>
   );
-};
+});
 

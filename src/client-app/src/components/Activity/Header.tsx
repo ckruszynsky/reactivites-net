@@ -1,9 +1,11 @@
 import {format} from 'date-fns';
-import React from 'react';
+import React, {useContext} from 'react';
 import {Link} from 'react-router-dom';
 import {Button, Header as SemanticHeader, Image, Item, Segment} from 'semantic-ui-react';
 
 import {IActivity} from '../../models';
+import {RootStoreContext} from '../../stores/rootStore';
+import {observer} from 'mobx-react-lite';
 
 const activityImageStyle = {
   filter: "brightness(30%)"
@@ -18,9 +20,10 @@ const activityImageTextStyle = {
   color: "white"
 };
 
-export const Header: React.FC<{activity: IActivity, onAttendActivity: () => void, onCancelAttendance: () => void, loading: boolean}> =
-({activity, onAttendActivity, onCancelAttendance, loading}) => {
+export const Header: React.FC<{activity: IActivity}> = observer(({activity}) => {
     const host = activity.attendees.filter(x=> x.isHost)[0];
+    const rootStore = useContext(RootStoreContext);
+    const {attendActivity,cancelAttendance,loading} = rootStore.activityStore;
     return (
       <Segment.Group>
         <Segment basic attached="top" style={{padding: "0"}}>
@@ -51,13 +54,13 @@ export const Header: React.FC<{activity: IActivity, onAttendActivity: () => void
             <Button as={Link} to={`/manage/${activity.id}`} color="pink" content="Manage Event" 
             icon="edit outline" />                        
           ) : activity.isGoing ? (
-            <Button color="purple" inverted loading={loading} onClick={onCancelAttendance}>Cancel attendance</Button>
+            <Button color="purple" inverted loading={loading} onClick={cancelAttendance}>Cancel attendance</Button>
           ) : (
-                <Button color="pink" inverted loading={loading} onClick={onAttendActivity}>Join Activity</Button>
+                <Button color="pink" inverted loading={loading} onClick={attendActivity}>Join Activity</Button>
 
               )}
 
         </Segment>
       </Segment.Group>
     );
-  };
+  });

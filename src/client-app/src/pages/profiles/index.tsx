@@ -16,27 +16,19 @@ interface ProfileParams {
 export const Profile: React.FC<RouteComponentProps<ProfileParams>> = observer(({match}) => {
   const rootStore = useContext(RootStoreContext);
   const {
-    loadingProfile, 
-    loadProfile, 
-    profile, 
-    isCurrentUser, 
-    uploadPhoto, 
-    uploadingPhoto,
-    setMainPhoto,
-    deletePhoto,
-    updateProfile,
+    loadingProfile,
+    profile,
+    loadProfile,
     follow,
-    unfollow,    
+    unfollow,
+    isCurrentUser,
     loading,
-    followings,
-    loadFollowings,
-    setActiveTab,
-    activeTab,    
+    setActiveTab
   } = rootStore.profileStore;
-  
+
   useEffect(() => {
-    loadProfile(match.params.username);        
-  }, [loadProfile,loadFollowings, match]);
+    loadProfile(match.params.username);
+  }, [loadProfile, match]);
 
   if (loadingProfile) {
     return <LoadingIndicator content="Loading profile..." />;
@@ -58,19 +50,7 @@ export const Profile: React.FC<RouteComponentProps<ProfileParams>> = observer(({
         </Grid.Row>
         <Grid.Row>
           <Grid.Column width={16}>
-          {profile && <Content profile={profile} 
-                      isLoggedInUserProfile={isCurrentUser}
-                      uploadPhoto={uploadPhoto}
-                      uploadingPhoto={uploadingPhoto}
-                      setMainPhoto={setMainPhoto} 
-                      deletePhoto={deletePhoto}
-                      loading={loading} 
-                      updateProfile={updateProfile}
-                      followings={followings}          
-                      setActiveTab={setActiveTab}      
-                      activeTab={activeTab}      
-                    />}
-        
+          {profile && <Content setActiveTab={setActiveTab}    />}      
           </Grid.Column>
         </Grid.Row>
       </Grid>

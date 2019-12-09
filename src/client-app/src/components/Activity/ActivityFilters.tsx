@@ -1,14 +1,12 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext } from 'react';
 import { Menu, Header } from 'semantic-ui-react';
 import { Calendar } from 'react-widgets';
+import {RootStoreContext} from '../../stores/rootStore';
 
-const ActivityFilters:React.FC<{
-    predicate: Map<any,any>
-    ,setPredicate: (predicate: string, value: string | Date) => void
-}> = ({
-    predicate
-    ,setPredicate    
-}) => {
+const ActivityFilters:React.FC = () => {
+  const rootStore = useContext(RootStoreContext);
+  const { predicate, setPredicate } = rootStore.activityStore;
+  
     return (
   <Fragment>
     <Menu vertical size={'large'} style={{ width: '100%', marginTop: 50 }}>

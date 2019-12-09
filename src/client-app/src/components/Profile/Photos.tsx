@@ -1,60 +1,70 @@
-import React, {useState} from 'react';
-import {Button, Card, Grid, Header} from 'semantic-ui-react';
+import React, {useState, useContext} from 'react';
+import {Button, Card, Grid, Header, Tab} from 'semantic-ui-react';
 
 import {IPhoto} from '../../models/profile';
 import {PhotoUpload} from '../PhotoUpload';
 import {IProfileContentProps} from './IProfileContentProps';
 import {PhotoListItem} from './PhotoListItem';
+import {RootStoreContext} from '../../stores/rootStore';
+import {observer} from 'mobx-react-lite';
 
-export interface IPhotosProps extends Omit<IProfileContentProps, 'profile'| 'updateProfile' | 'followings'|'setActiveTab' | 'activeTab'> {
-    photos: IPhoto[];
-}
 
-const Photos: React.FC<IPhotosProps> = ({
-    photos,
-    isLoggedInUserProfile,
+const Photos: React.FC = observer(() => {
+    const rootStore = useContext(RootStoreContext);
+  const {
+    profile,
+    isCurrentUser,
     uploadPhoto,
     uploadingPhoto,
     setMainPhoto,
     deletePhoto,
     loading
-}) => {
-    const [addPhotoMode, setAddPhotoMode] = useState(false);
-    const handleUploadImage = (photo: Blob) => {
-        uploadPhoto(photo).then(() => setAddPhotoMode(false));
-    }
-    return (
-        <>
-            <Grid>
-                <Grid.Column width={16} style={{paddingBottom: 0}}>
-                    <Header size="large" floated='left' icon="image" content="Photos" />
-                    {isLoggedInUserProfile &&
-                        <Button floated='right'
-                            inverted
-                            color='pink'
-                            onClick={() => setAddPhotoMode(!addPhotoMode)}
-                            content={addPhotoMode ? 'Cancel' : 'Add Photo'}
-                            icon={addPhotoMode ? "cancel" : "add"}>
-                        </Button>
-                    }
-                </Grid.Column>
-                <Grid.Column width={16}>
-                    {addPhotoMode && isLoggedInUserProfile ? (<PhotoUpload uploadPhoto={handleUploadImage} loading={uploadingPhoto} />) : (
-                        <Card.Group itemsPerRow={5}>
-                            {photos.map((photo: IPhoto) => (
-                                <PhotoListItem key={photo.id} photo={photo}
-                                    isLoggedInUserProfile={isLoggedInUserProfile}
-                                    setMainPhoto={setMainPhoto}
-                                    deletePhoto={deletePhoto}
-                                    loading={loading} />
-                            ))}
-                        </Card.Group>
-                    )}
+  } = rootStore.profileStore;
+  const [addPhotoMode, setAddPhotoMode] = useState(false);
 
-                </Grid.Column>
-            </Grid>
-        </>
-    )
-}
+
+  const handleUploadImage = (photo: Blob) => {
+    uploadPhoto(photo).then(() => setAddPhotoMode(false));
+  };
+
+  return (
+    <Tab.Pane>
+      <Grid>
+        <Grid.Column width={16} style={{ paddingBottom: 0 }}>
+          <Header floated='left' icon='image' content='Photos' />
+          {isCurrentUser && (
+            <Button
+              onClick={() => setAddPhotoMode(!addPhotoMode)}
+              floated='right'
+              basic
+              content={addPhotoMode ? 'Cancel' : 'Add Photo'}
+            />
+          )}
+        </Grid.Column>
+        <Grid.Column width={16}>
+          {addPhotoMode ? (
+            <PhotoUpload
+              uploadPhoto={handleUploadImage}
+              loading={uploadingPhoto}
+            />
+          ) : (
+            <Card.Group itemsPerRow={5}>
+              {profile &&
+                profile.photos.map(photo => (
+                  <PhotoListItem
+                        photo={photo}
+                        isLoggedInUserProfile={isCurrentUser}                    
+                        setMainPhoto={setMainPhoto}          
+                        deletePhoto={deletePhoto}  
+                        loading={loading}            
+                    />
+                ))}
+            </Card.Group>
+          )}
+        </Grid.Column>
+      </Grid>
+    </Tab.Pane>
+  );
+});
 
 export default Photos

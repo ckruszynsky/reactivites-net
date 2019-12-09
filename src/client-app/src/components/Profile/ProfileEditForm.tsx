@@ -4,28 +4,49 @@ import {combineValidators, isRequired} from 'revalidate';
 import {Button, Form, Grid} from 'semantic-ui-react';
 
 import {TextAreaInput, TextInput} from '../Form';
+import {IProfile} from '../../models/profile';
+import {observer} from 'mobx-react-lite';
 
 
 const validate = combineValidators({
     displayName: isRequired({message: 'A Display name is required.'})
 });
 
-export const ProfileEditForm: React.FC<{displayName: string, bio: string, updateProfile: (displayName: string, bio: string) => Promise<void>}> = ({displayName, bio, updateProfile}) => (
-    <Grid.Row>
-        <Grid.Column>
-            <FinalForm initialValues={{displayName: displayName, bio: bio}}
-                onSubmit={({displayName, bio}) => updateProfile(displayName, bio)}
-                validate={validate}
-                render={({handleSubmit, invalid, pristine, submitting}) => (
-                    <Form onSubmit={handleSubmit}>
-                        <Field name='displayName' component={TextInput} placeholder='Display Name' />
-                        <Field name="bio" component={TextAreaInput} rows={25} />
-                        <Button color="pink"
-                            type="submit"
-                            content="Update Profile"
-                            loading={submitting}
-                            disabled={invalid || pristine} />
-                    </Form>)} />
-
-        </Grid.Column>
-    </Grid.Row>);
+interface IProps {
+    updateProfile: (profile: Partial<IProfile>) => void;
+    profile: IProfile;
+  }
+  
+export const ProfileEditForm: React.FC<IProps> = observer( ({ updateProfile, profile }) => {
+    return (
+      <FinalForm
+        onSubmit={updateProfile}
+        validate={validate}
+        initialValues={profile!}
+        render={({ handleSubmit, invalid, pristine, submitting }) => (
+          <Form onSubmit={handleSubmit} error>
+            <Field
+              name='displayName'
+              component={TextInput}
+              placeholder='Display Name'
+              value={profile!.displayName}
+            />
+            <Field
+              name='bio'
+              component={TextAreaInput}
+              rows={3}
+              placeholder='Bio'
+              value={profile!.bio}
+            />
+            <Button 
+              loading={submitting}
+              floated='right'
+              disabled={invalid || pristine}
+              positive
+              content='Update profile'
+            />
+          </Form>
+        )}
+      />
+    );
+  });

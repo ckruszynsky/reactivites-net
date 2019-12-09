@@ -1,20 +1,17 @@
 import {format} from 'date-fns';
-import React, {Fragment} from 'react';
+import React, {Fragment, useContext} from 'react';
 import {Item, Label} from 'semantic-ui-react';
 
 import {IActivity} from '../../models';
 import {ListItem} from './ListItem';
+import {RootStoreContext} from '../../stores/rootStore';
 
-
-interface ListProps {
-  activities: [string, IActivity[]][];
-}
-export const List: React.FC<ListProps> = ({
-  activities
-}) => {
+export const List: React.FC = () => {
+  const rootStore = useContext(RootStoreContext);
+  const { activitiesByDate } = rootStore.activityStore;
   return (
     <Fragment>
-      {activities.map(([group, acts]) => (
+      {activitiesByDate.map(([group, acts]) => (
         <Fragment key={group}>
           <Label size='large' style={{backgroundColor:'#2D3047', color:'#fff'}}>
             {format(group, 'eeee, MMMM do')}

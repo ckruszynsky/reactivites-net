@@ -52,7 +52,7 @@ export const ProfileHeader:React.FC<{
           {!isCurrentUser && 
           <Reveal animated='move'>
             <Reveal.Content visible style={{ width: '100%' }}>
-              <Button
+              <Button                
                 fluid                
                 color='green'
                 content={profile.following ? 'Following' : 'Not Following'}
@@ -60,6 +60,7 @@ export const ProfileHeader:React.FC<{
             </Reveal.Content>
             <Reveal.Content hidden>
               <Button
+                loading={loading}
                 fluid
                 basic
                 color={profile.following ? 'purple' : 'pink'}
