@@ -26,13 +26,19 @@ namespace Infrastructure.Security
         }
         protected override Task HandleRequirementAsync (AuthorizationHandlerContext context, IsHostPolicy requirement)
         {
-            if (context.Resource is AuthorizationFilterContext authContext)
-            {
-                var dbContext = _contextResolver.GetContext();
+               var dbContext = _contextResolver.GetContext();
                 var currentUserName = _httpContextAccessor.HttpContext.User?.Claims?
                     .SingleOrDefault (x => x.Type == ClaimTypes.NameIdentifier)?.Value;
 
-                var activityId = Guid.Parse (authContext.RouteData.Values["id"].ToString ());
+                var activityId = Guid.Parse(
+                    _httpContextAccessor
+                        .HttpContext
+                        .Request
+                        .RouteValues
+                        .SingleOrDefault(x=> x.Key == "id")
+                        .Value
+                        .ToString()
+                );
 
                 var activity = dbContext
                     .Set<Activity>()
@@ -47,11 +53,7 @@ namespace Infrastructure.Security
                 {
                     context.Succeed (requirement);
                 }
-            }
-            if (!context.HasSucceeded)
-            {
-                context.Fail ();
-            }
+                       
             return Task.CompletedTask;
         }
     }

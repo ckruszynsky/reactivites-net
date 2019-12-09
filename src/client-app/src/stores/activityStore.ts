@@ -1,4 +1,4 @@
-import { HubConnection, HubConnectionBuilder, LogLevel } from '@aspnet/signalr';
+import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 import { action, computed, observable, reaction, runInAction, toJS } from 'mobx';
 import { SyntheticEvent } from 'react';
 import { toast } from 'react-toastify';

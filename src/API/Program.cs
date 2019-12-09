@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Hosting;
 using Persistence;
 
 namespace API
@@ -14,7 +15,7 @@ namespace API
         public static void Main (string[] args)
         {
 
-            var host = CreateWebHostBuilder (args).Build ();
+            var host = CreateHostBuilder (args).Build ();
 
             //Apply any pending migrations to the database
             //if the db does not exist it will create the db as well
@@ -44,8 +45,11 @@ namespace API
             Seed.SeedData (context, userManager).Wait ();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder (string[] args) =>
-            WebHost.CreateDefaultBuilder (args)
-            .UseStartup<Startup> ();
+        public static IHostBuilder CreateHostBuilder (string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder=> {
+                    webBuilder.UseStartup<Startup> ();
+                }
+            );                        
     }
 }
