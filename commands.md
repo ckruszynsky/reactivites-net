@@ -115,3 +115,29 @@ npx create-react-app client-app --use-npm --typescript
 ```
   npm run build
 ```
+* post publish command
+```
+ add the following to package.json
+ for windows: move build .../API/wwwroot
+ for mac: mv build .../API/wwwroot
+```
+
+# mySQL commands
+* login
+```
+mysql -u <user> -p <password>
+```
+* show databases 
+```
+show databases
+```
+* create non-root user
+```
+CREATE USER 'appuser'@'localhost' IDENTIFIED WITH mysql_native_password BY '<Password>';
+```
+
+* grant privileges
+```
+ GRANT <Privilege> ON <WHAT> TO GR`<USERNAME>` WITH GRANT OPTION;
+ FLUSH PRIVILEGES; //ENSURES PRIVILEGES ARE UPDATED
+ ```
