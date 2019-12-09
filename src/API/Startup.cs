@@ -31,14 +31,27 @@ namespace API
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices (IServiceCollection services)
-        {
-            EFCoreConfig.ServiceConfiguration (
+        public void ConfigureDevelopmentServices(IServiceCollection services){
+            EFCoreConfig.DevelopmentServiceConfiguration(
+                services,
+                Configuration.GetConnectionString("DefaultConnection")
+            );
+
+            ConfigureServices(services);
+        }
+
+        public void ConfigureProductionServices(IServiceCollection services){
+              EFCoreConfig.ServiceConfiguration (
                 services,
                 Configuration.GetConnectionString ("DefaultConnection")
             );
+            ConfigureServices(services);
+        }
 
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices (IServiceCollection services)
+        {
+          
             CorsConfig.ServiceConfiguration (
                 services,
                 Configuration["CrossOrigin:Domains"].Split (",")

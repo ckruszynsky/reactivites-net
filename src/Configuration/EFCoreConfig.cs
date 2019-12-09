@@ -14,6 +14,15 @@ namespace Configuration
         {
             services.AddDbContext<DataContext>(options =>
             {
+                options.UseMySql(connectionString);
+            });
+
+            services.AddScoped<IDbContextResolver,DbContextResolver<DataContext>>();
+        }
+
+        public static void DevelopmentServiceConfiguration(IServiceCollection services, string connectionString){
+             services.AddDbContext<DataContext>(options =>
+            {
                 options.UseSqlite(connectionString);
             });
 
